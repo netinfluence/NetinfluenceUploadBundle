@@ -1,10 +1,24 @@
 <?xml version="1.0" ?>
+
 <container xmlns="http://symfony.com/schema/dic/services"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
-    <!--<parameters>
-    </parameters>-->
 
-    <!--<services>
-    </services>-->
+    <parameters>
+        <parameter key="netinfluence_quicker_upload.controller.api_upload_image_action">Netinfluence:API:uploadImage</parameter>
+        <parameter key="netinfluence_quicker_upload.temporary_file_validator.class">NetinfluenceBundle\QuickerUploadBundle\Validator\TemporaryFileValidator</parameter>
+        <parameter key="netinfluence_quicker_upload.file_listener.class">NetinfluenceBundle\QuickerUploadBundle\EventListener\FileListener</parameter>
+    </parameters>
+
+    <services>
+        <service class="%netinfluence_quicker_upload.temporary_file_validator.class%" id="netinfluence_quicker_upload.temporary_file_validator">
+            <argument type="service" id="validator" />
+        </service>
+
+        <!-- events listener: store temporary files -->
+        <service class="%netinfluence_quicker_upload.file_listener.class%" id="netinfluence_quicker_upload.file_listener" public="false">
+            <argument /><!-- a Gaufrette filesystem will be injected at compilation -->
+            <tag name="kernel.event_subscriber" />
+        </service>
+    </services>
 </container>

@@ -15,12 +15,13 @@
         }
     },
     "require": {
-        "php": ">=5.3.3",
+        "php": ">=5.3.6",
         "symfony/framework-bundle": "~2.3",
         "symfony/form": "~2.3",
         "symfony/validator": "~2.3",
         "symfony/filesystem": "~2.3",
         "doctrine/orm": "~2.2,>=2.2.3",
-        "symfony/twig-bridge": "~2.3"
+        "symfony/twig-bridge": "~2.3",
+        "knplabs/knp-gaufrette-bundle": "~0.1"
     }
 }

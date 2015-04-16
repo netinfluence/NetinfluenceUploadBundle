@@ -14,10 +14,39 @@ Features:
  - [ ] thumbnails when needed are generated using [LiipImagineBundle](https://github.com/liip/LiipImagineBundle)
  - [ ] very easily overridable and customizable. You can even not use AJAX or handle upload files by yourself.
  
+ 
+## Installation
+
+Fetch this bundle using composer:
+`composer require netinfluence/quicker-upload-bundle`
+
+Enable it and its vendors in `app/AppKernel.php`:
+
+```php
+<?php
+// app/AppKernel.php
+
+// ...
+class AppKernel extends Kernel
+{
+    public function registerBundles()
+    {
+        $bundles = array(
+            // ...
+            
+            new Netinfluence\QuickerUploadBundle\NetinfluenceQuickerUploadBundle(),
+            new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
+        );
+
+        // ...
+    }
+}
+```
+
+ 
 ## Configuration
 
 Here is the full bundle configuration, filled with the default values:
-
 ```yml
 # app/config/config.yml
 netinfluence_quicker_upload:

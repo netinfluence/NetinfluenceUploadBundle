@@ -17,7 +17,7 @@ Features:
  
 ## Installation
 
-### Addingd the bundle
+### Adding the bundle
 
 Fetch this bundle using composer:
 `composer.phar require netinfluence/quicker-upload-bundle`
@@ -45,15 +45,25 @@ class AppKernel extends Kernel
 }
 ```
 
+### Import the routing
+
+Edit `app/config/routing.yml`:
+```yml
+# app/config/routing.yml
+netinfluence_quicker_upload:
+    resource: "@NetinfluenceQuickerUpload/Resources/config/routing.xml"
+```
+
 ### Setting sandbox storage
 
 First, we will configure where temporary files - ie. files corresponding to uploads om forms not yet validated - will be put.
 Typically this is a local folder, as data is removed after only a limited space is required.
 
 Most of the configuration is relative to GaufretteBundle, you should create a filesystem. In doubt refer to its [documentation](https://github.com/KnpLabs/KnpGaufretteBundle)
-You only need to provide QuickerUpload the ID of a valid `filesystem` for its `sandbox`. Note that those ID are generated in the form `gaufrette.*ADAPTER_NAME*_filesystem`.
+You need to provide QuickerUpload the ID of a valid `filesystem` for its `sandbox`. Note that those ID are generated in the form `gaufrette.ADAPTER_NAME_filesystem`.
 
-```
+Here is a full working example:
+```yml
 # app/config/config.yml
 knp_gaufrette:
     adapters:
@@ -72,12 +82,14 @@ netinfluence_quicker_upload:
 ```
 
  
-## Configuration
+## Configuration reference
 
 Here is the full bundle configuration, filled with the default values:
 ```yml
 # app/config/config.yml
 netinfluence_quicker_upload:
+    filesystems:
+        sandbox: # you should provide here a valid Gaufrette filesystem ID
     validation:
         # validations rules applied to uploaded images
         image:

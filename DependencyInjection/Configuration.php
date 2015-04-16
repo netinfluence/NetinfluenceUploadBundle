@@ -46,6 +46,15 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
+                ->arrayNode('filesystems')
+                    ->children()
+                        ->scalarNode('sandbox')
+                            ->isRequired()
+                            ->cannotbeEmpty()
+                            ->info('Name of the Gaufrette filesystem to use, such as "gaufrette.sandbox_filesystem"')
+                        ->end()
+                    ->end()
+                ->end()
             ->end()
         ;
 

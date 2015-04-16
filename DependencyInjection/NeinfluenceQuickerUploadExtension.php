@@ -4,6 +4,7 @@ namespace Netinfluence\QuickerUploadBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\Config\Definition\Processor;
@@ -27,5 +28,9 @@ class NeinfluenceQuickerUploadExtension extends Extension
         $config = $processor->processConfiguration($configuration, $configs);
 
         $container->setParameter('netinfluence_quicker_upload.validation.image_constraints', $config['validation.image']);
+
+        // Manipulations on filesystems
+        $fileListener = $container->getDefinition('netinfluence_quicker_upload.file_listener');
+        $fileListener->replaceArgument(0, new Reference($config['netinfluence_quicker_upload.filesystems.sandbox']));
     }
 }

@@ -33,16 +33,22 @@ class APIController extends Controller
         $violations = $this->get('netinfluence_quicker_upload.temporary_file_validator')->validateImage($file);
 
         if (count($violations)) {
-            $response = array(
+            return new JsonResponse(array(
                 'success'   => false,
                 'errors'    => $this->serializeViolations($violations)
-            );
-
-            return new JsonResponse($response);
+            ));
         }
 
-        // On this event, a listener will store file
-        $eventDispatcher->dispatch(Events::FILE_VALIDATED_EVENT, new TemporaryFileEvent($file));
+        try {
+            // On this event, a listener will store file
+            // It is allowed to throw exceptions, relative to FS isues
+            $eventDispatcher->dispatch(Events::FILE_VALIDATED_EVENT, new TemporaryFileEvent($file));
+        } catch (\Exception $e) {
+            return new JsonResponse(array(
+                'success'   => false,
+                'errors'    => $e->getMessage()
+            ));
+        }
 
         return new JsonResponse(array(
             'success'   => true,

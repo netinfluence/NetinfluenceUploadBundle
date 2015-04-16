@@ -56,10 +56,10 @@ netinfluence_quicker_upload:
 
 ### Setting sandbox storage
 
-First, we will configure where temporary files - ie. files corresponding to uploads om forms not yet validated - will be put.
-Typically this is a local folder, as data is removed after only a limited space is required.
+First, we will configure where temporary files - ie. files corresponding to uploads on forms not yet validated - will be put.
+Typically this is a local folder, as data is removed after, only limited space is required.
 
-Most of the configuration is relative to GaufretteBundle, you should create a filesystem. In doubt refer to its [documentation](https://github.com/KnpLabs/KnpGaufretteBundle)
+Most of the configuration is relative to GaufretteBundle, you should create a filesystem. In doubt refer to its [documentation](https://github.com/KnpLabs/KnpGaufretteBundle)  
 You need to provide QuickerUpload the ID of a valid `filesystem` for its `sandbox`. Note that those ID are generated in the form `gaufrette.ADAPTER_NAME_filesystem`.
 
 Here is a full working example:

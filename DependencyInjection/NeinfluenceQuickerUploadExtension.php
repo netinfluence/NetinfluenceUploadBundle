@@ -25,5 +25,7 @@ class NeinfluenceQuickerUploadExtension extends Extension
         $configuration = new Configuration();
         $processor = new Processor();
         $config = $processor->processConfiguration($configuration, $configs);
+
+        $container->setParameter('netinfluence_quicker_upload.validation.image_constraints', $config['validation.image']);
     }
 }

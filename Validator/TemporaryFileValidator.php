@@ -3,8 +3,10 @@
 namespace Netinfluence\QuickerUploadBundle\Validator;
 
 use Netinfluence\QuickerUploadBundle\Model\TemporaryFile;
+use Symfony\Component\Validator\Constraints\Image;
+use Symfony\Component\Validator\Mapping\Loader\AbstractLoader;
 use Symfony\Component\Validator\ValidatorInterface;
-use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 /**
@@ -17,9 +19,39 @@ class TemporaryFileValidator
      */
     private $validator;
 
+    /**
+     * @var Constraint[]
+     */
+    private $imageConstraints;
+
+    /**
+     * @param ValidatorInterface $validator
+     */
     public function __construct(ValidatorInterface $validator)
     {
-        $this->validator = $validator;
+        $this->validator        = $validator;
+        $this->imageConstraints = array();
+    }
+
+    /**
+     * From bundle config, will build constraint classes
+     *
+     * @param array $config
+     */
+    public function setImageValidationConstraints(array $config)
+    {
+        foreach ($config as $className => $options) {
+            // We allow constraints names to be fully qualified ones or short-ones
+            if (strpos($className, '\\') !== false && class_exists($className)) {
+                $className = (string) $className;
+            } else {
+                $className = AbstractLoader::DEFAULT_NAMESPACE.$className;
+            }
+
+            $constraint = new \ReflectionClass($className);
+
+            $this->imageConstraints[] = $constraint->newInstance($options);
+        }
     }
 
     /**
@@ -30,11 +62,6 @@ class TemporaryFileValidator
      */
     public function validateImage(TemporaryFile $file)
     {
-        return $this->validator->validateValue($file, new Assert\Image(array(
-            'mimeTypes' => array("image/jpeg", "image/jpg", "image/png", "image/gif"),
-            'minWidth'  => 1024,
-            'minHeight' => 768,
-            'maxSize'   => 10240000
-        )));
+        return $this->validator->validateValue($file->getFile(), $this->imageConstraints);
     }
 }

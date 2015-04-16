@@ -13,6 +13,9 @@
     <services>
         <service class="%netinfluence_quicker_upload.temporary_file_validator.class%" id="netinfluence_quicker_upload.temporary_file_validator">
             <argument type="service" id="validator" />
+            <call method="setImageValidationConstraints">
+                <argument>%netinfluence_quicker_upload.validation.image_constraints%</argument>
+            </call>
         </service>
 
         <!-- events listener: store temporary files -->

@@ -21,6 +21,6 @@
         "symfony/validator": "2.3",
         "symfony/filesystem": "~2.3",
         "doctrine/orm": "~2.2,>=2.2.3",
-        "symfony/twig-bridge": "2.3"
+        "symfony/twig-bridge": "~2.3"
     }
 }

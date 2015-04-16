@@ -1,0 +1,26 @@
+{
+    "name": "netinfluence/quicker-upload-bundle",
+    "type": "symfony-bundle",
+    "description": "Get a multiple file AJAX upload done in minutes",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Romaric Drigon",
+            "email": "romaric.drigon@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Netinfluence\\QuickerUploadBundle\\": ""
+        }
+    },
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/framework-bundle": "~2.3",
+        "symfony/form": "~2.3",
+        "symfony/validator": "2.3",
+        "symfony/filesystem": "~2.3",
+        "doctrine/orm": "~2.2,>=2.2.3",
+        "symfony/twig-bridge": "2.3"
+    }
+}

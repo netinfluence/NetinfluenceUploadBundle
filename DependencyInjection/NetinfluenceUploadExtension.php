@@ -34,6 +34,6 @@ class NetinfluenceUploadExtension extends Extension
 
         // Manipulations on filesystems
         $fileListener = $container->getDefinition('netinfluence_upload.file_listener');
-        $fileListener->replaceArgument(0, new Reference($config['netinfluence_upload.filesystems.sandbox']));
+        $fileListener->replaceArgument(0, new Reference($config['filesystems']['sandbox']));
     }
 }

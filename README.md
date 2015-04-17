@@ -36,7 +36,7 @@ class AppKernel extends Kernel
         $bundles = array(
             // ...
             
-            new Netinfluence\UploadBundle\NetinfluenceQuickerUploadBundle(),
+            new Netinfluence\UploadBundle\NetinfluenceUploadBundle(),
             new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
         );
 
@@ -50,8 +50,8 @@ class AppKernel extends Kernel
 Edit `app/config/routing.yml`:
 ```yml
 # app/config/routing.yml
-netinfluence_quicker_upload:
-    resource: "@NetinfluenceQuickerUpload/Resources/config/routing.xml"
+netinfluence_upload:
+    resource: "@NetinfluenceUpload/Resources/config/routing.xml"
 ```
 
 ### Setting sandbox storage
@@ -60,7 +60,7 @@ First, we will configure where temporary files - ie. files corresponding to uplo
 Typically this is a local folder, as data is removed after, only limited space is required.
 
 Most of the configuration is relative to GaufretteBundle, you should create a filesystem. In doubt refer to its [documentation](https://github.com/KnpLabs/KnpGaufretteBundle)  
-You need to provide QuickerUpload the ID of a valid `filesystem` for its `sandbox`. Note that those ID are generated in the form `gaufrette.ADAPTER_NAME_filesystem`.
+You need to provide UploadBundle the ID of a valid `filesystem` for its `sandbox`. Note that those ID are generated in the form `gaufrette.ADAPTER_NAME_filesystem`.
 
 Here is a full working example:
 ```yml
@@ -76,7 +76,7 @@ knp_gaufrette:
         sandbox:
             adapter:    temporary_folder
             
-netinfluence_quicker_upload:
+netinfluence_upload:
     filesystems:
         sandbox: gaufrette.sandbox_filesystem
 ```
@@ -87,7 +87,7 @@ netinfluence_quicker_upload:
 Here is the full bundle configuration, filled with the default values:
 ```yml
 # app/config/config.yml
-netinfluence_quicker_upload:
+netinfluence_upload:
     filesystems:
         sandbox: # you should provide here a valid Gaufrette filesystem ID
     validation:

@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://symfony.com/schema/routing
         http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <route id="netinfluence_quicker_upload_api_upload_image" path="/image/upload" methods="POST">
-        <default key="_controller">%netinfluence_quicker_upload.controller.api_upload_image_action%</default>
+    <route id="netinfluence_upload_api_upload_image" path="/image/upload" methods="POST">
+        <default key="_controller">%netinfluence_upload.controller.api_upload_image_action%</default>
     </route>
 </routes>

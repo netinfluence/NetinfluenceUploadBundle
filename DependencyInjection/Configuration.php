@@ -17,7 +17,7 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
 
-        $rootNode = $treeBuilder->root('netinfluence_quicker_upload');
+        $rootNode = $treeBuilder->root('netinfluence_upload');
 
         $rootNode
             ->children()

@@ -27,10 +27,10 @@ class NeinfluenceUploadExtension extends Extension
         $processor = new Processor();
         $config = $processor->processConfiguration($configuration, $configs);
 
-        $container->setParameter('netinfluence_quicker_upload.validation.image_constraints', $config['validation.image']);
+        $container->setParameter('netinfluence_upload.validation.image_constraints', $config['validation.image']);
 
         // Manipulations on filesystems
-        $fileListener = $container->getDefinition('netinfluence_quicker_upload.file_listener');
-        $fileListener->replaceArgument(0, new Reference($config['netinfluence_quicker_upload.filesystems.sandbox']));
+        $fileListener = $container->getDefinition('netinfluence_upload.file_listener');
+        $fileListener->replaceArgument(0, new Reference($config['netinfluence_upload.filesystems.sandbox']));
     }
 }

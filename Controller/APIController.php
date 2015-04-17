@@ -19,7 +19,7 @@ class APIController extends Controller
 {
     public function uploadImageAction(Request $request)
     {
-        /** @var UploadedFile $file */
+        /** @var UploadedFile $uploadedFile */
         $uploadedFile = $request->files->get('file');
 
         $file = new TemporaryFile($uploadedFile);
@@ -34,9 +34,8 @@ class APIController extends Controller
 
         if (count($violations)) {
             return new JsonResponse(array(
-                'success'   => false,
                 'errors'    => $this->serializeViolations($violations)
-            ));
+            ), 400);
         }
 
         try {
@@ -45,15 +44,13 @@ class APIController extends Controller
             $eventDispatcher->dispatch(Events::FILE_VALIDATED_EVENT, new TemporaryFileEvent($file));
         } catch (\Exception $e) {
             return new JsonResponse(array(
-                'success'   => false,
                 'errors'    => $e->getMessage()
-            ));
+            ), 400);
         }
 
         return new JsonResponse(array(
-            'success'   => true,
-            'thumbnail_url' => '',
-            'full_url'  => ''
+            'path'      => $file->getTargetPath(),
+            'temporary' => true
         ));
     }
 

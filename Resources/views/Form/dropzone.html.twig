@@ -1,7 +1,14 @@
 {% block netinfluence_upload_file_row %}
     {% spaceless %}
-        {# just render the 2 widgets without labels nor space around #}
-        {{ form_widget(form.path) }}
-        {{ form_widget(form.temporary) }}
+        <div
+            id="ni-ub-dz-{{ form.vars }}"
+            class="ni-ub-dz"
+            data-max-files=1 {# only simple upload for now #}
+            data-url="{{ path('netinfluence_upload_api_upload_image') }}"
+        >
+            {# just render the 2 widgets without labels nor space around #}
+            {{ form_widget(form.path) }}
+            {{ form_widget(form.temporary) }}
+        </div>
     {% endspaceless %}
 {% endblock %}

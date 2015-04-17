@@ -11,7 +11,7 @@ Features:
  - [ ] files are uploaded to any storage of your choice (local filesystem, Amazon...) using [Gaufrette](https://github.com/KnpLabs/KnpGaufretteBundle)
  - [x] files are stored in a sandbox first and are moved only when the form is finally valid
  - [ ] when coming back to the form, files can be removed
- - [ ] thumbnails when needed are generated using [LiipImagineBundle](https://github.com/liip/LiipImagineBundle)
+ - [ ] files are served and thumbnails generated using [LiipImagineBundle](https://github.com/liip/LiipImagineBundle)
  - [ ] very easily overridable and customizable. You can even not use AJAX or handle upload files by yourself.
  
  
@@ -91,6 +91,7 @@ On your form page, include provided JS and CSS:
 
 <link href="{{ asset('bundles/netinfluenceupload/dropzone/dropzone.min.css') }}" rel="stylesheet" media="screen" />
 <script type="text/javascript" src="{{ asset('bundles/netinfluenceupload/dropzone/dropzone.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/netinfluenceupload/dropzone/uadapter.js') }}"></script>
 ```
 
 Congrats! A nice javascript and AJAX-powered picker for one file only will be displayed.

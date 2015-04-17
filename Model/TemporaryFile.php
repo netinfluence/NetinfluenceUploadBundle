@@ -42,6 +42,6 @@ class TemporaryFile
         // If we can't guess extension, use the original one
         $extension = $this->file->guessExtension() ?: $this->file->getExtension();
 
-        return printf('%s/%s/%s/%s.%s', date('Y'), date('m'), date('d'), $this->id, $extension);
+        return printf('%s/%s.%s', date('Y-m-d'), $this->id, $extension);
     }
 }

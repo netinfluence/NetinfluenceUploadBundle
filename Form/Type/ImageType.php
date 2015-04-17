@@ -7,9 +7,9 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * Class FileType
+ * Class ImageType
  */
-class FileType extends AbstractType
+class ImageType extends AbstractType
 {
     /**
      * By default, behind the form we will have an instance of this object
@@ -47,7 +47,7 @@ class FileType extends AbstractType
                 if (! is_a($value, $dataClass, true)) {
                     // We throw an Exception for a more precise feedback than OptionResolver one
                     throw new \Exception(sprintf(
-                        'Form type "netinfluence_upload_file" must be mapped to objects implementing Netinfluence\\UploadBundle\\Model\\UplodableInterface. Wrong value "%s" received for "data_class".',
+                        'Form type "netinfluence_upload_image" must be mapped to objects implementing Netinfluence\\UploadBundle\\Model\\UplodableInterface. Wrong value "%s" received for "data_class".',
                         $dataClass
                     ));
                 }
@@ -60,6 +60,6 @@ class FileType extends AbstractType
      */
     public function getName()
     {
-        return 'netinfluence_upload_file';
+        return 'netinfluence_upload_image';
     }
 }

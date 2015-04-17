@@ -4,7 +4,7 @@ namespace Netinfluence\UploadBundle\Model;
 
 /**
  * Interface UploadableInterface
- * Interface that objects mapped to "netinfluence_upload_file" form type must implement
+ * Interface that objects mapped to "netinfluence_upload_image" form type must implement
  */
 interface UploadableInterface
 {

@@ -82,7 +82,7 @@ netinfluence_upload:
 
 ### Getting started
 
-Just use `netinfluence_upload_file` form type: 
+Just use `netinfluence_upload_image` form type: 
 ```php
 <?php
 namespace Netinfluence\DemoBundle\Controller;
@@ -96,7 +96,7 @@ class MyController extends Controller
         // ...
 
         $form = $this->createFormBuilder()
-            ->add('photo', 'netinfluence_upload_file')
+            ->add('photo', 'netinfluence_upload_image')
             ->getForm()
         ;
         
@@ -133,7 +133,7 @@ class MyController extends Controller
         // ...
 
         $form = $this->createFormBuilder()
-            ->add('photo', 'netinfluence_upload_file')
+            ->add('photo', 'netinfluence_upload_image')
             ->getForm()
         ;
         
@@ -207,7 +207,7 @@ class MyController extends Controller
         // ...
 
         $form = $this->createFormBuilder()
-            ->add('photo', 'netinfluence_upload_file', array(
+            ->add('photo', 'netinfluence_upload_image', array(
                 'data_class' => 'Netinfluence\DemoBundle\Entity\FormFile'
             ))
             ->getForm()

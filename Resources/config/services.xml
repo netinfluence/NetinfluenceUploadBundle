@@ -25,7 +25,7 @@
         </service>
 
         <!-- Form -->
-        <service class="Netinfluence\UploadBundle\Form\Type\FileType" id="netinfluence_upload.form.type.file">
+        <service id="netinfluence_upload.form.type.file" class="Netinfluence\UploadBundle\Form\Type\FileType">
             <tag name="form.type" alias="netinfluence_upload_file" />
         </service>
     </services>

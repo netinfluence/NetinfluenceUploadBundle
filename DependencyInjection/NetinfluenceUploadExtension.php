@@ -10,9 +10,9 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\Config\Definition\Processor;
 
 /**
- * Class NeinfluenceUploadExtension
+ * Class NetinfluenceUploadExtension
  */
-class NeinfluenceUploadExtension extends Extension
+class NetinfluenceUploadExtension extends Extension
 {
     /**
      * {@inheritDoc}

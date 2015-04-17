@@ -30,8 +30,9 @@ class FileType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'required'  => false,
-            'data_class' => 'Netinfluence\UploadBundle\Model\FormFile'
+            'data_class' => 'Netinfluence\UploadBundle\Model\FormFile',
+            'mapped'    => false,
+            'required'  => false
         ));
     }
 

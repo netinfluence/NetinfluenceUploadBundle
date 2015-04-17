@@ -4,12 +4,12 @@ User and developer friendly file upload.
 
 Features:
 
- - [ ] a nice AJAX-powered async upload 
- - [ ] **totally integrated with Symfony2 forms** and transparent to use!
+ - [x] a nice AJAX-powered async upload powered by [DropzoneJS](http://www.dropzonejs.com/)
+ - [x] **totally integrated with Symfony2 forms** and transparent to use!
  - [x] of course files are properly validated
  - [ ] multiple files upload too
  - [ ] files are uploaded to any storage of your choice (local filesystem, Amazon...) using [Gaufrette](https://github.com/KnpLabs/KnpGaufretteBundle)
- - [ ] files are stored in a sandbox first and are moved only when the form is finally valid
+ - [x] files are stored in a sandbox first and are moved only when the form is finally valid
  - [ ] when coming back to the form, files can be removed
  - [ ] thumbnails when needed are generated using [LiipImagineBundle](https://github.com/liip/LiipImagineBundle)
  - [ ] very easily overridable and customizable. You can even not use AJAX or handle upload files by yourself.
@@ -82,8 +82,18 @@ netinfluence_upload:
 
 ### Getting started:
 
-Just use `netinfluence_upload_file` form type. A nice javascript and AJAX-powered picker will be displayed.
+Use `netinfluence_upload_file` form type instead of `file`. 
 
+On your form page, include provided JS and CSS:
+```jinja
+{# if you don't have jQuery, you will need it too #}
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+
+<link href="{{ asset('bundles/netinfluenceupload/dropzone/dropzone.min.css') }}" rel="stylesheet" media="screen" />
+<script type="text/javascript" src="{{ asset('bundles/netinfluenceupload/dropzone/dropzone.min.js') }}"></script>
+```
+
+Congrats! A nice javascript and AJAX-powered picker for one file only will be displayed.
 
 ## Configuration reference
 

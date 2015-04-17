@@ -18,7 +18,9 @@ class FileType extends AbstractType
     {
         $builder
             ->add('path', 'hidden')
-            ->add('temporary', 'hidden')
+            ->add('temporary', 'hidden', array(
+                'empty_data' => 0
+            ))
         ;
     }
 

@@ -25,5 +25,16 @@ $(function() {
 
             dropzone.removeFile(file);
         });
+
+        dropzone.on('addedfile', function() {
+            $form.find('.ni-ub-error').html('');
+        });
+
+        dropzone.on('success', function(file, response) {
+            $form.find('input[data-path]').val(response.path);
+
+            // Anyway a temporary file was stored
+            $form.find('input[data-temporary]').val(1);
+        });
     });
 });

@@ -80,9 +80,30 @@ netinfluence_upload:
         sandbox: gaufrette.sandbox_filesystem
 ```
 
-### Getting started:
+### Getting started
 
-Use `netinfluence_upload_file` form type instead of `file`. 
+Just use `netinfluence_upload_file` form type: 
+```php
+<?php
+namespace Netinfluence\DemoBundle\Controller;
+
+// ...
+
+class MyController extends Controller
+{
+    public function formAction(Request $request)
+    {
+        // ...
+
+        $form = $this->createFormBuilder()
+            ->add('photo', 'netinfluence_upload_file')
+            ->getForm()
+        ;
+        
+        // ...
+    }
+}
+```
 
 On your form page, include provided JS and CSS:
 ```jinja
@@ -95,6 +116,116 @@ On your form page, include provided JS and CSS:
 ```
 
 Congrats! A nice javascript and AJAX-powered picker for one file only will be displayed.
+
+### Fetching data back from the Form
+
+#### Default setting
+
+By default, you receive an instance of `Netinfluence\UploadBundle\Model\FormFile`: 
+```php
+<?php
+
+// ...
+class MyController extends Controller
+{
+    public function formAction(Request $request)
+    {
+        // ...
+
+        $form = $this->createFormBuilder()
+            ->add('photo', 'netinfluence_upload_file')
+            ->getForm()
+        ;
+        
+         if ($form->handleRequest($request) && $form->isValid()) {
+            $file = $form->getData()['photo'];
+            
+            // Netinfluence\UploadBundle\Model\FormFile
+            var_dump(get_class($file));
+            
+            // ...
+         }
+        
+        // ...
+    }
+}
+```
+
+#### Using your own objects (preferred way)
+
+Given that your objects implements `Netinfluence\UploadBundle\Model\UploadableInterface`, you can map those directly to the form:
+```php
+<?php
+namespace Netinfluence\DemoBundle\Entity;
+
+use Netinfluence\UploadBundle\Model\UploadableInterface;
+
+class MyFile implements UploadableInterface
+{
+    /**
+     * @var string path to file, as used by Gaufrette FS
+     */
+    protected $path;
+
+    /**
+     * @var boolean is this path temporary (to sandbox) or not
+     * Note that this field does not need to be persisted to a DB or anything
+     */
+    protected $temporary;
+
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    public function setPath($path)
+    {
+        $this->path = $path;
+    }
+
+    public function isTemporary()
+    {
+        return $this->temporary;
+    }
+
+    public function setTemporary($temporary)
+    {
+        $this->temporary = $temporary;
+    }
+}
+```
+
+```php
+<?php
+namespace Netinfluence\DemoBundle\Controller;
+
+// ...
+class MyController extends Controller
+{
+    public function formAction(Request $request)
+    {
+        // ...
+
+        $form = $this->createFormBuilder()
+            ->add('photo', 'netinfluence_upload_file', array(
+                'data_class' => 'Netinfluence\DemoBundle\Entity\FormFile'
+            ))
+            ->getForm()
+        ;
+        
+         if ($form->handleRequest($request) && $form->isValid()) {
+            $file = $form->getData()['photo'];
+            
+            // Netinfluence\DemoBundle\Entity\MyFile
+            var_dump(get_class($file));
+            
+            // ...
+         }
+        
+        // ...
+    }
+}
+```
 
 ## Configuration reference
 

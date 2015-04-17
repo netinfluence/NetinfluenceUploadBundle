@@ -6,7 +6,7 @@ namespace Netinfluence\UploadBundle\Model;
  * Class FormFile
  * Model used to map objects behind the netinfluence_upload_file form
  */
-class FormFile
+class FormFile implements UploadableInterface
 {
     /**
      * @var string path to file, as used by Gaufrette FS
@@ -19,7 +19,7 @@ class FormFile
     protected $temporary;
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getPath()
     {
@@ -27,7 +27,7 @@ class FormFile
     }
 
     /**
-     * @param string $path
+     * {@inheritdoc}
      */
     public function setPath($path)
     {
@@ -35,7 +35,7 @@ class FormFile
     }
 
     /**
-     * @return boolean
+     * {@inheritdoc}
      */
     public function isTemporary()
     {
@@ -43,7 +43,7 @@ class FormFile
     }
 
     /**
-     * @param boolean $temporary
+     * {@inheritdoc}
      */
     public function setTemporary($temporary)
     {

@@ -10,8 +10,6 @@ use Symfony\Component\EventDispatcher\Event;
  */
 class TemporaryFileEvent extends Event
 {
-
-
     /**
      * @var TemporaryFile
      */

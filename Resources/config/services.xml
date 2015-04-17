@@ -5,8 +5,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <!-- Here we list "overridable" parameters, tough not part of public API. Note that some classes are not available as such -->
-        <parameter key="netinfluence_upload.controller.api_upload_image_action">Netinfluence:API:uploadImage</parameter>
+        <!-- Here we list "overridable" parameters, though not part of public API. Note that some classes are not available as such -->
         <parameter key="netinfluence_upload.temporary_file_validator.class">NetinfluenceBundle\UploadBundle\Validator\TemporaryFileValidator</parameter>
         <parameter key="netinfluence_upload.file_listener.class">NetinfluenceBundle\UploadBundle\EventListener\FileListener</parameter>
     </parameters>

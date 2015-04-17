@@ -51,7 +51,7 @@ Edit `app/config/routing.yml`:
 ```yml
 # app/config/routing.yml
 netinfluence_upload:
-    resource: "@NetinfluenceUpload/Resources/config/routing.xml"
+    resource: "@NetinfluenceUploadBundle/Resources/config/routing.xml"
 ```
 
 ### Setting sandbox storage

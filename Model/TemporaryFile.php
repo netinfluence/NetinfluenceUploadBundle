@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Class TemporaryFile
+ * Represents a temporary file, received via Ajax, that should be stored on the server
  */
 class TemporaryFile
 {

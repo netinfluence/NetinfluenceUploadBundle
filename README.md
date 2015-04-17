@@ -15,9 +15,9 @@ Features:
  - [ ] very easily overridable and customizable. You can even not use AJAX or handle upload files by yourself.
  
  
-## Installation
+## Getting started
 
-### Adding the bundle
+### Installing the bundle
 
 Fetch this bundle using composer:
 `composer.phar require netinfluence/upload-bundle`
@@ -45,11 +45,10 @@ class AppKernel extends Kernel
 }
 ```
 
-### Import the routing
-
-Edit `app/config/routing.yml`:
+Also import its routing file, edit `app/config/routing.yml`:
 ```yml
 # app/config/routing.yml
+# ...
 netinfluence_upload:
     resource: "@NetinfluenceUploadBundle/Resources/config/routing.xml"
 ```
@@ -81,7 +80,11 @@ netinfluence_upload:
         sandbox: gaufrette.sandbox_filesystem
 ```
 
- 
+### Getting started:
+
+Just use `netinfluence_upload_file` form type. A nice javascript and AJAX-powered picker will be displayed.
+
+
 ## Configuration reference
 
 Here is the full bundle configuration, filled with the default values:
@@ -108,6 +111,6 @@ The whole bundle workflow can be summarised as this:
  * when picking one or many files, those are sent to the server via AJAX
  * files are validated using rules from bundle config
  * if successful, they are stored in the `sandbox` filesystem
- * a token is sent back and placed in the form
- * when the form is finally submitted and valid, you will receive the corresponding Symfony2 `file` objects
+ * some data is sent back and placed in the form
+ * when the form is finally submitted and valid, you will receive `FormFile` objects
  * you can now handle those yourself 

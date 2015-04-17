@@ -1,4 +1,4 @@
-# Netinfluence QuickerUploadBundle
+# NetinfluenceUploadBundle
 
 User and developer friendly file upload.
 
@@ -20,7 +20,7 @@ Features:
 ### Adding the bundle
 
 Fetch this bundle using composer:
-`composer.phar require netinfluence/quicker-upload-bundle`
+`composer.phar require netinfluence/upload-bundle`
 
 Enable it and its vendors in `app/AppKernel.php`:
 

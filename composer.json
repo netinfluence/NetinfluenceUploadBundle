@@ -1,5 +1,5 @@
 {
-    "name": "netinfluence/quicker-upload-bundle",
+    "name": "netinfluence/upload-bundle",
     "type": "symfony-bundle",
     "description": "Get a multiple file AJAX upload done in minutes",
     "license": "MIT",

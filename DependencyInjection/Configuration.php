@@ -37,12 +37,12 @@ class Configuration implements ConfigurationInterface
                                         ->arrayNode('mimeTypes')
                                             ->defaultValue(array('image/gif', 'image/jpg', 'image/jpeg', 'image/png', 'image/bmp', 'image/x-windows-bmp'))
                                         ->end()
-                                        ->ignoreExtraKeys()
                                     ->end()
+                                    ->ignoreExtraKeys()
                                 ->end()
-                                // User can add any other constraints
-                                ->ignoreExtraKeys()
                             ->end()
+                            // User can add any other constraints
+                            ->ignoreExtraKeys()
                         ->end()
                     ->end()
                 ->end()

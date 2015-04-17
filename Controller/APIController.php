@@ -1,10 +1,10 @@
 <?php
 
-namespace Netinfluence\QuickerUploadBundle\Controller;
+namespace Netinfluence\UploadBundle\Controller;
 
-use Netinfluence\QuickerUploadBundle\Event\Events;
-use Netinfluence\QuickerUploadBundle\Event\TemporaryFileEvent;
-use Netinfluence\QuickerUploadBundle\Model\TemporaryFile;
+use Netinfluence\UploadBundle\Event\Events;
+use Netinfluence\UploadBundle\Event\TemporaryFileEvent;
+use Netinfluence\UploadBundle\Model\TemporaryFile;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\JsonResponse;

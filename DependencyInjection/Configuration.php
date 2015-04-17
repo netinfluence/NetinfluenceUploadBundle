@@ -1,6 +1,6 @@
 <?php
 
-namespace Netinfluence\QuickerUploadBundle\DependencyInjection;
+namespace Netinfluence\UploadBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

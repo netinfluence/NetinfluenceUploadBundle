@@ -1,8 +1,8 @@
 <?php
 
-namespace Netinfluence\QuickerUploadBundle\Event;
+namespace Netinfluence\UploadBundle\Event;
 
-use Netinfluence\QuickerUploadBundle\Model\TemporaryFile;
+use Netinfluence\UploadBundle\Model\TemporaryFile;
 use Symfony\Component\EventDispatcher\Event;
 
 /**

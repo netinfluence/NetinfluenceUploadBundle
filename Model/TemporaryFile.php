@@ -1,6 +1,6 @@
 <?php
 
-namespace Netinfluence\QuickerUploadBundle\Model;
+namespace Netinfluence\UploadBundle\Model;
 
 use Symfony\Component\HttpFoundation\File\File;
 

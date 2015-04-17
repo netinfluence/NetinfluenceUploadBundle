@@ -1,13 +1,15 @@
 <?php
 
-namespace Netinfluence\QuickerUploadBundle;
+namespace Netinfluence\UploadBundle;
 
+use Netinfluence\UploadBundle\DependencyInjection\CompilerPass\StorageCompilerPass;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
- * Class NetinfluenceQuickerUploadBundle
+ * Class NetinfluenceUploadBundle
  * Bundle root class
  */
-class NetinfluenceQuickerUploadBundle extends Bundle
+class NetinfluenceUploadBundle extends Bundle
 {
 }

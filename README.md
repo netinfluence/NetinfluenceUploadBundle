@@ -36,7 +36,7 @@ class AppKernel extends Kernel
         $bundles = array(
             // ...
             
-            new Netinfluence\QuickerUploadBundle\NetinfluenceQuickerUploadBundle(),
+            new Netinfluence\UploadBundle\NetinfluenceQuickerUploadBundle(),
             new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
         );
 

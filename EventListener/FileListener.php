@@ -1,10 +1,10 @@
 <?php
 
-namespace Netinfluence\QuickerUploadBundle\EventListener;
+namespace Netinfluence\UploadBundle\EventListener;
 
 use Gaufrette\Filesystem;
-use Netinfluence\QuickerUploadBundle\Event\Events;
-use Netinfluence\QuickerUploadBundle\Event\TemporaryFileEvent;
+use Netinfluence\UploadBundle\Event\Events;
+use Netinfluence\UploadBundle\Event\TemporaryFileEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**

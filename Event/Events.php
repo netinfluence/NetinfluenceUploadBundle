@@ -1,6 +1,6 @@
 <?php
 
-namespace Netinfluence\QuickerUploadBundle\Event;
+namespace Netinfluence\UploadBundle\Event;
 
 /**
  * Class Events
@@ -12,7 +12,7 @@ final class Events
      * Event that occurs after a file is successfully received
      * Though it was not validated nor stored
      *
-     * The event listener receives a Netinfluence\QuickerUploadBundle\Event\TemporaryFileEvent
+     * The event listener receives a Netinfluence\UploadBundle\Event\TemporaryFileEvent
      *
      * @var string
      */
@@ -22,7 +22,7 @@ final class Events
      * Event that occurs after a file is successfully validated
      * Most importantly it will trigger its storage
      *
-     * The event listener receives a Netinfluence\QuickerUploadBundle\Event\TemporaryFileEvent
+     * The event listener receives a Netinfluence\UploadBundle\Event\TemporaryFileEvent
      *
      * @var string
      */

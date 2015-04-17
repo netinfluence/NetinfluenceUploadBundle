@@ -1,8 +1,8 @@
 <?php
 
-namespace Netinfluence\QuickerUploadBundle\Validator;
+namespace Netinfluence\UploadBundle\Validator;
 
-use Netinfluence\QuickerUploadBundle\Model\TemporaryFile;
+use Netinfluence\UploadBundle\Model\TemporaryFile;
 use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Mapping\Loader\AbstractLoader;
 use Symfony\Component\Validator\ValidatorInterface;

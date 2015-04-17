@@ -1,6 +1,6 @@
 <?php
 
-namespace Netinfluence\QuickerUploadBundle\DependencyInjection;
+namespace Netinfluence\UploadBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
@@ -10,9 +10,9 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\Config\Definition\Processor;
 
 /**
- * Class NeinfluenceQuickerUploadExtension
+ * Class NeinfluenceUploadExtension
  */
-class NeinfluenceQuickerUploadExtension extends Extension
+class NeinfluenceUploadExtension extends Extension
 {
     /**
      * {@inheritDoc}

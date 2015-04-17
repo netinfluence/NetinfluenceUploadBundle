@@ -50,7 +50,13 @@ class TemporaryFileValidator
 
             $constraint = new \ReflectionClass($className);
 
-            $this->imageConstraints[] = $constraint->newInstance($options);
+            // Because it is from a configuration file, any node will have a default "null" or "array()" value
+            // Which will prevent default parameters
+            if (empty($options)) {
+                $this->imageConstraints[] = $constraint->newInstance();
+            } else {
+                $this->imageConstraints[] = $constraint->newInstance($options);
+            }
         }
     }
 

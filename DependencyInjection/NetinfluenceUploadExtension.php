@@ -23,11 +23,14 @@ class NetinfluenceUploadExtension extends Extension
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
 
-        $configuration = new Configuration();
-        $processor = new Processor();
-        $config = $processor->processConfiguration($configuration, $configs);
+        if (0 === count(array_filter($configs))) {
+            throw new \Exception('You should add "netinfluence_upload" minimal config to "app/config/config.yml"');
+        }
 
-        $container->setParameter('netinfluence_upload.validation.image_constraints', $config['validation.image']);
+        $configuration = new Configuration();
+        $config = $this->processConfiguration($configuration, $configs);
+
+        $container->setParameter('netinfluence_upload.validation.image_constraints', $config['validation']['image']);
 
         // Manipulations on filesystems
         $fileListener = $container->getDefinition('netinfluence_upload.file_listener');

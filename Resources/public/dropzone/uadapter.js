@@ -2,10 +2,10 @@
 Dropzone.autoDiscover = false;
 
 $(function() {
-    $('.ni-ub-dz').each(function() {
-       var $form = $(this);
+    $('.ni-ub').each(function() {
+        var $form = $(this);
 
-        var dropzone = $form.dropzone({
+        var dropzone = new Dropzone('#'+this.id+' > .ni-ub-dz', {
             paramName: 'file',
             maxFiles: $form.data('max-files'),
             url: $form.data('url')
@@ -15,12 +15,15 @@ $(function() {
             // call ajax
         });
 
-        /*dropzone.on('error', function(file) {
-            // show error better?
-        });*/
+        dropzone.on('error', function(file, errorMessage) {
+            // Small inconsistency within Dropzone!
+            if (typeof errorMessage === "object") {
+                errorMessage = errorMessage.error;
+            }
 
-        dropzone.on('success', function(file) {
-            // update form
+            $form.find('.ni-ub-error').html(errorMessage);
+
+            dropzone.removeFile(file);
         });
     });
 });

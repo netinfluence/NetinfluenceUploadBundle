@@ -30,17 +30,20 @@ class APIController extends Controller
         $eventDispatcher->dispatch(Events::FILE_RECEIVED_EVENT, new TemporaryFileEvent($file));
 
         /** @var ConstraintViolationListInterface $violations */
-        $violations = $this->get('netinfluence_quicker_upload.temporary_file_validator')->validateImage($file);
+        $violations = $this->get('netinfluence_upload.temporary_file_validator')->validateImage($file);
 
         if (count($violations)) {
+            $messages = $this->serializeViolations($violations);
+
             return new JsonResponse(array(
-                'errors'    => $this->serializeViolations($violations)
+                'error'         => implode(' - ', $messages),
+                'raw_errors'    => $messages
             ), 400);
         }
 
         try {
             // On this event, a listener will store file
-            // It is allowed to throw exceptions, relative to FS isues
+            // It is allowed to throw exceptions, relative to FS issues
             $eventDispatcher->dispatch(Events::FILE_VALIDATED_EVENT, new TemporaryFileEvent($file));
         } catch (\Exception $e) {
             return new JsonResponse(array(

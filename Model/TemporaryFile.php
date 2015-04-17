@@ -23,7 +23,7 @@ class TemporaryFile
     public function __construct(File $file)
     {
         $this->file = $file;
-        $this->id   = uniqid('ntf_', true);
+        $this->id   = uniqid('nu_');
     }
 
     /**
@@ -42,6 +42,6 @@ class TemporaryFile
         // If we can't guess extension, use the original one
         $extension = $this->file->guessExtension() ?: $this->file->getExtension();
 
-        return printf('%s/%s.%s', date('Y-m-d'), $this->id, $extension);
+        return sprintf('%s/%s.%s', date('Y-m-d'), $this->id, $extension);
     }
 }

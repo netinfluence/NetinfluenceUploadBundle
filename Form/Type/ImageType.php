@@ -2,6 +2,7 @@
 
 namespace Netinfluence\UploadBundle\Form\Type;
 
+use Netinfluence\UploadBundle\Form\DataTransformer\BooleanToHiddenTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,9 +24,15 @@ class ImageType extends AbstractType
     {
         $builder
             ->add('path', 'hidden')
-            ->add('temporary', 'hidden', array(
-                'empty_data' => 0
-            ))
+            ->add(
+                $builder
+                    // this more complex syntax is required when adding a transformer
+                    ->create('temporary', 'hidden', array(
+                        'empty_data' => false
+                    ))
+                    // We add a transformer to be sure there is no type screw-up
+                    ->addViewTransformer(new BooleanToHiddenTransformer())
+            )
         ;
     }
 
@@ -51,6 +58,8 @@ class ImageType extends AbstractType
                         $dataClass
                     ));
                 }
+
+                return true;
             }
         ));
     }

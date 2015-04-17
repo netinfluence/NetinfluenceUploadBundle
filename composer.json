@@ -6,7 +6,11 @@
     "authors": [
         {
             "name": "Romaric Drigon",
-            "email": "romaric.drigon@gmail.com"
+            "email": "romaric@netinfluence.ch"
+        },
+        {
+            "name": "Netinfluence",
+            "email": "ask@netinfluence.ch"
         }
     ],
     "autoload": {

@@ -32,7 +32,12 @@ class NetinfluenceUploadExtension extends Extension
         $container->setParameter('netinfluence_upload.validation.image_constraints', $config['validation']['image']);
 
         // Manipulations on filesystems
+
         $fileListener = $container->getDefinition('netinfluence_upload.file_listener');
         $fileListener->replaceArgument(0, new Reference($config['filesystems']['sandbox']));
+
+        $fileListener = $container->getDefinition('netinfluence_upload.uploadable_listener');
+        $fileListener->replaceArgument(0, new Reference($config['filesystems']['sandbox']));
+        $fileListener->replaceArgument(1, new Reference($config['filesystems']['final']));
     }
 }

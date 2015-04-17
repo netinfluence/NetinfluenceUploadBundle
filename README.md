@@ -53,13 +53,17 @@ netinfluence_upload:
     resource: "@NetinfluenceUploadBundle/Resources/config/routing.xml"
 ```
 
-### Setting sandbox storage
+### Setting Gaufrette filesystems
 
-First, we will configure where temporary files - ie. files corresponding to uploads on forms not yet validated - will be put.
-Typically this is a local folder, as data is removed after, only limited space is required.
+You have to set up where files are stored. This bundle relies on Gaufrette filesystems abstractions. In doubt refer to its [documentation](https://github.com/KnpLabs/KnpGaufretteBundle)  
 
-Most of the configuration is relative to GaufretteBundle, you should create a filesystem. In doubt refer to its [documentation](https://github.com/KnpLabs/KnpGaufretteBundle)  
-You need to provide UploadBundle the ID of a valid `filesystem` for its `sandbox`. Note that those ID are generated in the form `gaufrette.ADAPTER_NAME_filesystem`.
+You need 2 differents filesystems:
+
+ * `sandbox` will be used for temorary files - ie. files corresponding to uploads on forms not yet validated. Typically this is a local folder, as data is removed after being uploaded to final filesystem, only limited space is required.
+ * `final` is the ultimate files destination. You could be using another folder, or Amazon S3...
+
+You need to provide UploadBundle ID of valids `filesystem`. 
+Note that those ID are generated in the form `gaufrette.ADAPTER_NAME_filesystem`.
 
 Here is a full working example:
 ```yml
@@ -68,16 +72,25 @@ knp_gaufrette:
     adapters:
         temporary_folder:
             # here we use a local folder
+            # be sure to have permission set up correctly!
             local:
                 directory: "%kernel.root_dir%/../web/tmp"
+                create: true
+        storage_folder:
+            # and we use another local folder
+            local:
+                directory: "%kernel.root_dir%/../web/uploads"
                 create: true
     filesystems:
         sandbox:
             adapter:    temporary_folder
+        storage:
+            adapter:    storage_folder
             
 netinfluence_upload:
     filesystems:
         sandbox: gaufrette.sandbox_filesystem
+        final: gaufrette.storage_filesystem
 ```
 
 ### Getting started
@@ -227,6 +240,14 @@ class MyController extends Controller
 }
 ```
 
+### Storing files
+
+#### When using Doctrine + UploadableInterface
+
+If you are using Doctrine ORM, and you entity implements `Netinfluence\UploadBundle\Model\UploadableInterface`, 
+a listener provided by this bundle will automatically takes care of all of uploading teh file to the final filesystem and 
+of removing from the sandbox filesystem on success.
+
 ## Configuration reference
 
 Here is the full bundle configuration, filled with the default values:
@@ -235,6 +256,7 @@ Here is the full bundle configuration, filled with the default values:
 netinfluence_upload:
     filesystems:
         sandbox: # you should provide here a valid Gaufrette filesystem ID
+        final: # you should provide here a valid Gaufrette filesystem ID too
     validation:
         # validations rules applied to uploaded images
         image:

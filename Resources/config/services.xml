@@ -8,6 +8,7 @@
         <!-- Here we list "overridable" parameters, though not part of public API. Note that some classes are not available as such -->
         <parameter key="netinfluence_upload.temporary_file_validator.class">Netinfluence\UploadBundle\Validator\TemporaryFileValidator</parameter>
         <parameter key="netinfluence_upload.file_listener.class">Netinfluence\UploadBundle\EventListener\FileListener</parameter>
+        <parameter key="netinfluence_upload.uploadable_listener.class">Netinfluence\UploadBundle\EventListener\UploadableListener</parameter>
     </parameters>
 
     <services>
@@ -18,10 +19,16 @@
             </call>
         </service>
 
-        <!-- events listener: store temporary files -->
+        <!-- Symfony2 event dispatcher events listener -->
         <service class="%netinfluence_upload.file_listener.class%" id="netinfluence_upload.file_listener">
             <argument /><!-- a Gaufrette filesystem will be injected at compilation -->
             <tag name="kernel.event_subscriber" />
+        </service>
+
+        <!-- Doctrine events listener -->
+        <service class="%netinfluence_upload.uploadable_listener.class%" id="netinfluence_upload.uploadable_listener">
+            <argument /><!-- Gaufrette sandbox filesystem will be injected at compilation -->
+            <argument /><!-- Gaufrette final filesystem will be injected at compilation -->
         </service>
 
         <!-- Form -->

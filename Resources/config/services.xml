@@ -9,14 +9,22 @@
         <parameter key="netinfluence_upload.temporary_file_validator.class">Netinfluence\UploadBundle\Validator\TemporaryFileValidator</parameter>
         <parameter key="netinfluence_upload.file_listener.class">Netinfluence\UploadBundle\EventListener\FileListener</parameter>
         <parameter key="netinfluence_upload.uploadable_listener.class">Netinfluence\UploadBundle\EventListener\UploadableListener</parameter>
+        <parameter key="netinfluence_upload.file_manager.class">Netinfluence\UploadBundle\Manager\FileManager</parameter>
     </parameters>
 
     <services>
+        <!-- validator & validation-related -->
         <service class="%netinfluence_upload.temporary_file_validator.class%" id="netinfluence_upload.temporary_file_validator">
             <argument type="service" id="validator" />
             <call method="setImageValidationConstraints">
                 <argument>%netinfluence_upload.validation.image_constraints%</argument>
             </call>
+        </service>
+
+        <!-- manager -->
+        <service class="%netinfluence_upload.file_manager.class%" id="netinfluence_upload.file_manager">
+            <argument /><!-- Gaufrette sandbox filesystem will be injected at compilation -->
+            <argument /><!-- Gaufrette final filesystem will be injected at compilation -->
         </service>
 
         <!-- Symfony2 event dispatcher events listener -->
@@ -27,8 +35,7 @@
 
         <!-- Doctrine events listener -->
         <service class="%netinfluence_upload.uploadable_listener.class%" id="netinfluence_upload.uploadable_listener">
-            <argument /><!-- Gaufrette sandbox filesystem will be injected at compilation -->
-            <argument /><!-- Gaufrette final filesystem will be injected at compilation -->
+            <argument type="service" id="netinfluence_upload.file_manager" />
         </service>
 
         <!-- Form -->

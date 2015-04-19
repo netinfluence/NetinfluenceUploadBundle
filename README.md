@@ -9,10 +9,11 @@ Features:
  - [x] of course files are properly validated
  - [ ] multiple files upload too
  - [ ] files are uploaded to any storage of your choice (local filesystem, Amazon...) using [Gaufrette](https://github.com/KnpLabs/KnpGaufretteBundle)
- - [x] files are stored in a sandbox first and are moved only when the form is finally valid
+ - [x] files are stored in a sandbox first
+ - [x] integrates with Doctrine ORM: files are moved to sandbox upon entity save
  - [ ] when coming back to the form, files can be removed
  - [ ] files are served and thumbnails generated using [LiipImagineBundle](https://github.com/liip/LiipImagineBundle)
- - [ ] very easily overridable and customizable. You can even not use AJAX or handle upload files by yourself.
+ - [x] very easily overridable and customizable, if you don"t want any of the above
  
  
 ## Getting started
@@ -221,7 +222,7 @@ class MyController extends Controller
 
         $form = $this->createFormBuilder()
             ->add('photo', 'netinfluence_upload_image', array(
-                'data_class' => 'Netinfluence\DemoBundle\Entity\FormFile'
+                'data_class' => 'Netinfluence\DemoBundle\Entity\MyFile'
             ))
             ->getForm()
         ;
@@ -240,13 +241,53 @@ class MyController extends Controller
 }
 ```
 
-### Storing files
+### Storing and removing files
 
 #### When using Doctrine + UploadableInterface
 
 If you are using Doctrine ORM, and you entity implements `Netinfluence\UploadBundle\Model\UploadableInterface`, 
 a listener provided by this bundle will automatically takes care of all of uploading teh file to the final filesystem and 
 of removing from the sandbox filesystem on success.
+
+In the same fashion, file removal is automatic after entity removal.
+
+#### Manually
+
+If you don't use Doctrine ORM, but want to persist `Netinfluence\UploadBundle\Model\UploadableInterface` file, call the `netinfluence_upload.file_manager` service:
+```php
+<?php
+namespace Netinfluence\DemoBundle\Controller;
+
+// ...
+class MyController extends Controller
+{
+    public function formAction(Request $request)
+    {
+        // ...
+
+        $form = $this->createFormBuilder()
+            ->add('photo', 'netinfluence_upload_image', array(
+                'data_class' => 'Netinfluence\DemoBundle\Entity\FormFile'
+            ))
+            ->getForm()
+        ;
+        
+         if ($form->handleRequest($request) && $form->isValid()) {
+            $file = $form->getData()['photo'];
+            
+            // FileManager will remove temporary file from sandbox,
+            // and save it to the final one
+            $this->get('netinfluence_upload.file_manager')->persist($file);
+            
+            // And if you want to remove:
+            $this->get('netinfluence_upload.file_manager')->remove($file);
+            
+         }
+        
+        // ...
+    }
+}
+```
 
 ## Configuration reference
 

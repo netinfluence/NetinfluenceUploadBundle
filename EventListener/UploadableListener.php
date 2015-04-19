@@ -4,7 +4,7 @@ namespace Netinfluence\UploadBundle\EventListener;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Gaufrette\Filesystem;
+use Netinfluence\UploadBundle\Manager\FileManager;
 use Netinfluence\UploadBundle\Model\UploadableInterface;
 
 /**
@@ -14,19 +14,13 @@ use Netinfluence\UploadBundle\Model\UploadableInterface;
 class UploadableListener implements EventSubscriber
 {
     /**
-     * @var Filesystem the storage for temporary files
+     * @var FileManager
      */
-    private $sandboxFilesystem;
+    private $manager;
 
-    /**
-     * @var Filesystem the storage for final files
-     */
-    private $targetFilesystem;
-
-    public function __construct(Filesystem $sandboxFilesystem, Filesystem $targetFilesystem)
+    public function __construct(FileManager $manager)
     {
-        $this->sandboxFilesystem = $sandboxFilesystem;
-        $this->targetFilesystem = $targetFilesystem;
+        $this->manager = $manager;
     }
 
     /**
@@ -55,37 +49,7 @@ class UploadableListener implements EventSubscriber
             return;
         }
 
-        $path = $entity->getPath();
-
-        // If for some reason that happen, we skip
-        if (! $path) {
-            return;
-        }
-
-        // Only temporary files need to be moved
-        // Skip also "null" values...
-        if (true !== $entity->isTemporary()) {
-            return;
-        }
-
-        // We add a more precise exception message
-        try {
-            $content = $this->sandboxFilesystem->read($path);
-        } catch (\RuntimeException $e) {
-            throw new \Exception(sprintf('Unable to read file "%s" from sandbox. Maybe sandbox was cleared?', $path));
-        }
-
-        try {
-            $this->targetFilesystem->write($path, $content);
-        } catch (\RuntimeException $e) {
-            throw new \Exception(sprintf('Unable to not write file "%s" to final filesystem', $path));
-        }
-
-        try {
-            $this->sandboxFilesystem->delete($path);
-        } catch (\RuntimeException $e) {
-            throw new \Exception(sprintf('Could not remove file "%s" from sandbox filesystem. But it was successfully saved to final filesystem before.', $path));
-        }
+        $this->manager->persist($entity);
     }
 
     /**
@@ -100,28 +64,6 @@ class UploadableListener implements EventSubscriber
             return;
         }
 
-        $path = $entity->getPath();
-
-        // If for some reason that happen, we skip
-        if (! $path) {
-            return;
-        }
-
-        // That case is not part of our workflow, but could happen!
-        if (true === $entity->isTemporary()) {
-            try {
-                $this->sandboxFilesystem->delete($path);
-            } catch (\RuntimeException $e) {
-                throw new \Exception(sprintf('Could not remove file "%s" from sandbox filesystem.', $path));
-            }
-
-            return;
-        }
-
-        try {
-            $this->targetFilesystem->delete($path);
-        } catch (\RuntimeException $e) {
-            throw new \Exception(sprintf('Could not remove file "%s" from final filesystem.', $path));
-        }
+        $this->manager->remove($entity);
     }
 }

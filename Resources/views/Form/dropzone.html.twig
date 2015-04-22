@@ -1,8 +1,10 @@
 {% block netinfluence_upload_image_inner_row %}
     {% spaceless %}
-        {# just render the 2 widgets without labels nor space around #}
-        {{ form_widget(form.path) }}
-        {{ form_widget(form.temporary) }}
+        <div class="ni-ub-dz-image-{{ form.vars.name }}">
+            {# just render the 2 widgets without labels nor space around #}
+            {{ form_widget(form.path) }}
+            {{ form_widget(form.temporary) }}
+        </div>
     {% endspaceless %}
 {% endblock %}
 
@@ -15,7 +17,7 @@
                 data-max-files=1
                 data-form-name="{{ form.vars.name }}"
                 data-url="{{ path('netinfluence_upload_api_upload_image') }}"
-        >
+                >
             {{ block('netinfluence_upload_image_inner_row') }}
 
             <div id="ni-ub-dz-{{ form.vars.name }}" class="ni-ub-dz dropzone">
@@ -38,8 +40,14 @@
                 data-form-name="{{ form.vars.name }}"
                 data-url="{{ path('netinfluence_upload_api_upload_image') }}"
                 >
-            {# render a standard collection #}
-            {{- block('form_widget') -}}
+
+            {#
+                Render a standard collection
+                Just add a specific attribute we will hook into
+            #}
+            {#  #}
+            {%- set attr = attr|merge({'data-collection': ''}) -%}
+            {{- block('collection_widget') -}}
 
             <div id="ni-ub-dz-{{ form.vars.name }}" class="ni-ub-dz dropzone">
                 {# Dropzone will be here! #}

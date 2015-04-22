@@ -30,11 +30,34 @@ $(function() {
             $form.find('.ni-ub-error').html('');
         });
 
-        dropzone.on('success', function(file, response) {
-            $form.find('input[data-path]').val(response.path);
+        /*
+         Some handling is different depending whether under we have a single file
+         or a collection
+         */
+        var isCollection = ($form.find('[data-collection]') !== []);
+        var successHandler;
 
-            // Anyway a temporary file was stored
-            $form.find('input[data-temporary]').val(1);
-        });
+        if (isCollection) {
+            successHandler = function(file, response) {
+                var $collection = $form.find('[data-collection]');
+
+                var prototype = $collection.data('prototype');
+                var newChild = prototype.replace(/__name__/g, $collection.length);
+
+                var $newChild = $(newChild).appendTo($collection);
+
+                $newChild.find('input[data-path]').val(response.path);
+                $newChild.find('input[data-temporary]').val(1);
+            };
+        } else {
+            successHandler = function(file, response) {
+                $form.find('input[data-path]').val(response.path);
+
+                // Anyway a temporary file was stored
+                $form.find('input[data-temporary]').val(1);
+            };
+        }
+
+        dropzone.on('success', successHandler);
     });
 });

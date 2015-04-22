@@ -25,11 +25,18 @@ class ImageInnerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('path', 'hidden')
+            ->add('path', 'hidden', array(
+                'attr' => array(
+                    'data-path' => '' // we flag our field for further manipulation
+                )
+            ))
             ->add(
                 $builder
                     // this more complex syntax is required when adding a transformer
                     ->create('temporary', 'hidden', array(
+                        'attr' => array(
+                            'data-temporary' => '' // we flag our field for further manipulation
+                        ),
                         'empty_data' => false
                     ))
                     // We add a transformer to be sure there is no type screw-up

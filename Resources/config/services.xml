@@ -45,5 +45,8 @@
         <service id="netinfluence_upload.form.type.image_collection" class="Netinfluence\UploadBundle\Form\Type\ImageCollectionType">
             <tag name="form.type" alias="netinfluence_upload_image_collection" />
         </service>
+        <service id="netinfluence_upload.form.type.image_inner" class="Netinfluence\UploadBundle\Form\Type\ImageInnerType">
+            <tag name="form.type" alias="netinfluence_upload_image_inner" />
+        </service>
     </services>
 </container>

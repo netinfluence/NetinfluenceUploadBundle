@@ -2,11 +2,6 @@
 
 namespace Netinfluence\UploadBundle\Form\Type;
 
-use Netinfluence\UploadBundle\Form\DataTransformer\BooleanToHiddenTransformer;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Form\FormBuilderInterface;
-
 /**
  * Class ImageType
  * The "real" form class is InnerType

@@ -12,7 +12,6 @@ Features:
  - [x] files are stored in a sandbox first
  - [x] integrates with Doctrine ORM: files are moved to sandbox upon entity save
  - [ ] when coming back to the form, files can be removed
- - [ ] files are served and thumbnails generated using [LiipImagineBundle](https://github.com/liip/LiipImagineBundle)
  - [x] very easily overridable and customizable, if you don"t want any of the above
  
 [![Latest Stable Version](https://poser.pugx.org/netinfluence/upload-bundle/v/stable)](https://packagist.org/packages/netinfluence/upload-bundle)

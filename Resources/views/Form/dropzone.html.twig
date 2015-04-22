@@ -4,6 +4,9 @@
             {# just render the 2 widgets without labels nor space around #}
             {{ form_widget(form.path) }}
             {{ form_widget(form.temporary) }}
+
+            {# and there may be extra fields set by user #}
+            {{ form_rest(form) }}
         </div>
     {% endspaceless %}
 {% endblock %}

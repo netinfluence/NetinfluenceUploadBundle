@@ -43,6 +43,11 @@ class ImageInnerType extends AbstractType
                     ->addViewTransformer(new BooleanToHiddenTransformer())
             )
         ;
+
+        // We allow user to modify, typically add more fields, using a callback
+        if (isset($options['extra_fields']) && is_callable($options['extra_fields'])) {
+            call_user_func($options['extra_fields'], $builder);
+        }
     }
 
     /**
@@ -72,6 +77,8 @@ class ImageInnerType extends AbstractType
                 return true;
             }
         ));
+
+        $resolver->setOptional(array('extra_fields'));
     }
 
     /**

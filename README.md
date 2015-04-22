@@ -300,7 +300,7 @@ class MyController extends Controller
 
         $form = $this->createFormBuilder()
             ->add('photo', 'netinfluence_upload_image', array(
-                'data_class' => 'Netinfluence\DemoBundle\Entity\FormFile'
+                'data_class' => 'Netinfluence\DemoBundle\Entity\MyFile'
             ))
             ->getForm()
         ;
@@ -358,7 +358,7 @@ class MyController extends Controller
 ```
 
 You can set a maximum number of files through `max_files`. By default it's 0 (unlimited).
-It mimics Symfony2 `collection` type, you can pass options to the child form using `options`: 
+It mimics Symfony2 `collection` type, the child being an `netinfluence_upload_image` type field, you can pass options to it: 
 ```php
 <?php
 namespace Netinfluence\DemoBundle\Controller;
@@ -392,6 +392,50 @@ class MyController extends Controller
         
             // ...
         }
+    }
+}
+```
+
+## Add extra fields
+
+You can modify the `FormBuilder` by providing a callable as `extra_fields` option:
+```php
+<?php
+namespace Netinfluence\DemoBundle\Controller;
+
+use Symfony\Component\Form\FormBuilderInterface;
+
+// ...
+class MyController extends Controller
+{
+    public function formAction(Request $request)
+    {
+        // ...
+
+        $form = $this->createFormBuilder()
+            ->add('photo', 'netinfluence_upload_image', array(
+                'data_class'    => 'Netinfluence\DemoBundle\Entity\MyFile',
+                'extra_fields   => function(FormBuilderInterface $builder, array $options) {
+                    // Let's imagine your "MyFile" entity has a "number" field
+                    $builder->add('number', 'hidden');
+                }
+            ))
+            ->getForm()
+        ;
+        
+         if ($form->handleRequest($request) && $form->isValid()) {
+            $file = $form->getData()['photo'];
+            
+            // FileManager will remove temporary file from sandbox,
+            // and save it to the final one
+            $this->get('netinfluence_upload.file_manager')->persist($file);
+            
+            // And if you want to remove:
+            $this->get('netinfluence_upload.file_manager')->remove($file);
+            
+         }
+        
+        // ...
     }
 }
 ```

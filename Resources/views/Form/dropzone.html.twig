@@ -1,3 +1,11 @@
+{% block netinfluence_upload_image_inner_row %}
+    {% spaceless %}
+        {# just render the 2 widgets without labels nor space around #}
+        {{ form_widget(form.path) }}
+        {{ form_widget(form.temporary) }}
+    {% endspaceless %}
+{% endblock %}
+
 {% block netinfluence_upload_image_row %}
     {% spaceless %}
         <div
@@ -8,9 +16,7 @@
                 data-form-name="{{ form.vars.name }}"
                 data-url="{{ path('netinfluence_upload_api_upload_image') }}"
         >
-            {# just render the 2 widgets without labels nor space around #}
-            {{ form_widget(form.path) }}
-            {{ form_widget(form.temporary) }}
+            {{ block('netinfluence_upload_image_inner_row') }}
 
             <div id="ni-ub-dz-{{ form.vars.name }}" class="ni-ub-dz dropzone">
                 {# Dropzone will be here! #}

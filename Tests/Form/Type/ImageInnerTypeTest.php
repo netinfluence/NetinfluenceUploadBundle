@@ -2,17 +2,18 @@
 
 namespace Netinfluence\UploadBundle\Tests\Form\Type;
 
+use Netinfluence\UploadBundle\Form\Type\ImageInnerType;
 use Netinfluence\UploadBundle\Form\Type\ImageType;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class ImageTypeTest
+ * Class ImageInnerTypeTest
  */
-class ImageTypeTest extends TypeTestCase
+class ImageInnerTypeTest extends TypeTestCase
 {
     /**
-     * @var ImageType
+     * @var ImageInnerType
      */
     private $sut;
 
@@ -20,7 +21,7 @@ class ImageTypeTest extends TypeTestCase
     {
         parent::setUp();
 
-        $this->sut = new ImageType();
+        $this->sut = new ImageInnerType();
     }
 
     public function tearDown()

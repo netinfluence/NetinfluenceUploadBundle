@@ -14,19 +14,22 @@ use Symfony\Component\Form\FormInterface;
  */
 class ImageCollectionType extends AbstractType
 {
-    /**
-     * By default, behind the form we will have an instance of this object
-     */
-    const INNER_TYPE = 'netinfluence_upload_image';
-    const DATA_CLASS_REQUIRED_INTERFACE = 'Netinfluence\UploadBundle\Model\UploadableInterface';
+    const CHILD_TYPE = 'netinfluence_upload_image_inner';
+    const PROTOTYPE_NAME = '__name__';
 
     /**
      * @inheritdoc
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        // We need a prototype
+        $prototype = $builder->create(self::PROTOTYPE_NAME, self::CHILD_TYPE, array_replace(array(
+            'label' => self::PROTOTYPE_NAME.'label__',
+        ), $options['options']));
+        $builder->setAttribute('prototype', $prototype->getForm());
+
         $resizeListener = new ResizeFormListener(
-            'netinfluence_upload_image',
+            self::CHILD_TYPE,
             $options['options'],
             true, // allow add
             true, // allow delete
@@ -42,6 +45,8 @@ class ImageCollectionType extends AbstractType
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $view->vars['max_files'] = $form->getConfig()->getAttribute('max_files');
+
+        $view->vars['prototype'] = $form->getConfig()->getAttribute('prototype')->createView($view);
     }
 
     /**
@@ -51,7 +56,7 @@ class ImageCollectionType extends AbstractType
     {
         $resolver->setDefaults(array(
             'max_files' => 0,
-            'options' => array()
+            'options'   => array()
         ));
     }
 

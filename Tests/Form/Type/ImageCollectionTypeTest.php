@@ -3,9 +3,9 @@
 namespace Netinfluence\UploadBundle\Tests\Form\Type;
 
 use Netinfluence\UploadBundle\Form\Type\ImageCollectionType;
+use Netinfluence\UploadBundle\Form\Type\ImageInnerType;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
-use Netinfluence\UploadBundle\Form\Type\ImageType;
 
 /**
  * Class ImageCollectionTypeTest
@@ -35,7 +35,7 @@ class ImageCollectionTypeTest extends TypeTestCase
      */
     protected function getExtensions()
     {
-        $imageType = new ImageType();
+        $imageType = new ImageInnerType();
 
         return array(
             new PreloadedExtension(array(

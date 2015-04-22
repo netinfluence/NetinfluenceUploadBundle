@@ -18,6 +18,12 @@ Features:
 [![Build Status](https://travis-ci.org/netinfluence/NetinfluenceUploadBundle.svg?branch=master)](https://travis-ci.org/netinfluence/NetinfluenceUploadBundle)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/38fb65d4-d690-4abf-b370-da4aaf1a4b0f/mini.png)](https://insight.sensiolabs.com/projects/38fb65d4-d690-4abf-b370-da4aaf1a4b0f)
  
+## Changelog
+
+ * **0.8**: current version. Battle tested though not (interface) stable.
+ * 0.9: soon to be released, finishing the initial set of features.
+ * 1.0: will add multi-instance capabilities, change of config regarding validation rules
+ 
 ## Getting started
 
 ### Installing the bundle

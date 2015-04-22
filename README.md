@@ -15,6 +15,8 @@ Features:
  - [ ] files are served and thumbnails generated using [LiipImagineBundle](https://github.com/liip/LiipImagineBundle)
  - [x] very easily overridable and customizable, if you don"t want any of the above
  
+[![Build Status](https://travis-ci.org/netinfluence/NetinfluenceUploadBundle.svg?branch=master)](https://travis-ci.org/netinfluence/NetinfluenceUploadBundle)
+ 
  
 ## Getting started
 

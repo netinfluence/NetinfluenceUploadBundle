@@ -16,6 +16,7 @@ class ImageType extends AbstractType
      * By default, behind the form we will have an instance of this object
      */
     const DEFAULT_DATA_CLASS = 'Netinfluence\UploadBundle\Model\FormFile';
+    const DATA_CLASS_REQUIRED_INTERFACE = 'Netinfluence\UploadBundle\Model\UploadableInterface';
 
     /**
      * @inheritdoc
@@ -47,15 +48,16 @@ class ImageType extends AbstractType
         ));
 
         $dataClass = self::DEFAULT_DATA_CLASS;
+        $interface = self::DATA_CLASS_REQUIRED_INTERFACE;
 
         // Important: use 2.3 syntax, passing an array, it will convert internally
         $resolver->setAllowedValues(array(
-            'data_class' => function($value) use ($dataClass) {
-                if (! is_a($value, $dataClass, true)) {
+            'data_class' => function($value) use ($dataClass, $interface) {
+                if (! is_a($value, $interface, true)) {
                     // We throw an Exception for a more precise feedback than OptionResolver one
                     throw new \Exception(sprintf(
-                        'Form type "netinfluence_upload_image" must be mapped to objects implementing Netinfluence\\UploadBundle\\Model\\UplodableInterface. Wrong value "%s" received for "data_class".',
-                        $dataClass
+                        'Form type "netinfluence_upload_image" must be mapped to objects implementing %s. Wrong value "%s" received for "data_class".',
+                        $interface, $dataClass
                     ));
                 }
 

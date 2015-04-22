@@ -209,6 +209,36 @@ class MyFile implements UploadableInterface
 }
 ```
 
+If you are using PHP >= 5.4, to simplify you could also be using `Netinfluence\UploadBundle\Model\MaybeTemporaryFileTrait`:
+```php
+<?php
+namespace Netinfluence\DemoBundle\Entity;
+
+use Netinfluence\UploadBundle\Model\UploadableInterface;
+use Netinfluence\UploadBundle\Model\MaybeTemporaryFileTrait;
+
+class MyFile implements UploadableInterface
+{
+    use MaybeTemporaryFileTrait;
+
+    /**
+     * @var string path to file, as used by Gaufrette FS
+     */
+    protected $path;
+
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    public function setPath($path)
+    {
+        $this->path = $path;
+    }
+}
+```
+
+And finally the controller example code:
 ```php
 <?php
 namespace Netinfluence\DemoBundle\Controller;

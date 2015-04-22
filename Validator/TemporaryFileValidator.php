@@ -3,7 +3,6 @@
 namespace Netinfluence\UploadBundle\Validator;
 
 use Netinfluence\UploadBundle\Model\TemporaryFile;
-use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Mapping\Loader\AbstractLoader;
 use Symfony\Component\Validator\ValidatorInterface;
 use Symfony\Component\Validator\Constraint;

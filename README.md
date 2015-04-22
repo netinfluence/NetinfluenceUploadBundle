@@ -15,8 +15,9 @@ Features:
  - [ ] files are served and thumbnails generated using [LiipImagineBundle](https://github.com/liip/LiipImagineBundle)
  - [x] very easily overridable and customizable, if you don"t want any of the above
  
+[![Latest Stable Version](https://poser.pugx.org/netinfluence/upload-bundle/v/stable)](https://packagist.org/packages/netinfluence/upload-bundle)
 [![Build Status](https://travis-ci.org/netinfluence/NetinfluenceUploadBundle.svg?branch=master)](https://travis-ci.org/netinfluence/NetinfluenceUploadBundle)
- 
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/38fb65d4-d690-4abf-b370-da4aaf1a4b0f/mini.png)](https://insight.sensiolabs.com/projects/38fb65d4-d690-4abf-b370-da4aaf1a4b0f)
  
 ## Getting started
 

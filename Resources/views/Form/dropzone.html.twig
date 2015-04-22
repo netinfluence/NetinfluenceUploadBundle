@@ -22,3 +22,26 @@
         </div>
     {% endspaceless %}
 {% endblock %}
+
+{% block netinfluence_upload_image_collection_row %}
+    {% spaceless %}
+        <div
+                id="ni-ub-{{ form.vars.name }}"
+                class="ni-ub"
+                {% if form.vars.max_files != 0 %}data-max-files={{ form.vars.max_files }}{% endif %}
+                data-form-name="{{ form.vars.name }}"
+                data-url="{{ path('netinfluence_upload_api_upload_image') }}"
+                >
+            {# render a standard collection #}
+            {{- block('form_widget') -}}
+
+            <div id="ni-ub-dz-{{ form.vars.name }}" class="ni-ub-dz dropzone">
+                {# Dropzone will be here! #}
+            </div>
+
+            <div id="ni-ub-error-{{ form.vars.name }}" class="ni-ub-error">
+                {# Will be filled with eventual errors #}
+            </div>
+        </div>
+    {% endspaceless %}
+{% endblock %}

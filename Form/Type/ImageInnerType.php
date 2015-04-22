@@ -46,7 +46,7 @@ class ImageInnerType extends AbstractType
 
         // We allow user to modify, typically add more fields, using a callback
         if (isset($options['extra_fields']) && is_callable($options['extra_fields'])) {
-            call_user_func($options['extra_fields'], $builder);
+            call_user_func($options['extra_fields'], $builder, $options);
         }
     }
 

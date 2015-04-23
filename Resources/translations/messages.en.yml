@@ -1,0 +1,9 @@
+dropzone:
+    dictCancelUpload: "Cancel upload"
+    dictCancelUploadConfirmation: "Are you sure you want to cancel this upload?"
+    dictDefaultMessage: "Drop files here to upload"
+    dictInvalidFileType: "You can't upload files of this type."
+    dictFileTooBig: "File is too big ({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB."
+    dictMaxFilesExceeded: "You can not upload more files than {{maxFiles}} files"
+    dictRemoveFile: "Remove file"
+    dictResponseError: "Server responded with {{statusCode}} code."

@@ -4,12 +4,18 @@ Dropzone.autoDiscover = false;
 $(function() {
     $('.ni-ub').each(function() {
         var $form = $(this);
+        var $dropzone = $form.find('.ni-ub-dz');
 
-        var dropzone = new Dropzone('#'+this.id+' > .ni-ub-dz', {
-            paramName: 'file',
-            maxFiles: $form.data('max-files'),
-            url: $form.data('url')
+        // we go read options from HTML data-* attributes
+        var options = $dropzone.data();
+
+        // But we force some
+        $.extend(options, {
+            fallback: null,
+            paramName: 'file'
         });
+
+        var dropzone = new Dropzone('#'+$dropzone.attr('id'), options);
 
         dropzone.on('removedfile', function(file) {
             // call ajax

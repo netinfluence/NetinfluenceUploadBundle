@@ -13,17 +13,10 @@
 
 {% block netinfluence_upload_image_row %}
     {% spaceless %}
-        <div
-                id="ni-ub-{{ form.vars.name }}"
-                class="ni-ub"
-                {# only simple upload for now #}
-                data-max-files=1
-                data-form-name="{{ form.vars.name }}"
-                data-url="{{ path('netinfluence_upload_api_upload_image') }}"
-                >
+        <div id="ni-ub-{{ form.vars.name }}" class="ni-ub" data-name="{{ form.vars.name }}">
             {{ block('netinfluence_upload_image_inner_row') }}
 
-            <div id="ni-ub-dz-{{ form.vars.name }}" class="ni-ub-dz dropzone">
+            <div id="ni-ub-dz-{{ form.vars.name }}" class="ni-ub-dz dropzone" {{ block('dropzone_attributes') }}>
                 {# Dropzone will be here! #}
             </div>
 
@@ -36,23 +29,11 @@
 
 {% block netinfluence_upload_image_collection_row %}
     {% spaceless %}
-        <div
-                id="ni-ub-{{ form.vars.name }}"
-                class="ni-ub"
-                {% if form.vars.max_files != 0 %}data-max-files={{ form.vars.max_files }}{% endif %}
-                data-form-name="{{ form.vars.name }}"
-                data-url="{{ path('netinfluence_upload_api_upload_image') }}"
-                >
-
-            {#
-                Render a standard collection
-                Just add a specific attribute we will hook into
-            #}
-            {#  #}
+        <div id="ni-ub-{{ form.vars.name }}" class="ni-ub" data-name="{{ form.vars.name }}">
             {%- set attr = attr|merge({'data-collection': ''}) -%}
             {{- block('collection_widget') -}}
 
-            <div id="ni-ub-dz-{{ form.vars.name }}" class="ni-ub-dz dropzone">
+            <div id="ni-ub-dz-{{ form.vars.name }}" class="ni-ub-dz dropzone" {{ block('dropzone_attributes') }}>
                 {# Dropzone will be here! #}
             </div>
 
@@ -62,3 +43,24 @@
         </div>
     {% endspaceless %}
 {% endblock %}
+
+{#
+    We pass somme options to Dropzone.js
+    Watch out jQuery .data() will convert snake-case to camelCase
+    Unfortunately basic Dropzone has no way to do this
+ #}
+{% block dropzone_attributes %}
+    data-url="{{ path('netinfluence_upload_api_upload_image') }}"
+
+    {% if form.vars.max_files != 0 %}data-max-files={{ form.vars.max_files }}{% endif %}
+
+    {# localized messages #}
+    data-dict-default-message="{{ 'dropzone.dictDefaultMessage'|trans }}"
+    data-dict-invalid-file-type="{{ 'dropzone.dictInvalidFileType'|trans }}"
+    data-dict-file-too-big="{{ 'dropzone.dictFileTooBig'|trans }}"
+    data-dict-cancel-upload="{{ 'dropzone.dictCancelUpload'|trans }}"
+    data-dict-cancel-upload-confirmation="{{ 'dropzone.dictCancelUploadConfirmation'|trans }}"
+    data-dict-max-files-exceeded="{{ 'dropzone.dictMaxFilesExceeded'|trans }}"
+    data-dict-remove-file="{{ 'dropzone.dictRemoveFile'|trans }}"
+    data-dict-response-error="{{ 'dropzone.dictResponseError'|trans }}"
+{% endblock dropzone_attributes %}

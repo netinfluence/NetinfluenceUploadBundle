@@ -2,6 +2,9 @@
 
 namespace Netinfluence\UploadBundle\Form\Type;
 
+use Symfony\Component\Form\FormView;
+use Symfony\Component\Form\FormInterface;
+
 /**
  * Class ImageType
  * The "real" form class is InnerType
@@ -15,5 +18,13 @@ class ImageType extends ImageInnerType
     public function getName()
     {
         return 'netinfluence_upload_image';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function buildView(FormView $view, FormInterface $form, array $options)
+    {
+        $view->vars['max_files'] = 1; // single image form
     }
 }

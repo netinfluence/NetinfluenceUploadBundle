@@ -36,6 +36,7 @@
         <!-- Doctrine events listener -->
         <service class="%netinfluence_upload.uploadable_listener.class%" id="netinfluence_upload.uploadable_listener">
             <argument type="service" id="netinfluence_upload.file_manager" />
+            <tag name="doctrine.event_subscriber" />
         </service>
 
         <!-- Form -->

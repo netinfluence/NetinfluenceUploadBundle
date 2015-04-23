@@ -44,7 +44,7 @@ class ImageCollectionType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->vars['max_files'] = $form->getConfig()->getAttribute('max_files');
+        $view->vars['max_files'] = $options['max_files'];
 
         $view->vars['prototype'] = $form->getConfig()->getAttribute('prototype')->createView($view);
     }

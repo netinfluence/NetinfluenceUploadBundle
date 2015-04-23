@@ -73,4 +73,20 @@ class ImageCollectionTypeTest extends TypeTestCase
         $this->assertEquals('some/path/image2.jpg', $data[1]->getPath());
         $this->assertEquals(false, $data[1]->isTemporary());
     }
+
+    public function test_it_has_max_file_option()
+    {
+        $form = $this->factory->create($this->sut);
+        $view = $form->createView();
+
+        // default value
+        $this->assertEquals(0, $view->vars['max_files']);
+
+        $form = $this->factory->create($this->sut, null, array(
+            'max_files' => 3
+        ));
+        $view = $form->createView();
+
+        $this->assertEquals(3, $view->vars['max_files']);
+    }
 }

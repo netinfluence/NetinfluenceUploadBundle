@@ -2,7 +2,7 @@
     {% spaceless %}
         <div class="ni-ub-dz-image" id="ni-ub-dz-image-{{ form.vars.name }}">
             {# just render the 2 widgets without labels nor space around #}
-            {{ form_widget(form.path, {'attr': {'data-path': ''}) }}
+            {{ form_widget(form.path, {'attr': {'data-path': ''}}) }}
             {{ form_widget(form.temporary, {'attr': {'data-temporary': ''}}) }}
 
             {# and there may be extra fields set by user #}
@@ -56,7 +56,7 @@
 
     {% if form.vars.allow_delete == true %}
         data-add-remove-links=true
-        data-remove-url="{{ path('netinfluence_upload_api_delete') }}
+        data-remove-url="{{ path('netinfluence_upload_api_delete') }}"
     {% endif %}
 
     {# localized messages #}

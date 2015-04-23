@@ -49,6 +49,6 @@ class FileListener implements  EventSubscriberInterface
             throw new \RuntimeException('An exception occurred while opening uploaded file');
         }
 
-        $this->filesystem->write($file->getTargetPath(), $file->getFile());
+        $this->filesystem->write($file->getTargetPath(), $content);
     }
 }

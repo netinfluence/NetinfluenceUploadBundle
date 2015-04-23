@@ -81,12 +81,15 @@ class ImageCollectionTypeTest extends TypeTestCase
 
         // default value
         $this->assertEquals(0, $view->vars['max_files']);
+        $this->assertEquals(true, $view->vars['allow_delete']);
 
         $form = $this->factory->create($this->sut, null, array(
+            'allow_delete' => false,
             'max_files' => 3
         ));
         $view = $form->createView();
 
         $this->assertEquals(3, $view->vars['max_files']);
+        $this->assertEquals(false, $view->vars['allow_delete']);
     }
 }

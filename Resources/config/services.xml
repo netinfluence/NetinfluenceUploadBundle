@@ -7,7 +7,7 @@
     <parameters>
         <!-- Here we list "overridable" parameters, though not part of public API. Note that some classes are not available as such -->
         <parameter key="netinfluence_upload.temporary_file_validator.class">Netinfluence\UploadBundle\Validator\TemporaryFileValidator</parameter>
-        <parameter key="netinfluence_upload.file_listener.class">Netinfluence\UploadBundle\EventListener\FileListener</parameter>
+        <parameter key="netinfluence_upload.file_listener.class">Netinfluence\UploadBundle\EventListener\TemporaryFileListener</parameter>
         <parameter key="netinfluence_upload.uploadable_listener.class">Netinfluence\UploadBundle\EventListener\UploadableListener</parameter>
         <parameter key="netinfluence_upload.file_manager.class">Netinfluence\UploadBundle\Manager\FileManager</parameter>
     </parameters>

@@ -8,4 +8,7 @@
     <route id="netinfluence_upload_api_upload_image" path="/image/upload" methods="POST">
         <default key="_controller">NetinfluenceUploadBundle:API:uploadImage</default>
     </route>
+    <route id="netinfluence_upload_api_delete" path="/image/delete" methods="GET">
+        <default key="_controller">NetinfluenceUploadBundle:API:delete</default>
+    </route>
 </routes>

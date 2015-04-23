@@ -32,7 +32,7 @@ class ImageCollectionType extends AbstractType
             self::CHILD_TYPE,
             $options['options'],
             true, // allow add
-            true, // allow delete
+            $options['allow_delete'],
             true // delete empty in SF 2.4
         );
 
@@ -45,6 +45,7 @@ class ImageCollectionType extends AbstractType
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $view->vars['max_files'] = $options['max_files'];
+        $view->vars['allow_delete'] = $options['allow_delete'];
 
         $view->vars['prototype'] = $form->getConfig()->getAttribute('prototype')->createView($view);
     }
@@ -55,6 +56,7 @@ class ImageCollectionType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
+            'allow_delete' => true,
             'max_files' => 0,
             'options'   => array()
         ));

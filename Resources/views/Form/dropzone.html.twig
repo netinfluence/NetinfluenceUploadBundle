@@ -1,6 +1,6 @@
 {% block netinfluence_upload_image_inner_row %}
     {% spaceless %}
-        <div class="ni-ub-dz-image-{{ form.vars.name }}">
+        <div class="ni-ub-dz-image" id="ni-ub-dz-image-{{ form.vars.name }}">
             {# just render the 2 widgets without labels nor space around #}
             {{ form_widget(form.path, {'attr': {'data-path': ''}) }}
             {{ form_widget(form.temporary, {'attr': {'data-temporary': ''}}) }}
@@ -53,6 +53,11 @@
     data-url="{{ path('netinfluence_upload_api_upload_image') }}"
 
     {% if form.vars.max_files != 0 %}data-max-files={{ form.vars.max_files }}{% endif %}
+
+    {% if form.vars.allow_delete == true %}
+        data-add-remove-links=true
+        data-remove-url="{{ path('netinfluence_upload_api_delete') }}
+    {% endif %}
 
     {# localized messages #}
     data-dict-default-message="{{ 'dropzone.dictDefaultMessage'|trans }}"

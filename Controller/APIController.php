@@ -4,6 +4,7 @@ namespace Netinfluence\UploadBundle\Controller;
 
 use Netinfluence\UploadBundle\Event\Events;
 use Netinfluence\UploadBundle\Event\TemporaryFileEvent;
+use Netinfluence\UploadBundle\Event\TemporaryFileDeletedEvent;
 use Netinfluence\UploadBundle\Model\TemporaryFile;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcher;
@@ -17,6 +18,12 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
  */
 class APIController extends Controller
 {
+    /**
+     * Upload a new image to sandbox
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function uploadImageAction(Request $request)
     {
         /** @var UploadedFile $uploadedFile */
@@ -55,6 +62,27 @@ class APIController extends Controller
             'path'      => $file->getTargetPath(),
             'temporary' => true
         ));
+    }
+
+    /**
+     * Delete a temporary file from sandbox - and only sandbox
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function deleteAction(Request $request)
+    {
+        $path = $request->query->get('path');
+
+        try {
+            $this->get('event_dispatcher')->dispatch(Events::FILE_DELETED_EVENT, new TemporaryFileDeletedEvent($path));
+        } catch (\Exception $e) {
+            return new JsonResponse(array(
+                'errors'    => $e->getMessage()
+            ), 400);
+        }
+
+        return new JsonResponse();
     }
 
     /**

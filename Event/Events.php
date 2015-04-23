@@ -27,4 +27,15 @@ final class Events
      * @var string
      */
     const FILE_VALIDATED_EVENT = 'netinfluence_quicker_upload.file_validated';
+
+    /**
+     * Event that occurs after a temporary file is deleted
+     * Most importantly it will trigger its deletion from sandbox
+     * Note that it is not raised when a file already put in final storage was deleted
+     *
+     * The event listener receives a Netinfluence\UploadBundle\Event\TemporaryFileDeletedEvent
+     *
+     * @var string
+     */
+    const FILE_DELETED_EVENT = 'netinfluence_upload.file_deleted';
 }

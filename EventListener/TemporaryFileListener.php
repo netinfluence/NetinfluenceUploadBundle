@@ -4,14 +4,15 @@ namespace Netinfluence\UploadBundle\EventListener;
 
 use Gaufrette\Filesystem;
 use Netinfluence\UploadBundle\Event\Events;
+use Netinfluence\UploadBundle\Event\TemporaryFileDeletedEvent;
 use Netinfluence\UploadBundle\Event\TemporaryFileEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Class FileListener
+ * Class TemporaryFileListener
  * Get file-related events
  */
-class FileListener implements  EventSubscriberInterface
+class TemporaryFileListener implements  EventSubscriberInterface
 {
     /**
      * @var Filesystem the storage for temporary files
@@ -24,7 +25,8 @@ class FileListener implements  EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            Events::FILE_VALIDATED_EVENT => array('onFileValidated', 50)
+            Events::FILE_VALIDATED_EVENT => array('onFileValidated', 50),
+            Events::FILE_DELETED_EVENT => array('onFileDeleted', 50)
         );
     }
 
@@ -50,5 +52,22 @@ class FileListener implements  EventSubscriberInterface
         }
 
         $this->filesystem->write($file->getTargetPath(), $content);
+    }
+
+    /**
+     * Delete a file
+     *
+     * @param TemporaryFileDeletedEvent $event
+     * @throws \Exception
+     */
+    public function onFileDeleted(TemporaryFileDeletedEvent $event)
+    {
+        $path = $event->getPath();
+
+        if (! $path) {
+            throw new \RuntimeException('An invalid path was provided');
+        }
+
+        $this->filesystem->delete($path);
     }
 }

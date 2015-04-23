@@ -33,17 +33,16 @@ $(function() {
         });
 
         /*
-            Some handling is different depending whether under we have a single file
-            or a collection
+         Some handling is different depending whether under we have a single file
+         or a collection
          */
 
-        var isCollection = ($form.find('[data-collection]') !== []);
+        var $collection = $form.find('[data-collection]');
         var successHandler;
         var removeHandler;
 
-        if (isCollection) {
+        if ($collection) {
             successHandler = function(file, response) {
-                var $collection = $form.find('[data-collection]');
                 var prototype = $collection.data('prototype');
                 var number = $collection.length;
                 var newChild = prototype.replace(/__name__/g, number);
@@ -107,5 +106,34 @@ $(function() {
 
         dropzone.on('success', successHandler);
         dropzone.on('removedfile', removeHandler);
+
+        /*
+         Dropzone.js provides no way to handle already uploaded files
+         but manually!
+         */
+
+        var addExistingFile = function(path, thumbnailUrl) {
+            var mockFile = {
+                name: 'file',
+                size: 0,
+                ub: {
+                    path: path,
+                    temporary: false // they were already persisted
+                }
+            };
+
+            dropzone.emit('addedfile', mockFile);
+
+            dropzone.emit('thumbnail', mockFile, thumbnailUrl);
+
+            dropzone.emit('complete', mockFile);
+
+            // And we even have to update that one
+            dropzone.options.maxFiles = dropzone.options.maxFiles--;
+        };
+
+        $form.find('.ni-ub-dz-image').each(function() {
+            addExistingFile($(this).find('input[data-path]').val(), '');
+        });
     });
 });

@@ -25,8 +25,8 @@ class TemporaryFileListener implements  EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            Events::FILE_VALIDATED_EVENT => array('onFileValidated', 50),
-            Events::FILE_DELETED_EVENT => array('onFileDeleted', 50)
+            Events::TEMPORARY_FILE_VALIDATED_EVENT => array('onFileValidated', 50),
+            Events::TEMPORARY_FILE_DELETED_EVENT => array('onFileDeleted', 50)
         );
     }
 

@@ -16,7 +16,7 @@ final class Events
      *
      * @var string
      */
-    const FILE_RECEIVED_EVENT = 'netinfluence_quicker_upload.file_received';
+    const TEMPORARY_FILE_RECEIVED_EVENT = 'netinfluence_upload.temporary_file_received';
 
     /**
      * Event that occurs after a file is successfully validated
@@ -26,7 +26,7 @@ final class Events
      *
      * @var string
      */
-    const FILE_VALIDATED_EVENT = 'netinfluence_quicker_upload.file_validated';
+    const TEMPORARY_FILE_VALIDATED_EVENT = 'netinfluence_upload.temporary_file_validated';
 
     /**
      * Event that occurs after a temporary file is deleted
@@ -37,5 +37,5 @@ final class Events
      *
      * @var string
      */
-    const FILE_DELETED_EVENT = 'netinfluence_upload.file_deleted';
+    const TEMPORARY_FILE_DELETED_EVENT = 'netinfluence_upload.temporary_file_deleted';
 }

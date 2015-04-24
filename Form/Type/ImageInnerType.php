@@ -62,8 +62,10 @@ class ImageInnerType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => self::DEFAULT_DATA_CLASS,
-            'required'  => false
+            'data_class'    => self::DEFAULT_DATA_CLASS,
+            'required'      => false,
+            'thumbnail_height' => 120,
+            'thumbnail_width' => 120
         ));
 
         $dataClass = self::DEFAULT_DATA_CLASS;
@@ -92,11 +94,16 @@ class ImageInnerType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        // If there is already persisted data behing this form, we must have a server-generated thumbnail
+        // If there is already persisted data behind this form, we must have a server-generated thumbnail
         $data = $form->getData();
         if ($data && $data->getPath() && true !== $data->isTemporary()) {
-            $view->vars['thumbnail_url'] = $this->thumbnailGenerator->getUrl($data);
+            $view->vars['thumbnail_url'] = $this->thumbnailGenerator->getUrl($data, array(
+                $options['thumbnail_width'], $options['thumbnail_height']
+            ));
         }
+
+        $view->vars['thumbnail_height'] = $options['thumbnail_height'];
+        $view->vars['thumbnail_width'] = $options['thumbnail_width'];
     }
 
     /**

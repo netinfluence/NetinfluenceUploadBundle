@@ -11,7 +11,8 @@ interface ThumbnailGeneratorInterface
 {
     /**
      * @param UploadableInterface $file
+     * @param array $size [ width, height ]
      * @return string URL or browser path
      */
-    public function getUrl(UploadableInterface $file);
+    public function getUrl(UploadableInterface $file, array $size);
 }

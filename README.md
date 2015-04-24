@@ -72,12 +72,12 @@ _liip_imagine:
 
 You have to set up where files are stored. This bundle relies on Gaufrette filesystems abstractions. In doubt refer to its [documentation](https://github.com/KnpLabs/KnpGaufretteBundle)  
 
-You need 2 differents filesystems:
+You need 2 different filesystems:
 
- * `sandbox` will be used for temorary files - ie. files corresponding to uploads on forms not yet validated. Typically this is a local folder, as data is removed after being uploaded to final filesystem, only limited space is required.
+ * `sandbox` will be used for temporary files - ie. files corresponding to uploads on forms not yet validated. Typically this is a local folder, as data is removed after being uploaded to final filesystem, only limited space is required.
  * `final` is the ultimate files destination. You could be using another folder, or Amazon S3...
 
-You need to provide UploadBundle ID of valids `filesystem`. 
+You need to provide UploadBundle ID of valid `filesystem`. 
 Note that those ID are generated in the form `gaufrette.ADAPTER_NAME_filesystem`.
 
 Last thing, you need to configure LiipImagine bundle.
@@ -145,6 +145,8 @@ class MyController extends Controller
     }
 }
 ```
+
+*Of course you could also be using a Form class. Here we stick to a simple inline form example.* 
 
 On your form page, include provided JS and CSS:
 ```jinja
@@ -518,6 +520,34 @@ services:
         class: Netinfluence\DemoBundle\EventListener\UploadFilter
         tags:
             - { name: kernel.event_subscriber }
+```
+
+## Changing thumbnails size
+
+Because changing images thumbnails size has a lot of consequences (most notably changing Imagine `ni_ub_thumbnail` filter), it must be done through form options:
+```php
+<?php
+namespace Netinfluence\DemoBundle\Controller;
+
+// ...
+
+class MyController extends Controller
+{
+    public function formAction(Request $request)
+    {
+        // ...
+
+        $form = $this->createFormBuilder()
+            ->add('photo', 'netinfluence_upload_image_collection', array(
+                'thumbnail_height' => 120, // default value
+                'thumbnail_width' => 120 // default value
+            ))
+            ->getForm()
+        ;
+             
+        // ...
+    }
+}
 ```
 
 ## Configuration reference

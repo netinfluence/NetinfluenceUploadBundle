@@ -22,8 +22,8 @@ class ImageInnerTypeTest extends TypeTestCase
     {
         parent::setUp();
 
-        $thumbnailGenerator = \Phake::mock('Netinfluence\UploadBundle\Generator\ThumbnailGenerator');
-        \Phake::when($thumbnailGenerator)->getUrl($this->anything())->thenReturn('url/thumbnail.jpg');
+        $thumbnailGenerator = \Phake::mock('Netinfluence\UploadBundle\Generator\ThumbnailGeneratorInterface');
+        \Phake::when($thumbnailGenerator)->getUrl($this->anything(), array(120, 90))->thenReturn('url/thumbnail.jpg');
 
         $this->sut = new ImageInnerType($thumbnailGenerator);
     }
@@ -101,10 +101,17 @@ class ImageInnerTypeTest extends TypeTestCase
         $file = new FormFile();
         $file->setPath('url/img.jpg');
 
-        $form = $this->factory->create($this->sut, $file);
+        $form = $this->factory->create($this->sut, $file, array(
+            'thumbnail_height' => 90,
+            'thumbnail_width'  => 120,
+        ));
 
         $view = $form->createView();
 
         $this->assertEquals('url/thumbnail.jpg', $view->vars['thumbnail_url']);
+
+        // those should also be displayed in the view
+        $this->assertEquals(90, $view->vars['thumbnail_height']);
+        $this->assertEquals(120, $view->vars['thumbnail_width']);
     }
 }

@@ -24,12 +24,12 @@ class LiipImagineGenerator implements ThumbnailGeneratorInterface
     /**
      * {@inheritdoc}
      */
-    public function getUrl(UploadableInterface $file)
+    public function getUrl(UploadableInterface $file, array $size)
     {
         return $this->cacheManager->getBrowserPath($file->getPath(), 'ni_ub_thumbnail', array(
             'thumbnail' => array(
                 'mode'  => 'outbound',
-                'size'  => array(120, 120)
+                'size'  => $size
             )
         ));
     }

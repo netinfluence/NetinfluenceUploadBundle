@@ -35,7 +35,7 @@ class ImageCollectionTypeTest extends TypeTestCase
      */
     protected function getExtensions()
     {
-        $thumbnailGenerator = \Phake::mock('Netinfluence\UploadBundle\Generator\ThumbnailGenerator');
+        $thumbnailGenerator = \Phake::mock('Netinfluence\UploadBundle\Generator\ThumbnailGeneratorInterface');
 
         $imageType = new ImageInnerType($thumbnailGenerator);
 

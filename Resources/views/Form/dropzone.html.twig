@@ -64,6 +64,9 @@
         data-remove-url="{{ path('netinfluence_upload_api_delete') }}"
     {% endif %}
 
+    data-thumbnail-height="{{ form.vars.thumbail_height }}"
+    data-thumbnail-width="{{ form.vars.thumbail_width }}"
+
     {# localized messages #}
     data-dict-default-message="{{ 'dropzone.dictDefaultMessage'|trans }}"
     data-dict-invalid-file-type="{{ 'dropzone.dictInvalidFileType'|trans }}"
@@ -80,13 +83,14 @@
 
 {#
     The template used by Dropzone for HTMl elements
-    Modified to remvoe filename and size, we don't use and want to botehr with
+    See comments inside for the few modifications made
 #}
 {% block dropzone_preview_template %}
     <div class="dz-preview dz-file-preview">
-        <div class="dz-image"><img data-dz-thumbnail /></div>
+        {# we set the thumbnail height & with from options - we want to set those per instance#}
+        <div class="dz-image" style="height: {{ form.vars.thumbnail_height }}px; width: {{ form.vars.thumbnail_width }}px;"><img data-dz-thumbnail /></div>
         <div class="dz-details">
-            {# removed filename and size #}
+            {# removed filename and size - we don't need neither want to bother with those #}
         </div>
         <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
         <div class="dz-error-message"><span data-dz-errormessage></span></div>

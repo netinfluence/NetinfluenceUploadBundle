@@ -35,4 +35,18 @@ class ImageTypeTest extends TypeTestCase
 
         $this->assertEquals(1, $view->vars['max_files']);
     }
+
+    public function test_it_sets_thumbnail_size()
+    {
+        $form = $this->factory->create($this->sut, null, array(
+            'thumbnail_height' => 90,
+            'thumbnail_width'  => 120,
+        ));
+
+        $view = $form->createView();
+
+        // those should also be displayed in the view
+        $this->assertEquals(90, $view->vars['thumbnail_height']);
+        $this->assertEquals(120, $view->vars['thumbnail_width']);
+    }
 }

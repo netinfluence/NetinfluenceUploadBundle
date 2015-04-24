@@ -22,15 +22,21 @@ class ImageCollectionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        //We will pass our children some of our options
+        $childrenOptions = array_merge(array(
+            'thumbnail_height' => $options['thumbnail_height'],
+            'thumbnail_width'  => $options['thumbnail_width'],
+        ), $options['options']);
+
         // We need a prototype
         $prototype = $builder->create(self::PROTOTYPE_NAME, self::CHILD_TYPE, array_replace(array(
             'label' => self::PROTOTYPE_NAME.'label__',
-        ), $options['options']));
+        ), $childrenOptions));
         $builder->setAttribute('prototype', $prototype->getForm());
 
         $resizeListener = new ResizeFormListener(
             self::CHILD_TYPE,
-            $options['options'],
+            $childrenOptions,
             true, // allow add
             $options['allow_delete'],
             true // delete empty in SF 2.4
@@ -46,6 +52,8 @@ class ImageCollectionType extends AbstractType
     {
         $view->vars['max_files'] = $options['max_files'];
         $view->vars['allow_delete'] = $options['allow_delete'];
+
+        // those will be used by children form too
         $view->vars['thumbnail_height'] = $options['thumbnail_height'];
         $view->vars['thumbnail_width'] = $options['thumbnail_width'];
 

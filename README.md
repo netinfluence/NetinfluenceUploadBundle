@@ -11,7 +11,7 @@ Features:
  - [x] files are uploaded to any storage of your choice (local filesystem, Amazon...) using [Gaufrette](https://github.com/KnpLabs/KnpGaufretteBundle)
  - [x] files are stored in a sandbox first
  - [x] integrates with Doctrine ORM: files are moved to sandbox upon entity save
- - [ ] when coming back to the form, files can be removed
+ - [x] when coming back to the form, files can be removed
  - [x] internationalized in English and French, you can easily add more
  - [x] very easily overridable and customizable, if you don"t want any of the above
  

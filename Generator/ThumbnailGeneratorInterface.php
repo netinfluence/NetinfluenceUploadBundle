@@ -5,9 +5,9 @@ namespace Netinfluence\UploadBundle\Generator;
 use Netinfluence\UploadBundle\Model\UploadableInterface;
 
 /**
- * Interface ThumbnailGenerator
+ * Interface ThumbnailGeneratorInterface
  */
-interface ThumbnailGenerator
+interface ThumbnailGeneratorInterface
 {
     /**
      * @param UploadableInterface $file

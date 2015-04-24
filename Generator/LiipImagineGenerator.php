@@ -9,7 +9,7 @@ use Netinfluence\UploadBundle\Model\UploadableInterface;
  * Class LiipImagineGenerator
  * Generate thumbnails using LiipImagine bundle
  */
-class LiipImagineGenerator implements ThumbnailGenerator
+class LiipImagineGenerator implements ThumbnailGeneratorInterface
 {
     /**
      * @var CacheManager

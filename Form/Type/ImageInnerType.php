@@ -3,7 +3,7 @@
 namespace Netinfluence\UploadBundle\Form\Type;
 
 use Netinfluence\UploadBundle\Form\DataTransformer\BooleanToHiddenTransformer;
-use Netinfluence\UploadBundle\Generator\ThumbnailGenerator;
+use Netinfluence\UploadBundle\Generator\ThumbnailGeneratorInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,11 +23,11 @@ class ImageInnerType extends AbstractType
     const DATA_CLASS_REQUIRED_INTERFACE = 'Netinfluence\UploadBundle\Model\UploadableInterface';
 
     /**
-     * @var ThumbnailGenerator
+     * @var ThumbnailGeneratorInterface
      */
     protected $thumbnailGenerator;
 
-    public function __construct(ThumbnailGenerator $thumbnailGenerator)
+    public function __construct(ThumbnailGeneratorInterface $thumbnailGenerator)
     {
         $this->thumbnailGenerator = $thumbnailGenerator;
     }

@@ -62,8 +62,6 @@ $(function() {
             };
 
             removeHandler = function(file) {
-                console.log(file);
-
                 // Temporary files must be removed from server sandbox
                 if (file.ub.temporary) {
                     $.ajax(options.removeUrl, {

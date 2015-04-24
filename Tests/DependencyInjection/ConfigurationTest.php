@@ -35,7 +35,8 @@ class ConfigurationTest extends AbstractConfigurationTestCase
                     'filesystems' => array(
                         'sandbox'   => 'someId',
                         'final'     => 'anotherId'
-                    )
+                    ),
+                    'validation' => array()
                 )
             )
         );
@@ -50,7 +51,12 @@ class ConfigurationTest extends AbstractConfigurationTestCase
                         'sandbox'   => 'someId',
                         'final'     => 'anotherId'
                     ),
-                    'validation' => array()
+                    'validation' => array(
+                        'image' => array(
+                            'NotNull' => null,
+                            'File'  => array()
+                        )
+                    )
                 )
             )
         );
@@ -70,5 +76,69 @@ class ConfigurationTest extends AbstractConfigurationTestCase
                 )
             )
         );
+    }
+
+    public function test_it_has_default_values()
+    {
+        $this->assertProcessedConfigurationEquals(array(
+            array(
+                'filesystems'   => array(
+                    'sandbox'   => 'someId',
+                    'final'     => 'anotherId'
+                ),
+                'validation' => array()
+            )
+        ), array(
+            'filesystems'   => array(
+                'sandbox'   => 'someId',
+                'final'     => 'anotherId'
+            ),
+            'overwrite'     => true,
+            'validation'    => array(
+                'image'     => array(
+                    'NotNull'   => array(),
+                    'Image' => array(
+                        'maxSize' => '10M',
+                        'mimeTypes' => array('image/gif', 'image/jpg', 'image/jpeg', 'image/png', 'image/bmp', 'image/x-windows-bmp')
+                    )
+                )
+            )
+        ));
+    }
+
+    public function test_it_merges_validation_values()
+    {
+        $this->assertProcessedConfigurationEquals(array(
+            array(
+                'filesystems'   => array(
+                    'sandbox'   => 'someId',
+                    'final'     => 'anotherId'
+                ),
+                'validation'    => array(
+                    'image'     => array(
+                        'NotNull'   => array(),
+                        'Image' => array(
+                            'maxSize' => '5M',
+                            'minHeight' => 1024
+                        )
+                    )
+                )
+            )
+        ), array(
+            'filesystems'   => array(
+                'sandbox'   => 'someId',
+                'final'     => 'anotherId'
+            ),
+            'overwrite'     => true,
+            'validation'    => array(
+                'image'     => array(
+                    'NotNull'   => array(),
+                    'Image' => array(
+                        'maxSize' => '5M',
+                        'minHeight' => 1024
+                    )
+                )
+            )
+        ));
     }
 }

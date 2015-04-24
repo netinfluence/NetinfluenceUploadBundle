@@ -106,6 +106,7 @@ netinfluence_upload:
     filesystems:
         sandbox: gaufrette.sandbox_filesystem
         final: gaufrette.storage_filesystem
+    validation: ~ # mandatory node
 
 # Using default LiipImagine bundle config
 liip_imagine:
@@ -557,6 +558,7 @@ netinfluence_upload:
         # Validations rules applied to uploaded images
         image:
             # here you can use any Symfony2 constraint or custom one
+            # Watch out, anything set here will override all default values so you may want to recopy those
             NotNull: ~
             Image:
                 maxSize: 10M

@@ -5,6 +5,11 @@
             {{ form_widget(form.path, {'attr': {'data-path': ''}}) }}
             {{ form_widget(form.temporary, {'attr': {'data-temporary': ''}}) }}
 
+            {# we put the server-generated thumbnail URL if there is one #}
+            {% if form.vars.thumbnail_url is defined %}
+                <span data-thumbnail data-url="{{ form.vars.thumbnail_url }}"></span>
+            {% endif %}
+
             {# and there may be extra fields set by user #}
             {{ form_rest(form) }}
         </div>

@@ -3,9 +3,12 @@
 namespace Netinfluence\UploadBundle\Form\Type;
 
 use Netinfluence\UploadBundle\Form\DataTransformer\BooleanToHiddenTransformer;
+use Netinfluence\UploadBundle\Generator\ThumbnailGenerator;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormView;
+use Symfony\Component\Form\FormInterface;
 
 /**
  * Class ImageInnerType
@@ -18,6 +21,16 @@ class ImageInnerType extends AbstractType
      */
     const DEFAULT_DATA_CLASS = 'Netinfluence\UploadBundle\Model\FormFile';
     const DATA_CLASS_REQUIRED_INTERFACE = 'Netinfluence\UploadBundle\Model\UploadableInterface';
+
+    /**
+     * @var ThumbnailGenerator
+     */
+    protected $thumbnailGenerator;
+
+    public function __construct(ThumbnailGenerator $thumbnailGenerator)
+    {
+        $this->thumbnailGenerator = $thumbnailGenerator;
+    }
 
     /**
      * @inheritdoc
@@ -72,6 +85,18 @@ class ImageInnerType extends AbstractType
         ));
 
         $resolver->setOptional(array('extra_fields'));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function buildView(FormView $view, FormInterface $form, array $options)
+    {
+        // If there is already persisted data behing this form, we must have a server-generated thumbnail
+        $data = $form->getData();
+        if ($data && $data->getPath() && true !== $data->isTemporary()) {
+            $view->vars['thumbnail_url'] = $this->thumbnailGenerator->getUrl($data);
+        }
     }
 
     /**

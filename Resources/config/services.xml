@@ -10,6 +10,7 @@
         <parameter key="netinfluence_upload.file_listener.class">Netinfluence\UploadBundle\EventListener\TemporaryFileListener</parameter>
         <parameter key="netinfluence_upload.uploadable_listener.class">Netinfluence\UploadBundle\EventListener\UploadableListener</parameter>
         <parameter key="netinfluence_upload.file_manager.class">Netinfluence\UploadBundle\Manager\FileManager</parameter>
+        <parameter key="netinfluence_upload.thumbnail_generator.class">Netinfluence\UploadBundle\Generator\LiipImagineGenerator</parameter>
     </parameters>
 
     <services>
@@ -39,6 +40,11 @@
             <tag name="doctrine.event_subscriber" />
         </service>
 
+        <!-- Thumbnails generator -->
+        <service class="%netinfluence_upload.thumbnail_generator.class%" id="netinfluence_upload.thumbnail_generator">
+            <argument type="service" id="liip_imagine.cache.manager" />
+        </service>
+
         <!-- Form -->
         <service id="netinfluence_upload.form.type.image" class="Netinfluence\UploadBundle\Form\Type\ImageType">
             <tag name="form.type" alias="netinfluence_upload_image" />
@@ -47,6 +53,7 @@
             <tag name="form.type" alias="netinfluence_upload_image_collection" />
         </service>
         <service id="netinfluence_upload.form.type.image_inner" class="Netinfluence\UploadBundle\Form\Type\ImageInnerType">
+            <argument type="service" id="netinfluence_upload.thumbnail_generator" />
             <tag name="form.type" alias="netinfluence_upload_image_inner" />
         </service>
     </services>

@@ -25,6 +25,8 @@ class ImageType extends ImageInnerType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
+        parent::buildView($view, $form, $options);
+
         $view->vars['max_files'] = 1; // single image form
     }
 }

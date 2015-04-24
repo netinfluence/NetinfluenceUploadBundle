@@ -12,6 +12,7 @@ Features:
  - [x] files are stored in a sandbox first
  - [x] integrates with Doctrine ORM: files are moved to sandbox upon entity save
  - [x] when coming back to the form, files can be removed
+ - [x] when needed, thumbnails are generated using [LiipImagineBundle](https://github.com/liip/LiipImagineBundle)
  - [x] internationalized in English and French, you can easily add more
  - [x] very easily overridable and customizable, if you don"t want any of the above
  
@@ -48,6 +49,7 @@ class AppKernel extends Kernel
             
             new Netinfluence\UploadBundle\NetinfluenceUploadBundle(),
             new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
+            new Liip\ImagineBundle\LiipImagineBundle(),
         );
 
         // ...
@@ -61,6 +63,9 @@ Also import its routing file, edit `app/config/routing.yml`:
 # ...
 netinfluence_upload:
     resource: "@NetinfluenceUploadBundle/Resources/config/routing.xml"
+    
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.xml"
 ```
 
 ### Setting Gaufrette filesystems
@@ -75,9 +80,14 @@ You need 2 differents filesystems:
 You need to provide UploadBundle ID of valids `filesystem`. 
 Note that those ID are generated in the form `gaufrette.ADAPTER_NAME_filesystem`.
 
+Last thing, you need to configure LiipImagine bundle.
+In our example, we use their default configuration, which is compatible with having images files stored in `web/` and cache thumbnails will be stored in `web/media/cache`.
+Otherwise, for instance for using Amazon S3, make sure to check their [documentation](http://symfony.com/doc/master/bundles/LiipImagineBundle/index.html).
+
 Here is a full working example:
 ```yml
 # app/config/config.yml
+# Setting up storage options
 knp_gaufrette:
     adapters:
         temporary_folder:
@@ -96,11 +106,15 @@ knp_gaufrette:
             adapter:    temporary_folder
         storage:
             adapter:    storage_folder
-            
+   
+# Passing those to our bundle
 netinfluence_upload:
     filesystems:
         sandbox: gaufrette.sandbox_filesystem
         final: gaufrette.storage_filesystem
+
+# Using default LiipImagine bundle config
+liip_imagine: ~
 ```
 
 ### Getting started

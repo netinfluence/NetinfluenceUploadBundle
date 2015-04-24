@@ -20,27 +20,13 @@ class ImageTypeTest extends TypeTestCase
     {
         parent::setUp();
 
-        $this->sut = new ImageType();
+        $thumbnailGenerator = \Phake::mock('Netinfluence\UploadBundle\Generator\ThumbnailGenerator');
+        $this->sut = new ImageType($thumbnailGenerator);
     }
 
     public function tearDown()
     {
         $this->sut = null;
-    }
-
-    /**
-     * We have to register our other type
-     * @return array
-     */
-    protected function getExtensions()
-    {
-        $imageType = new ImageType();
-
-        return array(
-            new PreloadedExtension(array(
-                $imageType->getName() => $imageType
-            ), array())
-        );
     }
 
     public function test_it_has_1_max_file()

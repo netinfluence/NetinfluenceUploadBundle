@@ -4,6 +4,7 @@ namespace Netinfluence\UploadBundle\Tests\Form\Type;
 
 use Netinfluence\UploadBundle\Form\Type\ImageInnerType;
 use Netinfluence\UploadBundle\Form\Type\ImageType;
+use Netinfluence\UploadBundle\Model\FormFile;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -21,7 +22,10 @@ class ImageInnerTypeTest extends TypeTestCase
     {
         parent::setUp();
 
-        $this->sut = new ImageInnerType();
+        $thumbnailGenerator = \Phake::mock('Netinfluence\UploadBundle\Generator\ThumbnailGenerator');
+        \Phake::when($thumbnailGenerator)->getUrl($this->anything())->thenReturn('url/thumbnail.jpg');
+
+        $this->sut = new ImageInnerType($thumbnailGenerator);
     }
 
     public function tearDown()
@@ -90,5 +94,17 @@ class ImageInnerTypeTest extends TypeTestCase
         $this->assertEquals('Netinfluence\UploadBundle\Model\FormFile', get_class($data));
         $this->assertEquals('some/path/image.jpg', $data->getPath());
         $this->assertEquals(false, $data->isTemporary());
+    }
+
+    public function test_it_generates_thumbnail_url()
+    {
+        $file = new FormFile();
+        $file->setPath('url/img.jpg');
+
+        $form = $this->factory->create($this->sut, $file);
+
+        $view = $form->createView();
+
+        $this->assertEquals('url/thumbnail.jpg', $view->vars['thumbnail_url']);
     }
 }

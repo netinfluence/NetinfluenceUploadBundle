@@ -114,11 +114,12 @@ $(function() {
 
         var addExistingFile = function(path, thumbnailUrl) {
             var mockFile = {
-                name: 'file',
-                size: 0,
+                name: 'file', // needed by Dropzone though unused in UI
+                size: 0, // needed by Dropzone though unused in UI
                 ub: {
                     path: path,
-                    temporary: false // they were already persisted
+                    temporary: false, // they were already persisted
+                    thumbnailUrl: thumbnailUrl
                 }
             };
 
@@ -133,7 +134,9 @@ $(function() {
         };
 
         $form.find('.ni-ub-dz-image').each(function() {
-            addExistingFile($(this).find('input[data-path]').val(), '');
+            var $this = $(this);
+
+            addExistingFile($this.find('input[data-path]').val(), $this.find('span[data-thumbnail]').data('url'));
         });
     });
 });

@@ -46,6 +46,8 @@ class ImageCollectionType extends AbstractType
     {
         $view->vars['max_files'] = $options['max_files'];
         $view->vars['allow_delete'] = $options['allow_delete'];
+        $view->vars['thumbnail_height'] = $options['thumbnail_height'];
+        $view->vars['thumbnail_width'] = $options['thumbnail_width'];
 
         $view->vars['prototype'] = $form->getConfig()->getAttribute('prototype')->createView($view);
     }
@@ -58,7 +60,9 @@ class ImageCollectionType extends AbstractType
         $resolver->setDefaults(array(
             'allow_delete' => true,
             'max_files' => 0,
-            'options'   => array()
+            'options'   => array(),
+            'thumbnail_height' => 120,
+            'thumbnail_width' => 120
         ));
     }
 

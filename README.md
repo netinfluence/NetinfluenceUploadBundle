@@ -486,7 +486,7 @@ class UploadFilter implements EventSubscriberInterface
     {
         return [
             // We are called BEFORE the temporary file is stored
-            Events::FILE_VALIDATED_EVENT => ['onFileValidated', 100]
+            Events::TEMPORARY_FILE_VALIDATED_EVENT => ['onFileValidated', 100]
         ];
     }
 

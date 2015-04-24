@@ -4,27 +4,21 @@ User and developer friendly file upload.
 
 Features:
 
- - [x] a nice AJAX-powered async upload powered by [DropzoneJS](http://www.dropzonejs.com/)
- - [x] **totally integrated with Symfony2 forms** and transparent to use!
- - [x] of course files are properly validated
- - [x] multiple files upload too
- - [x] files are uploaded to any storage of your choice (local filesystem, Amazon...) using [Gaufrette](https://github.com/KnpLabs/KnpGaufretteBundle)
- - [x] files are stored in a sandbox first
- - [x] integrates with Doctrine ORM: files are moved to sandbox upon entity save
- - [x] when coming back to the form, files can be removed
- - [x] when needed, thumbnails are generated using [LiipImagineBundle](https://github.com/liip/LiipImagineBundle)
- - [x] internationalized in English and French, you can easily add more
- - [x] very easily overridable and customizable, if you don"t want any of the above
+ * a nice AJAX-powered async upload powered by [DropzoneJS](http://www.dropzonejs.com/)
+ * **totally integrated with Symfony2 forms** and transparent to use!
+ * of course files are properly validated
+ * multiple files upload too
+ * files are uploaded to any storage of your choice (local filesystem, Amazon...) using [Gaufrette](https://github.com/KnpLabs/KnpGaufretteBundle)
+ * files are stored in a sandbox first
+ * integrates with Doctrine ORM: files are moved from sandbox upon entity save
+ * when coming back to the form, files can be removed
+ * when needed, thumbnails are generated using [LiipImagineBundle](https://github.com/liip/LiipImagineBundle)
+ * internationalized in English and French, you can easily add more
+ * very easily overridable and customizable, if you don"t want any of the above
  
 [![Latest Stable Version](https://poser.pugx.org/netinfluence/upload-bundle/v/stable)](https://packagist.org/packages/netinfluence/upload-bundle)
 [![Build Status](https://travis-ci.org/netinfluence/NetinfluenceUploadBundle.svg?branch=master)](https://travis-ci.org/netinfluence/NetinfluenceUploadBundle)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/38fb65d4-d690-4abf-b370-da4aaf1a4b0f/mini.png)](https://insight.sensiolabs.com/projects/38fb65d4-d690-4abf-b370-da4aaf1a4b0f)
- 
-## Changelog
-
- * **0.8**: current version. Battle tested though not (interface) stable.
- * 0.9: soon to be released, finishing the initial set of features.
- * 1.0: will add multi-instance capabilities, change of config regarding validation rules
  
 ## Getting started
 

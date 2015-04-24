@@ -67,6 +67,10 @@ class Configuration implements ConfigurationInterface
                     ->end()
                     ->isRequired()
                 ->end()
+                ->booleanNode('overwrite')
+                    ->info('Whether to overwrite or not files in Final filesystem. True is advised, as you may have files sent twice.')
+                    ->defaultValue(true)
+                ->end()
             ->end()
         ;
 

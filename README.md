@@ -554,13 +554,15 @@ netinfluence_upload:
         sandbox: # you should provide here a valid Gaufrette filesystem ID
         final: # you should provide here a valid Gaufrette filesystem ID too
     validation:
-        # validations rules applied to uploaded images
+        # Validations rules applied to uploaded images
         image:
             # here you can use any Symfony2 constraint or custom one
             NotNull: ~
             Image:
                 maxSize: 10M
                 mimeTypes: ['image/gif', 'image/jpg', 'image/jpeg', 'image/png', 'image/bmp', 'image/x-windows-bmp']
+    # Whether to overwrite or not files in Final filesystem. True is advised, as you may have files sent twice.
+    overwrite: true
 ```
  
 ## Internals: File upload workflow

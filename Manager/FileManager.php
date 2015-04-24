@@ -25,10 +25,21 @@ class FileManager
      */
     private $targetFilesystem;
 
-    public function __construct(Filesystem $sandboxFilesystem, Filesystem $targetFilesystem)
+    /**
+     * @var bool
+     */
+    private $overwrite;
+
+    /**
+     * @param Filesystem $sandboxFilesystem
+     * @param Filesystem $targetFilesystem
+     * @param bool $overwrite
+     */
+    public function __construct(Filesystem $sandboxFilesystem, Filesystem $targetFilesystem, $overwrite = true)
     {
         $this->sandboxFilesystem = $sandboxFilesystem;
         $this->targetFilesystem = $targetFilesystem;
+        $this->overwrite = $overwrite;
     }
 
     /**
@@ -61,7 +72,8 @@ class FileManager
         }
 
         try {
-            $this->targetFilesystem->write($path, $content);
+            // We want to overwrite files
+            $this->targetFilesystem->write($path, $content, $this->overwrite);
         } catch (\RuntimeException $e) {
             throw new \Exception(sprintf('Unable to not write file "%s" to final filesystem', $path));
         }

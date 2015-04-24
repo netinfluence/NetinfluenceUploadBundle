@@ -51,7 +51,8 @@ class TemporaryFileListener implements  EventSubscriberInterface
             throw new \RuntimeException('An exception occurred while opening uploaded file');
         }
 
-        $this->filesystem->write($file->getTargetPath(), $content);
+        // In sandbox, we will always overwrite
+        $this->filesystem->write($file->getTargetPath(), $content, true);
     }
 
     /**

@@ -26,6 +26,7 @@
         <service class="%netinfluence_upload.file_manager.class%" id="netinfluence_upload.file_manager">
             <argument /><!-- Gaufrette sandbox filesystem will be injected at compilation -->
             <argument /><!-- Gaufrette final filesystem will be injected at compilation -->
+            <argument /><!-- boolean about whether to overwrite files or not  -->
         </service>
 
         <!-- Symfony2 event dispatcher events listener -->

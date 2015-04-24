@@ -114,7 +114,11 @@ netinfluence_upload:
         final: gaufrette.storage_filesystem
 
 # Using default LiipImagine bundle config
-liip_imagine: ~
+liip_imagine:
+    filter_sets:
+        # you need to define the filter we will use to generate thumbnails
+        # you can optionally customize it
+        ni_ub_thumbnail: ~
 ```
 
 ### Getting started

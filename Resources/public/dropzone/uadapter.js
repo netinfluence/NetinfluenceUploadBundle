@@ -62,6 +62,8 @@ $(function() {
             };
 
             removeHandler = function(file) {
+                console.log(file);
+
                 // Temporary files must be removed from server sandbox
                 if (file.ub.temporary) {
                     $.ajax(options.removeUrl, {
@@ -112,20 +114,21 @@ $(function() {
          but manually!
          */
 
-        var addExistingFile = function(path, thumbnailUrl) {
+        var addExistingFile = function($form) {
             var mockFile = {
                 name: 'file', // needed by Dropzone though unused in UI
                 size: 0, // needed by Dropzone though unused in UI
                 ub: {
-                    path: path,
+                    formId: $form.attr('id'),
+                    path: $form.find('input[data-path]').val(),
                     temporary: false, // they were already persisted
-                    thumbnailUrl: thumbnailUrl
+                    thumbnailUrl: $form.find('span[data-thumbnail]').data('url')
                 }
             };
 
             dropzone.emit('addedfile', mockFile);
 
-            dropzone.emit('thumbnail', mockFile, thumbnailUrl);
+            dropzone.emit('thumbnail', mockFile, mockFile.ub.thumbnailUrl);
 
             dropzone.emit('complete', mockFile);
 
@@ -134,9 +137,7 @@ $(function() {
         };
 
         $form.find('.ni-ub-dz-image').each(function() {
-            var $this = $(this);
-
-            addExistingFile($this.find('input[data-path]').val(), $this.find('span[data-thumbnail]').data('url'));
+            addExistingFile($(this));
         });
     });
 });

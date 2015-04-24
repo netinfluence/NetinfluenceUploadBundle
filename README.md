@@ -545,6 +545,17 @@ class MyController extends Controller
 }
 ```
 
+## Note about security
+
+This bundle expose a few routes for uploading/deleting files.
+If your form is within a private admin, you may want to restrict access to those routes too: 
+```yml
+# app/config/security.yml
+security:
+    access_control:
+        - { path: ^/upload/, role: IS_AUTHENTICATED_REMEMBERED }
+```
+
 ## Configuration reference
 
 Here is the full bundle configuration, filled with the default values:

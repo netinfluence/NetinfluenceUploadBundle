@@ -5,10 +5,10 @@
         xsi:schemaLocation="http://symfony.com/schema/routing
         http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <route id="netinfluence_upload_api_upload_image" path="/image/upload" methods="POST">
+    <route id="netinfluence_upload_api_upload_image" path="/upload/image" methods="POST">
         <default key="_controller">NetinfluenceUploadBundle:API:uploadImage</default>
     </route>
-    <route id="netinfluence_upload_api_delete" path="/image/delete" methods="GET">
+    <route id="netinfluence_upload_api_delete" path="/upload/delete" methods="GET">
         <default key="_controller">NetinfluenceUploadBundle:API:delete</default>
     </route>
 </routes>

@@ -62,9 +62,13 @@ $(function() {
             };
 
             removeHandler = function(file) {
+                // Watch out file properties may not have been added, for instance if sending was unsuccessful
+                if (typeof file.ub !== "undefined") {
+                    return;
+                }
+
                 // Temporary files must be removed from server sandbox
-                // Watch out file properties may not have been dded, for instance if sending was unsuccessful
-                if (typeof file.ub !== "undefined" && file.ub.temporary) {
+                if (file.ub.temporary) {
                     $.ajax(options.removeUrl, {
                         data: {
                             path: file.ub.path
@@ -90,6 +94,11 @@ $(function() {
             };
 
             removeHandler = function(file) {
+                // Watch out file properties may not have been added, for instance if sending was unsuccessful
+                if (typeof file.ub !== "undefined") {
+                    return;
+                }
+
                 // Temporary files must be removed from server sandbox
                 if (file.ub.temporary) {
                     $.ajax(options.removeUrl, {

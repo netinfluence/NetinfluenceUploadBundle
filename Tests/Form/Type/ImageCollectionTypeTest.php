@@ -6,6 +6,7 @@ use Netinfluence\UploadBundle\Form\Type\ImageCollectionType;
 use Netinfluence\UploadBundle\Form\Type\ImageInnerType;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
+use Netinfluence\UploadBundle\Validation\ImageConstraints;
 
 /**
  * Class ImageCollectionTypeTest
@@ -36,8 +37,9 @@ class ImageCollectionTypeTest extends TypeTestCase
     protected function getExtensions()
     {
         $thumbnailGenerator = \Phake::mock('Netinfluence\UploadBundle\Generator\ThumbnailGeneratorInterface');
+        $constraints = new ImageConstraints(array());
 
-        $imageType = new ImageInnerType($thumbnailGenerator);
+        $imageType = new ImageInnerType($thumbnailGenerator, $constraints);
 
         return array(
             new PreloadedExtension(array(

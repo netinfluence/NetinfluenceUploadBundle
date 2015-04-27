@@ -79,6 +79,14 @@
 
     {# we remove the display of file name and size, we don't want to bother with those #}
     data-preview-template='{{ block('dropzone_preview_template') }}'
+
+    {% if form.vars.image_constraints.maxFileSize is not null %}
+        data-max-filesize={{ form.vars.image_constraints.maxFileSize }}
+    {% endif %}
+
+    {% if form.vars.image_constraints.acceptedMimes is not empty %}
+        data-accepted-files={{ form.vars.image_constraints.acceptedMimes|join(',') }}
+    {% endif %}
 {% endblock dropzone_attributes %}
 
 {#

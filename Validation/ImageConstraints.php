@@ -24,7 +24,7 @@ class ImageConstraints
     /**
      * @var string[] accepted mimes
      */
-    private $acceptedFiles;
+    private $acceptedMimes;
 
     /**
      * From bundle config, will build constraint classes
@@ -57,7 +57,7 @@ class ImageConstraints
                     $this->maxFileSize = $constraint->maxSize / 1000000;
                 }
 
-                $this->acceptedFiles = $constraint->mimeTypes;
+                $this->acceptedMimes = $constraint->mimeTypes;
             }
 
             $this->constraints[] = $constraint;
@@ -83,8 +83,8 @@ class ImageConstraints
     /**
      * @return string[]
      */
-    public function getAcceptedFiles()
+    public function getAcceptedMimes()
     {
-        return $this->acceptedFiles;
+        return $this->acceptedMimes;
     }
 }

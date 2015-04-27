@@ -4,6 +4,7 @@ namespace Netinfluence\UploadBundle\Tests\Form\Type;
 
 use Netinfluence\UploadBundle\Form\Type\ImageType;
 use Symfony\Component\Form\Test\TypeTestCase;
+use Netinfluence\UploadBundle\Validation\ImageConstraints;
 
 /**
  * Class ImageTypeTest
@@ -20,7 +21,9 @@ class ImageTypeTest extends TypeTestCase
         parent::setUp();
 
         $thumbnailGenerator = \Phake::mock('Netinfluence\UploadBundle\Generator\ThumbnailGeneratorInterface');
-        $this->sut = new ImageType($thumbnailGenerator);
+        $constraints = new ImageConstraints(array());
+
+        $this->sut = new ImageType($thumbnailGenerator, $constraints);
     }
 
     public function tearDown()

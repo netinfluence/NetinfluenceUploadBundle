@@ -57,6 +57,7 @@
         </service>
         <service id="netinfluence_upload.form.type.image_inner" class="Netinfluence\UploadBundle\Form\Type\ImageInnerType">
             <argument type="service" id="netinfluence_upload.thumbnail_generator" />
+            <argument type="service" id="netinfluence_upload.image_constraints" />
             <tag name="form.type" alias="netinfluence_upload_image_inner" />
         </service>
     </services>

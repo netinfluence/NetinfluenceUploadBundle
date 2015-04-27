@@ -14,7 +14,7 @@ class ImageConstraintsTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(array(), $sut->getConstraints());
         $this->assertNull($sut->getMaxFileSize());
-        $this->assertNull($sut->getAcceptedFiles());
+        $this->assertNull($sut->getAcceptedMimes());
     }
 
     public function test_it_builds_and_parse_image()
@@ -30,7 +30,7 @@ class ImageConstraintsTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(2, $sut->getConstraints());
 
         $this->assertEquals(0.010, $sut->getMaxFileSize());
-        $this->assertEquals(array('image/*'), $sut->getAcceptedFiles());
+        $this->assertEquals(array('image/*'), $sut->getAcceptedMimes());
     }
 
     public function test_it_builds_and_parse_full_class()
@@ -45,6 +45,6 @@ class ImageConstraintsTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(1, $sut->getConstraints());
 
         $this->assertEquals(10, $sut->getMaxFileSize());
-        $this->assertEquals(array('image/*'), $sut->getAcceptedFiles());
+        $this->assertEquals(array('image/*'), $sut->getAcceptedMimes());
     }
 }

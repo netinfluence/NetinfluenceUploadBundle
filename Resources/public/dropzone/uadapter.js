@@ -44,7 +44,7 @@ $(function() {
         if ($collection) {
             successHandler = function(file, response) {
                 var prototype = $collection.data('prototype');
-                var number = $collection.length;
+                var number = $collection.children().length;
                 var newChild = prototype.replace(/__name__/g, number);
 
                 var $newChild = $(newChild).appendTo($collection);

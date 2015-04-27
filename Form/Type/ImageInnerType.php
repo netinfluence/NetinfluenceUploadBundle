@@ -4,7 +4,6 @@ namespace Netinfluence\UploadBundle\Form\Type;
 
 use Netinfluence\UploadBundle\Form\DataTransformer\BooleanToHiddenTransformer;
 use Netinfluence\UploadBundle\Generator\ThumbnailGeneratorInterface;
-use Netinfluence\UploadBundle\Validation\ImageConstraints;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -28,15 +27,9 @@ class ImageInnerType extends AbstractType
      */
     protected $thumbnailGenerator;
 
-    /**
-     * @var ImageConstraints
-     */
-    protected $constraints;
-
-    public function __construct(ThumbnailGeneratorInterface $thumbnailGenerator, ImageConstraints $constraints)
+    public function __construct(ThumbnailGeneratorInterface $thumbnailGenerator)
     {
         $this->thumbnailGenerator   = $thumbnailGenerator;
-        $this->constraints          = $constraints;
     }
 
     /**
@@ -108,11 +101,6 @@ class ImageInnerType extends AbstractType
                 $options['thumbnail_width'], $options['thumbnail_height']
             ));
         }
-
-        $view->vars['thumbnail_height'] = $options['thumbnail_height'];
-        $view->vars['thumbnail_width'] = $options['thumbnail_width'];
-
-        $view->vars['image_constraints'] = $this->constraints;
     }
 
     /**

@@ -5,7 +5,6 @@ namespace Netinfluence\UploadBundle\Tests\Form\Type;
 use Netinfluence\UploadBundle\Form\Type\ImageInnerType;
 use Netinfluence\UploadBundle\Form\Type\ImageType;
 use Netinfluence\UploadBundle\Model\FormFile;
-use Netinfluence\UploadBundle\Validation\ImageConstraints;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -26,9 +25,7 @@ class ImageInnerTypeTest extends TypeTestCase
         $thumbnailGenerator = \Phake::mock('Netinfluence\UploadBundle\Generator\ThumbnailGeneratorInterface');
         \Phake::when($thumbnailGenerator)->getUrl($this->anything(), array(120, 90))->thenReturn('url/thumbnail.jpg');
 
-        $constraints = new ImageConstraints(array());
-
-        $this->sut = new ImageInnerType($thumbnailGenerator, $constraints);
+        $this->sut = new ImageInnerType($thumbnailGenerator);
     }
 
     public function tearDown()
@@ -112,11 +109,5 @@ class ImageInnerTypeTest extends TypeTestCase
         $view = $form->createView();
 
         $this->assertEquals('url/thumbnail.jpg', $view->vars['thumbnail_url']);
-
-        // those should also be displayed in the view
-        $this->assertEquals(90, $view->vars['thumbnail_height']);
-        $this->assertEquals(120, $view->vars['thumbnail_width']);
-
-        $this->assertInstanceOf('Netinfluence\UploadBundle\Validation\ImageConstraints', $view->vars['image_constraints']);
     }
 }

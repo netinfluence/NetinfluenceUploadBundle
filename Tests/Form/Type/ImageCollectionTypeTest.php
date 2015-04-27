@@ -22,7 +22,9 @@ class ImageCollectionTypeTest extends TypeTestCase
     {
         parent::setUp();
 
-        $this->sut = new ImageCollectionType();
+        $constraints = new ImageConstraints(array());
+
+        $this->sut = new ImageCollectionType($constraints);
     }
 
     public function tearDown()
@@ -37,9 +39,8 @@ class ImageCollectionTypeTest extends TypeTestCase
     protected function getExtensions()
     {
         $thumbnailGenerator = \Phake::mock('Netinfluence\UploadBundle\Generator\ThumbnailGeneratorInterface');
-        $constraints = new ImageConstraints(array());
 
-        $imageType = new ImageInnerType($thumbnailGenerator, $constraints);
+        $imageType = new ImageInnerType($thumbnailGenerator);
 
         return array(
             new PreloadedExtension(array(

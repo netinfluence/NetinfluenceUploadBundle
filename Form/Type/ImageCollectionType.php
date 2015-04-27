@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\EventListener\ResizeFormListener;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
+use Netinfluence\UploadBundle\Validation\ImageConstraints;
 
 /**
  * Class ImageCollectionType
@@ -16,6 +17,16 @@ class ImageCollectionType extends AbstractType
 {
     const CHILD_TYPE = 'netinfluence_upload_image_inner';
     const PROTOTYPE_NAME = '__name__';
+
+    /**
+     * @var ImageConstraints
+     */
+    protected $constraints;
+
+    public function __construct(ImageConstraints $constraints)
+    {
+        $this->constraints = $constraints;
+    }
 
     /**
      * @inheritdoc
@@ -56,6 +67,8 @@ class ImageCollectionType extends AbstractType
         // those will be used by children form too
         $view->vars['thumbnail_height'] = $options['thumbnail_height'];
         $view->vars['thumbnail_width'] = $options['thumbnail_width'];
+
+        $view->vars['image_constraints'] = $this->constraints;
 
         $view->vars['prototype'] = $form->getConfig()->getAttribute('prototype')->createView($view);
     }

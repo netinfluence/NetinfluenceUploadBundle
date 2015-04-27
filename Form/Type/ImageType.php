@@ -4,6 +4,8 @@ namespace Netinfluence\UploadBundle\Form\Type;
 
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
+use Netinfluence\UploadBundle\Generator\ThumbnailGeneratorInterface;
+use Netinfluence\UploadBundle\Validation\ImageConstraints;
 
 /**
  * Class ImageType
@@ -12,6 +14,18 @@ use Symfony\Component\Form\FormInterface;
  */
 class ImageType extends ImageInnerType
 {
+    /**
+     * @var ImageConstraints
+     */
+    protected $constraints;
+
+    public function __construct(ThumbnailGeneratorInterface $thumbnailGenerator, ImageConstraints $constraints)
+    {
+        parent::__construct($thumbnailGenerator);
+
+        $this->constraints = $constraints;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -28,5 +42,10 @@ class ImageType extends ImageInnerType
         parent::buildView($view, $form, $options);
 
         $view->vars['max_files'] = 1; // single image form
+
+        $view->vars['thumbnail_height'] = $options['thumbnail_height'];
+        $view->vars['thumbnail_width'] = $options['thumbnail_width'];
+
+        $view->vars['image_constraints'] = $this->constraints;
     }
 }

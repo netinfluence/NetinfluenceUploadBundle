@@ -16,14 +16,19 @@ class ImageTypeTest extends TypeTestCase
      */
     private $sut;
 
+    /**
+     * @var ImageConstraints
+     */
+    private $imageConstraints;
+
     public function setUp()
     {
         parent::setUp();
 
         $thumbnailGenerator = \Phake::mock('Netinfluence\UploadBundle\Generator\ThumbnailGeneratorInterface');
-        $constraints = new ImageConstraints(array());
+        $this->imageConstraints = new ImageConstraints(array());
 
-        $this->sut = new ImageType($thumbnailGenerator, $constraints);
+        $this->sut = new ImageType($thumbnailGenerator, $this->imageConstraints);
     }
 
     public function tearDown()
@@ -51,5 +56,7 @@ class ImageTypeTest extends TypeTestCase
         // those should also be displayed in the view
         $this->assertEquals(90, $view->vars['thumbnail_height']);
         $this->assertEquals(120, $view->vars['thumbnail_width']);
+
+        $this->assertEquals($this->imageConstraints, $view->vars['image_constraints']);
     }
 }

@@ -63,7 +63,7 @@ $(function() {
 
             removeHandler = function(file) {
                 // Watch out file properties may not have been added, for instance if sending was unsuccessful
-                if (typeof file.ub !== "undefined") {
+                if (typeof file.ub === "undefined") {
                     return;
                 }
 
@@ -95,7 +95,7 @@ $(function() {
 
             removeHandler = function(file) {
                 // Watch out file properties may not have been added, for instance if sending was unsuccessful
-                if (typeof file.ub !== "undefined") {
+                if (typeof file.ub === "undefined") {
                     return;
                 }
 

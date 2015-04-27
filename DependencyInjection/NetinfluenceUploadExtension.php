@@ -31,6 +31,9 @@ class NetinfluenceUploadExtension extends Extension
 
         $container->setParameter('netinfluence_upload.validation.image_constraints', $config['validation']['image']);
 
+        $container->setParameter('netinfluence_upload.config.ignore_delete_error', $config['ignore_delete_error']);
+        $container->setParameter('netinfluence_upload.config.overwrite', $config['overwrite']);
+
         // Manipulations on filesystems
 
         $fileListener = $container->getDefinition('netinfluence_upload.file_listener');

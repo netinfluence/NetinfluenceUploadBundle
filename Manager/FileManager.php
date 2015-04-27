@@ -31,15 +31,22 @@ class FileManager
     private $overwrite;
 
     /**
+     * @var bool
+     */
+    private $ignoreDeleteError;
+
+    /**
      * @param Filesystem $sandboxFilesystem
      * @param Filesystem $targetFilesystem
      * @param bool $overwrite
+     * @param bool $ignoreDeleteError
      */
-    public function __construct(Filesystem $sandboxFilesystem, Filesystem $targetFilesystem, $overwrite = true)
+    public function __construct(Filesystem $sandboxFilesystem, Filesystem $targetFilesystem, $overwrite = true, $ignoreDeleteError = true)
     {
         $this->sandboxFilesystem = $sandboxFilesystem;
         $this->targetFilesystem = $targetFilesystem;
         $this->overwrite = $overwrite;
+        $this->ignoreDeleteError = $ignoreDeleteError;
     }
 
     /**
@@ -72,7 +79,6 @@ class FileManager
         }
 
         try {
-            // We want to overwrite files
             $this->targetFilesystem->write($path, $content, $this->overwrite);
         } catch (\RuntimeException $e) {
             throw new \Exception(sprintf('Unable to not write file "%s" to final filesystem', $path));
@@ -81,7 +87,9 @@ class FileManager
         try {
             $this->sandboxFilesystem->delete($path);
         } catch (\RuntimeException $e) {
-            throw new \Exception(sprintf('Could not remove file "%s" from sandbox filesystem. But it was successfully saved to final filesystem before.', $path));
+            if (false === $this->ignoreDeleteError) {
+                throw new \Exception(sprintf('Could not remove file "%s" from sandbox filesystem. But it was successfully saved to final filesystem before.', $path));
+            }
         }
     }
 
@@ -105,7 +113,9 @@ class FileManager
             try {
                 $this->sandboxFilesystem->delete($path);
             } catch (\RuntimeException $e) {
-                throw new \Exception(sprintf('Could not remove file "%s" from sandbox filesystem.', $path));
+                if (false === $this->ignoreDeleteError) {
+                    throw new \Exception(sprintf('Could not remove file "%s" from sandbox filesystem.', $path));
+                }
             }
 
             return;
@@ -114,7 +124,9 @@ class FileManager
         try {
             $this->targetFilesystem->delete($path);
         } catch (\RuntimeException $e) {
-            throw new \Exception(sprintf('Could not remove file "%s" from final filesystem.', $path));
+            if (false === $this->ignoreDeleteError) {
+                throw new \Exception(sprintf('Could not remove file "%s" from final filesystem.', $path));
+            }
         }
     }
 }

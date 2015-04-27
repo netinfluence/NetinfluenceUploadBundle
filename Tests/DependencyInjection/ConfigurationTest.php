@@ -71,6 +71,7 @@ class ConfigurationTest extends AbstractConfigurationTestCase
                         'sandbox'   => 'someId',
                         'final'     => 'anotherId'
                     ),
+                    'ignore_delete_error' => false,
                     'overwrite'  => false,
                     'validation' => array()
                 )
@@ -93,6 +94,7 @@ class ConfigurationTest extends AbstractConfigurationTestCase
                 'sandbox'   => 'someId',
                 'final'     => 'anotherId'
             ),
+            'ignore_delete_error' => true,
             'overwrite'     => true,
             'validation'    => array(
                 'image'     => array(
@@ -129,6 +131,7 @@ class ConfigurationTest extends AbstractConfigurationTestCase
                 'sandbox'   => 'someId',
                 'final'     => 'anotherId'
             ),
+            'ignore_delete_error' => true,
             'overwrite'     => true,
             'validation'    => array(
                 'image'     => array(

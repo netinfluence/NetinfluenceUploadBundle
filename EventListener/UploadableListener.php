@@ -4,6 +4,7 @@ namespace Netinfluence\UploadBundle\EventListener;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Events;
 use Netinfluence\UploadBundle\Manager\FileManager;
 use Netinfluence\UploadBundle\Model\UploadableInterface;
 
@@ -29,8 +30,9 @@ class UploadableListener implements EventSubscriber
     public function getSubscribedEvents()
     {
         return array(
-            'postPersist',
-            'postRemove'
+            Events::postPersist,
+            Events::postRemove,
+            Events::postUpdate
         );
     }
 
@@ -42,6 +44,24 @@ class UploadableListener implements EventSubscriber
      * @throws \Exception in case of filesystem failure
      */
     public function postPersist(LifecycleEventArgs $eventArgs)
+    {
+        $entity = $eventArgs->getEntity();
+
+        if (! $entity instanceof UploadableInterface) {
+            return;
+        }
+
+        $this->manager->persist($entity);
+    }
+
+    /**
+     * Called during flush of an entity
+     * Will look for (new) temporary files and save those (only)
+     *
+     * @param LifecycleEventArgs $eventArgs
+     * @throws \Exception in case of filesystem failure
+     */
+    public function postUpdate(LifecycleEventArgs $eventArgs)
     {
         $entity = $eventArgs->getEntity();
 

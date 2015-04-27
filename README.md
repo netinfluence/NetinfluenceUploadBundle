@@ -307,7 +307,7 @@ In the same fashion, file removal is automatic after entity removal.
 
 #### Manually
 
-If you don't use Doctrine ORM, but want to persist `Netinfluence\UploadBundle\Model\UploadableInterface` file, call the `netinfluence_upload.file_manager` service:
+If you don't use Doctrine ORM, but want to save `Netinfluence\UploadBundle\Model\UploadableInterface` file, call the `netinfluence_upload.file_manager` service:
 ```php
 <?php
 namespace Netinfluence\DemoBundle\Controller;
@@ -331,7 +331,7 @@ class MyController extends Controller
             
             // FileManager will remove temporary file from sandbox,
             // and save it to the final one
-            $this->get('netinfluence_upload.file_manager')->persist($file);
+            $this->get('netinfluence_upload.file_manager')->save($file);
             
             // And if you want to remove:
             $this->get('netinfluence_upload.file_manager')->remove($file);
@@ -449,7 +449,7 @@ class MyController extends Controller
             
             // FileManager will remove temporary file from sandbox,
             // and save it to the final one
-            $this->get('netinfluence_upload.file_manager')->persist($file);
+            $this->get('netinfluence_upload.file_manager')->save($file);
             
             // And if you want to remove:
             $this->get('netinfluence_upload.file_manager')->remove($file);

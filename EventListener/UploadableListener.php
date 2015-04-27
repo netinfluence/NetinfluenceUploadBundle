@@ -51,7 +51,7 @@ class UploadableListener implements EventSubscriber
             return;
         }
 
-        $this->manager->persist($entity);
+        $this->manager->save($entity);
     }
 
     /**
@@ -69,7 +69,7 @@ class UploadableListener implements EventSubscriber
             return;
         }
 
-        $this->manager->persist($entity);
+        $this->manager->save($entity);
     }
 
     /**

@@ -51,12 +51,12 @@ class FileManager
 
     /**
      * Persist a File
-     * If it was a temporary file, persist it to final filesystem and remove it from sandbox one.
+     * If it was a temporary file, save it to final filesystem and remove it from sandbox one.
      *
      * @param UploadableInterface $file
      * @throws \Exception in case of filesystem failure
      */
-    public function persist(UploadableInterface $file)
+    public function save(UploadableInterface $file)
     {
         $path = $file->getPath();
 

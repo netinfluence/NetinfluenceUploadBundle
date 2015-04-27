@@ -54,6 +54,7 @@ $(function() {
 
                 // Store some file properties we will reuse later
                 file.ub = {
+                    existing: false,
                     formId: $newChild.attr('id'),
                     number: response.number,
                     path: response.path,
@@ -65,6 +66,11 @@ $(function() {
                 // Watch out file properties may not have been added, for instance if sending was unsuccessful
                 if (typeof file.ub === "undefined") {
                     return;
+                }
+
+                if (file.ub.existing) {
+                    // Revert what we did before
+                    dropzone.options.maxFiles++;
                 }
 
                 // Temporary files must be removed from server sandbox
@@ -88,6 +94,7 @@ $(function() {
 
                 // Store some file properties we will reuse later
                 file.ub = {
+                    existing: false,
                     path: response.path,
                     temporary: true
                 }
@@ -97,6 +104,11 @@ $(function() {
                 // Watch out file properties may not have been added, for instance if sending was unsuccessful
                 if (typeof file.ub === "undefined") {
                     return;
+                }
+
+                if (file.ub.existing) {
+                    // Revert what we did before
+                    dropzone.options.maxFiles++;
                 }
 
                 // Temporary files must be removed from server sandbox
@@ -120,6 +132,7 @@ $(function() {
         /*
          Dropzone.js provides no way to handle already uploaded files
          but manually!
+         Last but not least, we should update the limit of files when adding an existing file or removing one
          */
 
         var addExistingFile = function($form) {
@@ -127,6 +140,7 @@ $(function() {
                 name: 'file', // needed by Dropzone though unused in UI
                 size: 0, // needed by Dropzone though unused in UI
                 ub: {
+                    existing: true,
                     formId: $form.attr('id'),
                     path: $form.find('input[data-path]').val(),
                     temporary: false, // they were already persisted
@@ -140,8 +154,7 @@ $(function() {
 
             dropzone.emit('complete', mockFile);
 
-            // And we even have to update that one
-            dropzone.options.maxFiles = dropzone.options.maxFiles--;
+            dropzone.options.maxFiles--;
         };
 
         $form.find('.ni-ub-dz-image').each(function() {

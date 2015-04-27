@@ -6,7 +6,8 @@
 
     <parameters>
         <!-- Here we list "overridable" parameters, though not part of public API. Note that some classes are not available as such -->
-        <parameter key="netinfluence_upload.temporary_file_validator.class">Netinfluence\UploadBundle\Validator\TemporaryFileValidator</parameter>
+        <parameter key="netinfluence_upload.temporary_file_validator.class">Netinfluence\UploadBundle\Validation\TemporaryFileValidator</parameter>
+        <parameter key="netinfluence_upload.image_constraints.class">Netinfluence\UploadBundle\Validation\ImageConstraints</parameter>
         <parameter key="netinfluence_upload.file_listener.class">Netinfluence\UploadBundle\EventListener\TemporaryFileListener</parameter>
         <parameter key="netinfluence_upload.uploadable_listener.class">Netinfluence\UploadBundle\EventListener\UploadableListener</parameter>
         <parameter key="netinfluence_upload.file_manager.class">Netinfluence\UploadBundle\Manager\FileManager</parameter>
@@ -17,9 +18,10 @@
         <!-- validator & validation-related -->
         <service class="%netinfluence_upload.temporary_file_validator.class%" id="netinfluence_upload.temporary_file_validator">
             <argument type="service" id="validator" />
-            <call method="setImageValidationConstraints">
-                <argument>%netinfluence_upload.validation.image_constraints%</argument>
-            </call>
+            <argument type="service" id="netinfluence_upload.image_constraints" />
+        </service>
+        <service class="%netinfluence_upload.image_constraints.class%" id="netinfluence_upload.image_constraints">
+            <argument>%netinfluence_upload.validation.image_constraints%</argument>
         </service>
 
         <!-- manager -->

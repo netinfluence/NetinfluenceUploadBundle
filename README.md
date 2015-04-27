@@ -574,6 +574,8 @@ netinfluence_upload:
             Image:
                 maxSize: 10M
                 mimeTypes: ['image/gif', 'image/jpg', 'image/jpeg', 'image/png', 'image/bmp', 'image/x-windows-bmp']
+    # Whether to ignore filesystems errors happening during removal. True is advised, usually permission issues should not prevent users from deleting objects.
+    ignore_delete_error: true
     # Whether to overwrite or not files in Final filesystem. True is advised, as you may have files sent twice.
     overwrite: true
 ```

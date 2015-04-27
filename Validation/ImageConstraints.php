@@ -17,12 +17,12 @@ class ImageConstraints
     private $constraints = array();
 
     /**
-     * @var integer max file in MB
+     * @var double max file in MB
      */
     private $maxFileSize;
 
     /**
-     * @var string[] accepted mimes
+     * @var string[]|string accepted mimes
      */
     private $acceptedMimes;
 

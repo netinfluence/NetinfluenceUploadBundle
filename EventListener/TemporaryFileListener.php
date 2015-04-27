@@ -12,7 +12,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  * Class TemporaryFileListener
  * Get file-related events
  */
-class TemporaryFileListener implements  EventSubscriberInterface
+class TemporaryFileListener implements EventSubscriberInterface
 {
     /**
      * @var Filesystem the storage for temporary files

@@ -13,7 +13,7 @@ use Netinfluence\UploadBundle\Model\UploadableInterface;
  * Class FileManager
  * @author Romaric Drigon <romaric.drigon@gmail.com>
  */
-class FileManager
+class FileManager implements FileManagerInterface
 {
     /**
      * @var Filesystem the storage for temporary files

@@ -5,21 +5,21 @@ namespace Netinfluence\UploadBundle\EventListener;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
-use Netinfluence\UploadBundle\Manager\FileManager;
+use Netinfluence\UploadBundle\Manager\FileManagerInterface;
 use Netinfluence\UploadBundle\Model\UploadableInterface;
 
 /**
  * Class UploadableListener
- * Handle files upload from teh sandbox to the final filesystem
+ * Handle files upload from the sandbox to the final filesystem
  */
 class UploadableListener implements EventSubscriber
 {
     /**
-     * @var FileManager
+     * @var FileManagerInterface
      */
     private $manager;
 
-    public function __construct(FileManager $manager)
+    public function __construct(FileManagerInterface $manager)
     {
         $this->manager = $manager;
     }

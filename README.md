@@ -19,7 +19,8 @@ Features:
 [![Latest Stable Version](https://poser.pugx.org/netinfluence/upload-bundle/v/stable)](https://packagist.org/packages/netinfluence/upload-bundle)
 [![Build Status](https://travis-ci.org/netinfluence/NetinfluenceUploadBundle.svg?branch=master)](https://travis-ci.org/netinfluence/NetinfluenceUploadBundle)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/38fb65d4-d690-4abf-b370-da4aaf1a4b0f/mini.png)](https://insight.sensiolabs.com/projects/38fb65d4-d690-4abf-b370-da4aaf1a4b0f)
- 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/netinfluence/NetinfluenceUploadBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/netinfluence/NetinfluenceUploadBundle/?branch=master)
+
 ## Getting started
 
 ### Installing the bundle

@@ -8,6 +8,7 @@ namespace Netinfluence\UploadBundle\Manager;
 
 use Gaufrette\Filesystem;
 use Netinfluence\UploadBundle\Model\UploadableInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class FileManager
@@ -15,6 +16,11 @@ use Netinfluence\UploadBundle\Model\UploadableInterface;
  */
 class FileManager implements FileManagerInterface
 {
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
     /**
      * @var Filesystem the storage for temporary files
      */
@@ -36,13 +42,15 @@ class FileManager implements FileManagerInterface
     private $ignoreDeleteError;
 
     /**
+     * @param LoggerInterface $logger
      * @param Filesystem $sandboxFilesystem
      * @param Filesystem $targetFilesystem
      * @param bool $overwrite
      * @param bool $ignoreDeleteError
      */
-    public function __construct(Filesystem $sandboxFilesystem, Filesystem $targetFilesystem, $overwrite = true, $ignoreDeleteError = true)
+    public function __construct(LoggerInterface $logger, Filesystem $sandboxFilesystem, Filesystem $targetFilesystem, $overwrite = true, $ignoreDeleteError = true)
     {
+        $this->logger = $logger;
         $this->sandboxFilesystem = $sandboxFilesystem;
         $this->targetFilesystem = $targetFilesystem;
         $this->overwrite = $overwrite;
@@ -75,18 +83,28 @@ class FileManager implements FileManagerInterface
         try {
             $content = $this->sandboxFilesystem->read($path);
         } catch (\RuntimeException $e) {
+            $this->logger->critical(sprintf('Unable to read file "%s" from sandbox filesystem', $path));
+
             throw new \Exception(sprintf('Unable to read file "%s" from sandbox. Maybe sandbox was cleared?', $path));
         }
 
         try {
-            $this->targetFilesystem->write($path, $content, $this->overwrite);
+            $number = $this->targetFilesystem->write($path, $content, $this->overwrite);
+
+            $this->logger->info(sprintf('Written %d bytes to "%s" file on final filesystem', $number, $path));
         } catch (\RuntimeException $e) {
+            $this->logger->critical(sprintf('Unable to not write file "%s" to final filesystem', $path));
+
             throw new \Exception(sprintf('Unable to not write file "%s" to final filesystem', $path));
         }
 
         try {
             $this->sandboxFilesystem->delete($path);
+
+            $this->logger->info(sprintf('Removed file "%s" file from sandbox filesystem', $path));
         } catch (\RuntimeException $e) {
+            $this->logger->error(sprintf('Unable to not remove file "%s" from sandbox filesystem', $path));
+
             if (false === $this->ignoreDeleteError) {
                 throw new \Exception(sprintf('Could not remove file "%s" from sandbox filesystem. But it was successfully saved to final filesystem before.', $path));
             }
@@ -112,7 +130,11 @@ class FileManager implements FileManagerInterface
         if (true === $file->isTemporary()) {
             try {
                 $this->sandboxFilesystem->delete($path);
+
+                $this->logger->info(sprintf('Removed file "%s" file from sandbox filesystem', $path));
             } catch (\RuntimeException $e) {
+                $this->logger->error(sprintf('Unable to not remove file "%s" from sandbox filesystem', $path));
+
                 if (false === $this->ignoreDeleteError) {
                     throw new \Exception(sprintf('Could not remove file "%s" from sandbox filesystem.', $path));
                 }
@@ -123,7 +145,11 @@ class FileManager implements FileManagerInterface
 
         try {
             $this->targetFilesystem->delete($path);
+
+            $this->logger->info(sprintf('Removed file "%s" file from final filesystem', $path));
         } catch (\RuntimeException $e) {
+            $this->logger->error(sprintf('Unable to not remove file "%s" from final filesystem', $path));
+
             if (false === $this->ignoreDeleteError) {
                 throw new \Exception(sprintf('Could not remove file "%s" from final filesystem.', $path));
             }

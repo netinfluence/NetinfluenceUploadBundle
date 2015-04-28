@@ -26,6 +26,7 @@
 
         <!-- manager -->
         <service class="%netinfluence_upload.file_manager.class%" id="netinfluence_upload.file_manager">
+            <argument type="service" id="logger" />
             <argument /><!-- Gaufrette sandbox filesystem will be injected at compilation -->
             <argument /><!-- Gaufrette final filesystem will be injected at compilation -->
             <argument>%netinfluence_upload.config.overwrite%</argument>
@@ -35,6 +36,7 @@
         <!-- Symfony2 event dispatcher events listener -->
         <service class="%netinfluence_upload.file_listener.class%" id="netinfluence_upload.file_listener">
             <argument /><!-- a Gaufrette filesystem will be injected at compilation -->
+            <argument type="service" id="logger" />
             <tag name="kernel.event_subscriber" />
         </service>
 

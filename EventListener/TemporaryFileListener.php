@@ -6,6 +6,7 @@ use Gaufrette\Filesystem;
 use Netinfluence\UploadBundle\Event\Events;
 use Netinfluence\UploadBundle\Event\TemporaryFileDeletedEvent;
 use Netinfluence\UploadBundle\Event\TemporaryFileEvent;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -20,6 +21,11 @@ class TemporaryFileListener implements EventSubscriberInterface
     private $filesystem;
 
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * @inheritdoc
      */
     public static function getSubscribedEvents()
@@ -30,9 +36,10 @@ class TemporaryFileListener implements EventSubscriberInterface
         );
     }
 
-    public function __construct(Filesystem $filesystem)
+    public function __construct(Filesystem $filesystem, LoggerInterface $logger)
     {
-        $this->filesystem = $filesystem;
+        $this->filesystem   = $filesystem;
+        $this->logger       = $logger;
     }
 
     /**
@@ -45,14 +52,22 @@ class TemporaryFileListener implements EventSubscriberInterface
     {
         $file = $event->getTemporaryFile();
 
-        $content = file_get_contents($file->getFile()->getPathname());
+        $tmpPath = $file->getFile()->getPathname();
+
+        $content = file_get_contents($tmpPath);
 
         if (false === $content) {
+            $this->logger->critical(sprintf('Unable to open file "%s" from its PHP temporary storage', $tmpPath));
+
             throw new \RuntimeException('An exception occurred while opening uploaded file');
         }
 
+        $targetPath = $file->getTargetPath();
+
         // In sandbox, we will always overwrite
-        $this->filesystem->write($file->getTargetPath(), $content, true);
+        $number = $this->filesystem->write($targetPath, $content, true);
+
+        $this->logger->info(sprintf('Written %d bytes to "%s" file on final filesystem', $number, $targetPath));
     }
 
     /**
@@ -70,5 +85,7 @@ class TemporaryFileListener implements EventSubscriberInterface
         }
 
         $this->filesystem->delete($path);
+
+        $this->logger->info(sprintf('Removed file "%s" from sandbox filesystem', $path));
     }
 }

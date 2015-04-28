@@ -48,11 +48,11 @@ class FileManager implements FileManagerInterface
      * @param bool $overwrite
      * @param bool $ignoreDeleteError
      */
-    public function __construct(LoggerInterface $logger, Filesystem $sandboxFilesystem, Filesystem $targetFilesystem, $overwrite = true, $ignoreDeleteError = true)
+    public function __construct(Filesystem $sandboxFilesystem, Filesystem $targetFilesystem, LoggerInterface $logger, $overwrite = true, $ignoreDeleteError = true)
     {
-        $this->logger = $logger;
         $this->sandboxFilesystem = $sandboxFilesystem;
         $this->targetFilesystem = $targetFilesystem;
+        $this->logger = $logger;
         $this->overwrite = $overwrite;
         $this->ignoreDeleteError = $ignoreDeleteError;
     }

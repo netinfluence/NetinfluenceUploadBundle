@@ -26,9 +26,9 @@
 
         <!-- manager -->
         <service class="%netinfluence_upload.file_manager.class%" id="netinfluence_upload.file_manager">
-            <argument type="service" id="logger" />
             <argument /><!-- Gaufrette sandbox filesystem will be injected at compilation -->
             <argument /><!-- Gaufrette final filesystem will be injected at compilation -->
+            <argument type="service" id="logger" />
             <argument>%netinfluence_upload.config.overwrite%</argument>
             <argument>%netinfluence_upload.config.ignore_delete_error%</argument>
         </service>

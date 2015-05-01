@@ -10,8 +10,8 @@
         <parameter key="netinfluence_upload.image_constraints.class">Netinfluence\UploadBundle\Validation\ImageConstraints</parameter>
         <parameter key="netinfluence_upload.file_listener.class">Netinfluence\UploadBundle\EventListener\TemporaryFileListener</parameter>
         <parameter key="netinfluence_upload.uploadable_listener.class">Netinfluence\UploadBundle\EventListener\UploadableListener</parameter>
-        <parameter key="netinfluence_upload.file_manager.class">Netinfluence\UploadBundle\Manager\FileManager</parameter>
-        <parameter key="netinfluence_upload.thumbnail_generator.class">Netinfluence\UploadBundle\Generator\LiipImagineGenerator</parameter>
+        <parameter key="netinfluence_upload.file_manager.class">Netinfluence\UploadBundle\Manager\File\FileManager</parameter>
+        <parameter key="netinfluence_upload.thumbnail_manager.class">Netinfluence\UploadBundle\Manager\Thumbnail\LiipImagineManager</parameter>
     </parameters>
 
     <services>
@@ -32,6 +32,9 @@
             <argument>%netinfluence_upload.config.overwrite%</argument>
             <argument>%netinfluence_upload.config.ignore_delete_error%</argument>
         </service>
+        <service class="%netinfluence_upload.thumbnail_manager.class%" id="netinfluence_upload.thumbnail_manager">
+            <argument type="service" id="liip_imagine.cache.manager" />
+        </service>
 
         <!-- Symfony2 event dispatcher events listener -->
         <service class="%netinfluence_upload.file_listener.class%" id="netinfluence_upload.file_listener">
@@ -46,14 +49,9 @@
             <tag name="doctrine.event_subscriber" />
         </service>
 
-        <!-- Thumbnails generator -->
-        <service class="%netinfluence_upload.thumbnail_generator.class%" id="netinfluence_upload.thumbnail_generator">
-            <argument type="service" id="liip_imagine.cache.manager" />
-        </service>
-
         <!-- Form -->
         <service id="netinfluence_upload.form.type.image" class="Netinfluence\UploadBundle\Form\Type\ImageType">
-            <argument type="service" id="netinfluence_upload.thumbnail_generator" />
+            <argument type="service" id="netinfluence_upload.thumbnail_manager" />
             <argument type="service" id="netinfluence_upload.image_constraints" />
             <tag name="form.type" alias="netinfluence_upload_image" />
         </service>
@@ -62,7 +60,7 @@
             <tag name="form.type" alias="netinfluence_upload_image_collection" />
         </service>
         <service id="netinfluence_upload.form.type.image_inner" class="Netinfluence\UploadBundle\Form\Type\ImageInnerType">
-            <argument type="service" id="netinfluence_upload.thumbnail_generator" />
+            <argument type="service" id="netinfluence_upload.thumbnail_manager" />
             <tag name="form.type" alias="netinfluence_upload_image_inner" />
         </service>
     </services>

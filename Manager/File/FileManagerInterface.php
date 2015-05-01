@@ -1,6 +1,6 @@
 <?php
 
-namespace Netinfluence\UploadBundle\Manager;
+namespace Netinfluence\UploadBundle\Manager\File;
 
 use Netinfluence\UploadBundle\Model\UploadableInterface;
 

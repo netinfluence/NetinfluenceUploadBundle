@@ -25,7 +25,7 @@ class ImageTypeTest extends TypeTestCase
     {
         parent::setUp();
 
-        $thumbnailGenerator = \Phake::mock('Netinfluence\UploadBundle\Generator\ThumbnailGeneratorInterface');
+        $thumbnailGenerator = \Phake::mock('Netinfluence\UploadBundle\Manager\Thumbnail\ThumbnailManagerInterface');
         $this->imageConstraints = new ImageConstraints(array());
 
         $this->sut = new ImageType($thumbnailGenerator, $this->imageConstraints);

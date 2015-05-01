@@ -1,18 +1,18 @@
 <?php
 
-namespace Netinfluence\UploadBundle\Generator;
+namespace Netinfluence\UploadBundle\Manager\Thumbnail;
 
 use Netinfluence\UploadBundle\Model\UploadableInterface;
 
 /**
- * Interface ThumbnailGeneratorInterface
+ * Interface ThumbnailManagerInterface
  */
-interface ThumbnailGeneratorInterface
+interface ThumbnailManagerInterface
 {
     /**
      * @param UploadableInterface $file
      * @param array $size [ width, height ]
      * @return string URL or browser path
      */
-    public function getUrl(UploadableInterface $file, array $size);
+    public function getThumbnailUrl(UploadableInterface $file, array $size);
 }

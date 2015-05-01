@@ -3,7 +3,7 @@
 namespace Netinfluence\UploadBundle\Form\Type;
 
 use Netinfluence\UploadBundle\Form\DataTransformer\BooleanToHiddenTransformer;
-use Netinfluence\UploadBundle\Generator\ThumbnailGeneratorInterface;
+use Netinfluence\UploadBundle\Manager\Thumbnail\ThumbnailManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,13 +23,13 @@ class ImageInnerType extends AbstractType
     const DATA_CLASS_REQUIRED_INTERFACE = 'Netinfluence\UploadBundle\Model\UploadableInterface';
 
     /**
-     * @var ThumbnailGeneratorInterface
+     * @var ThumbnailManagerInterface
      */
-    protected $thumbnailGenerator;
+    protected $thumbnailManager;
 
-    public function __construct(ThumbnailGeneratorInterface $thumbnailGenerator)
+    public function __construct(ThumbnailManagerInterface $thumbnailManager)
     {
-        $this->thumbnailGenerator   = $thumbnailGenerator;
+        $this->thumbnailManager = $thumbnailManager;
     }
 
     /**
@@ -97,7 +97,7 @@ class ImageInnerType extends AbstractType
         // If there is already persisted data behind this form, we must have a server-generated thumbnail
         $data = $form->getData();
         if ($data && $data->getPath() && true !== $data->isTemporary()) {
-            $view->vars['thumbnail_url'] = $this->thumbnailGenerator->getUrl($data, array(
+            $view->vars['thumbnail_url'] = $this->thumbnailManager->getThumbnailUrl($data, array(
                 $options['thumbnail_width'], $options['thumbnail_height']
             ));
         }

@@ -1,6 +1,7 @@
 <?php
 
 namespace Netinfluence\UploadBundle\Tests\Validation;
+
 use Netinfluence\UploadBundle\Validation\ImageConstraints;
 
 /**

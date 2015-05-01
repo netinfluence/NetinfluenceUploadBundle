@@ -1,15 +1,15 @@
 <?php
 
-namespace Netinfluence\UploadBundle\Generator;
+namespace Netinfluence\UploadBundle\Manager\Thumbnail;
 
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Netinfluence\UploadBundle\Model\UploadableInterface;
 
 /**
- * Class LiipImagineGenerator
+ * Class LiipImagineManager
  * Generate thumbnails using LiipImagine bundle
  */
-class LiipImagineGenerator implements ThumbnailGeneratorInterface
+class LiipImagineManager implements ThumbnailManagerInterface
 {
     /**
      * @var CacheManager
@@ -24,7 +24,7 @@ class LiipImagineGenerator implements ThumbnailGeneratorInterface
     /**
      * {@inheritdoc}
      */
-    public function getUrl(UploadableInterface $file, array $size)
+    public function getThumbnailUrl(UploadableInterface $file, array $size)
     {
         return $this->cacheManager->getBrowserPath($file->getPath(), 'ni_ub_thumbnail', array(
             'thumbnail' => array(

@@ -22,8 +22,8 @@ class ImageInnerTypeTest extends TypeTestCase
     {
         parent::setUp();
 
-        $thumbnailGenerator = \Phake::mock('Netinfluence\UploadBundle\Generator\ThumbnailGeneratorInterface');
-        \Phake::when($thumbnailGenerator)->getUrl($this->anything(), array(120, 90))->thenReturn('url/thumbnail.jpg');
+        $thumbnailGenerator = \Phake::mock('Netinfluence\UploadBundle\Manager\Thumbnail\ThumbnailManagerInterface');
+        \Phake::when($thumbnailGenerator)->getThumbnailUrl($this->anything(), array(120, 90))->thenReturn('url/thumbnail.jpg');
 
         $this->sut = new ImageInnerType($thumbnailGenerator);
     }

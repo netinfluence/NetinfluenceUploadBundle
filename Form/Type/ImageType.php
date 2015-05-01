@@ -2,9 +2,9 @@
 
 namespace Netinfluence\UploadBundle\Form\Type;
 
+use Netinfluence\UploadBundle\Manager\Thumbnail\ThumbnailManagerInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
-use Netinfluence\UploadBundle\Generator\ThumbnailGeneratorInterface;
 use Netinfluence\UploadBundle\Validation\ImageConstraints;
 
 /**
@@ -19,9 +19,9 @@ class ImageType extends ImageInnerType
      */
     protected $constraints;
 
-    public function __construct(ThumbnailGeneratorInterface $thumbnailGenerator, ImageConstraints $constraints)
+    public function __construct(ThumbnailManagerInterface $thumbnailManager, ImageConstraints $constraints)
     {
-        parent::__construct($thumbnailGenerator);
+        parent::__construct($thumbnailManager);
 
         $this->constraints = $constraints;
     }

@@ -4,7 +4,7 @@
  *
  */
 
-namespace Netinfluence\UploadBundle\Manager;
+namespace Netinfluence\UploadBundle\Manager\File;
 
 use Gaufrette\Filesystem;
 use Netinfluence\UploadBundle\Model\UploadableInterface;

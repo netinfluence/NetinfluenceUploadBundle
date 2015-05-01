@@ -1,7 +1,8 @@
 <?php
 
-namespace Netinfluence\UploadBundle\Tests\Generator;
-use Netinfluence\UploadBundle\Generator\LiipImagineGenerator;
+namespace Netinfluence\UploadBundle\Tests\Manager\Thumbnail;
+
+use Netinfluence\UploadBundle\Manager\Thumbnail\LiipImagineManager;
 use Netinfluence\UploadBundle\Model\FormFile;
 
 /**
@@ -10,7 +11,7 @@ use Netinfluence\UploadBundle\Model\FormFile;
 class LiipImagineGeneratorTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var LiipImagineGenerator
+     * @var LiipImagineManager
      */
     private $sut;
     
@@ -43,7 +44,7 @@ class LiipImagineGeneratorTest extends \PHPUnit_Framework_TestCase
             $this->anything()
         )->thenReturn('url/t2.jpg');
 
-        $this->sut = new LiipImagineGenerator($cacheManager);
+        $this->sut = new LiipImagineManager($cacheManager);
     }
 
     public function tearDown()
@@ -56,12 +57,12 @@ class LiipImagineGeneratorTest extends \PHPUnit_Framework_TestCase
         $file = new FormFile();
         $file->setPath('url/img.jpg');
 
-        $this->assertEquals('url/t0.jpg', $this->sut->getUrl($file, array(120, 90)));
-        $this->assertEquals('url/t1.jpg', $this->sut->getUrl($file, array(120, 120)));
+        $this->assertEquals('url/t0.jpg', $this->sut->getThumbnailUrl($file, array(120, 90)));
+        $this->assertEquals('url/t1.jpg', $this->sut->getThumbnailUrl($file, array(120, 120)));
 
         $file2 = new FormFile();
         $file2->setPath('url/img2.jpg');
 
-        $this->assertEquals('url/t2.jpg', $this->sut->getUrl($file2, array(120, 120)));
+        $this->assertEquals('url/t2.jpg', $this->sut->getThumbnailUrl($file2, array(120, 120)));
     }
 }

@@ -4,6 +4,7 @@ namespace Netinfluence\UploadBundle\Manager\Thumbnail;
 
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Netinfluence\UploadBundle\Model\UploadableInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class LiipImagineManager
@@ -16,9 +17,15 @@ class LiipImagineManager implements ThumbnailManagerInterface
      */
     private $cacheManager;
 
-    public function __construct(CacheManager $cacheManager)
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    public function __construct(CacheManager $cacheManager, LoggerInterface $logger)
     {
         $this->cacheManager = $cacheManager;
+        $this->logger       = $logger;
     }
 
     /**
@@ -32,5 +39,16 @@ class LiipImagineManager implements ThumbnailManagerInterface
                 'size'  => $size
             )
         ));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeThumbnails(UploadableInterface $file)
+    {
+        // Path in cache is the same than in filesystem!
+        $this->cacheManager->remove($file->getPath());
+
+        $this->logger->info(sprintf('Removed thumbnails for file "%s"', $file->getPath()));
     }
 }

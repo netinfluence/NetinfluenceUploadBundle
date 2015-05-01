@@ -5,7 +5,8 @@ namespace Netinfluence\UploadBundle\EventListener;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
-use Netinfluence\UploadBundle\Manager\FileManagerInterface;
+use Netinfluence\UploadBundle\Manager\File\FileManagerInterface;
+use Netinfluence\UploadBundle\Manager\Thumbnail\ThumbnailManagerInterface;
 use Netinfluence\UploadBundle\Model\UploadableInterface;
 
 /**
@@ -17,11 +18,17 @@ class UploadableListener implements EventSubscriber
     /**
      * @var FileManagerInterface
      */
-    private $manager;
+    private $fileManager;
 
-    public function __construct(FileManagerInterface $manager)
+    /**
+     * @var ThumbnailManagerInterface
+     */
+    private $thumbnailManager;
+
+    public function __construct(FileManagerInterface $fileManager, ThumbnailManagerInterface $thumbnailManager)
     {
-        $this->manager = $manager;
+        $this->fileManager = $fileManager;
+        $this->thumbnailManager = $thumbnailManager;
     }
 
     /**
@@ -51,7 +58,9 @@ class UploadableListener implements EventSubscriber
             return;
         }
 
-        $this->manager->save($entity);
+        $this->fileManager->save($entity);
+
+        // We do not generate now thumbnail: we let LiipImagineBundle generate it later
     }
 
     /**
@@ -69,7 +78,7 @@ class UploadableListener implements EventSubscriber
             return;
         }
 
-        $this->manager->save($entity);
+        $this->fileManager->save($entity);
     }
 
     /**
@@ -84,6 +93,8 @@ class UploadableListener implements EventSubscriber
             return;
         }
 
-        $this->manager->remove($entity);
+        $this->fileManager->remove($entity);
+
+        $this->thumbnailManager->removeThumbnails($entity);
     }
 }

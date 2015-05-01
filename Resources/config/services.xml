@@ -34,6 +34,7 @@
         </service>
         <service class="%netinfluence_upload.thumbnail_manager.class%" id="netinfluence_upload.thumbnail_manager">
             <argument type="service" id="liip_imagine.cache.manager" />
+            <argument type="service" id="logger" />
         </service>
 
         <!-- Symfony2 event dispatcher events listener -->
@@ -46,6 +47,7 @@
         <!-- Doctrine events listener -->
         <service class="%netinfluence_upload.uploadable_listener.class%" id="netinfluence_upload.uploadable_listener">
             <argument type="service" id="netinfluence_upload.file_manager" />
+            <argument type="service" id="netinfluence_upload.thumbnail_manager" />
             <tag name="doctrine.event_subscriber" />
         </service>
 

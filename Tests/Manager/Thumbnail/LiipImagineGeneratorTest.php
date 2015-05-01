@@ -4,6 +4,7 @@ namespace Netinfluence\UploadBundle\Tests\Manager\Thumbnail;
 
 use Netinfluence\UploadBundle\Manager\Thumbnail\LiipImagineManager;
 use Netinfluence\UploadBundle\Model\FormFile;
+use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 
 /**
  * Class LiipImagineGeneratorTest
@@ -14,6 +15,11 @@ class LiipImagineGeneratorTest extends \PHPUnit_Framework_TestCase
      * @var LiipImagineManager
      */
     private $sut;
+
+    /**
+     * @var CacheManager
+     */
+    private $cacheManager;
     
     public function setUp()
     {
@@ -44,7 +50,11 @@ class LiipImagineGeneratorTest extends \PHPUnit_Framework_TestCase
             $this->anything()
         )->thenReturn('url/t2.jpg');
 
-        $this->sut = new LiipImagineManager($cacheManager);
+        $logger = \Phake::mock('Psr\Log\LoggerInterface');
+
+        $this->cacheManager = $cacheManager;
+
+        $this->sut = new LiipImagineManager($cacheManager, $logger);
     }
 
     public function tearDown()
@@ -64,5 +74,15 @@ class LiipImagineGeneratorTest extends \PHPUnit_Framework_TestCase
         $file2->setPath('url/img2.jpg');
 
         $this->assertEquals('url/t2.jpg', $this->sut->getThumbnailUrl($file2, array(120, 120)));
+    }
+
+    public function test_it_removes_thumbnails()
+    {
+        $file = new FormFile();
+        $file->setPath('url/img.jpg');
+
+        $this->sut->removeThumbnails($file);
+
+        \Phake::verify($this->cacheManager, \Phake::times(1));
     }
 }

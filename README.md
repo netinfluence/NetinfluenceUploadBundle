@@ -344,6 +344,21 @@ class MyController extends Controller
 }
 ```
 
+### Cleaning regularly the sandbox
+
+It can happen that temporary files are never moved to the final filesystem: for example, in case the user never submits its form.
+So to prevent having some dead files, you will want to clear the sandbox from time to time.
+
+The bundle provides a Symfony2 command to do exactly that:
+`php app/console netinf:upload:clear`
+By default, files from today (as user may still be editing its form) and yesterday are kept.
+
+You can change that:
+```
+php app/console netinf:upload:clear --grace=1 # clear files but those of today
+php app/console netinf:upload:clear --grace=0 # clear all files
+```
+
 ## Multiple files upload
 
 Use `netinfluence_upload_image_collection` form type instead.

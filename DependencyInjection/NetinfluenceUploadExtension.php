@@ -42,5 +42,8 @@ class NetinfluenceUploadExtension extends Extension
         $fileListener = $container->getDefinition('netinfluence_upload.file_manager');
         $fileListener->replaceArgument(0, new Reference($config['filesystems']['sandbox']));
         $fileListener->replaceArgument(1, new Reference($config['filesystems']['final']));
+
+        $fileListener = $container->getDefinition('netinfluence_upload.sandbox_manager');
+        $fileListener->replaceArgument(0, new Reference($config['filesystems']['sandbox']));
     }
 }

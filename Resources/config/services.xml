@@ -12,6 +12,12 @@
         <parameter key="netinfluence_upload.uploadable_listener.class">Netinfluence\UploadBundle\EventListener\UploadableListener</parameter>
         <parameter key="netinfluence_upload.file_manager.class">Netinfluence\UploadBundle\Manager\File\FileManager</parameter>
         <parameter key="netinfluence_upload.thumbnail_manager.class">Netinfluence\UploadBundle\Manager\Thumbnail\LiipImagineManager</parameter>
+        <parameter key="netinfluence_upload.sandbox_manager.class">Netinfluence\UploadBundle\Manager\Sandbox\SandboxManager</parameter>
+
+        <!-- some other parameters we need - set at compilation -->
+        <parameter key="netinfluence_upload.validation.image_constraints" />
+        <parameter key="netinfluence_upload.config.overwrite" />
+        <parameter key="netinfluence_upload.config.ignore_delete_error" />
     </parameters>
 
     <services>
@@ -33,6 +39,11 @@
             <argument>%netinfluence_upload.config.ignore_delete_error%</argument>
         </service>
         <service class="%netinfluence_upload.thumbnail_manager.class%" id="netinfluence_upload.thumbnail_manager">
+            <argument type="service" id="liip_imagine.cache.manager" />
+            <argument type="service" id="logger" />
+        </service>
+        <service class="%netinfluence_upload.sandbox_manager.class%" id="netinfluence_upload.sandbox_manager">
+            <argument /><!-- a Gaufrette filesystem will be injected at compilation -->
             <argument type="service" id="liip_imagine.cache.manager" />
             <argument type="service" id="logger" />
         </service>

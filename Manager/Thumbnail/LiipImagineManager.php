@@ -51,4 +51,15 @@ class LiipImagineManager implements ThumbnailManagerInterface
 
         $this->logger->info(sprintf('Removed thumbnails for file "%s"', $file->getPath()));
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeThumbnailsByPath($path)
+    {
+        // Path in cache is the same than in filesystem!
+        $this->cacheManager->remove($path);
+
+        $this->logger->info(sprintf('Removed thumbnails for path "%s"', $path));
+    }
 }

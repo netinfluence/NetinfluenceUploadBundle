@@ -22,4 +22,11 @@ interface ThumbnailManagerInterface
      * @param UploadableInterface $file
      */
     public function removeThumbnails(UploadableInterface $file);
+
+    /**
+     * Removed thumbnails generated for this path
+     *
+     * @param string $path
+     */
+    public function removeThumbnailsByPath($path);
 }

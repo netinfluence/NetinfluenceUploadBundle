@@ -76,12 +76,19 @@ class LiipImagineGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('url/t2.jpg', $this->sut->getThumbnailUrl($file2, array(120, 120)));
     }
 
-    public function test_it_removes_thumbnails()
+    public function test_it_removes_thumbnails_for_file()
     {
         $file = new FormFile();
         $file->setPath('url/img.jpg');
 
         $this->sut->removeThumbnails($file);
+
+        \Phake::verify($this->cacheManager, \Phake::times(1));
+    }
+
+    public function test_it_removes_thumbnails_by_path()
+    {
+        $this->sut->removeThumbnailsByPath('url/img.jpg');
 
         \Phake::verify($this->cacheManager, \Phake::times(1));
     }

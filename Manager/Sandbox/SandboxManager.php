@@ -75,7 +75,7 @@ class SandboxManager
      */
     private function getFilesToClear($gracePeriod)
     {
-        $files = $this->filesystem->keys();
+        $files = $this->filesystem->listKeys();
 
         $ignoredDirs = array();
         $date = new \DateTime();
@@ -91,7 +91,7 @@ class SandboxManager
 
         // Everything to clear!
         if (empty($ignoredDirs)) {
-            return $files;
+            return $files['keys'];
         }
 
         // Optimization: build one fat regex
@@ -99,7 +99,7 @@ class SandboxManager
 
         $filesToDelete = array();
 
-        foreach ($files as $key) {
+        foreach ($files['keys'] as $key) {
             if (1 === preg_match($regex, $key)) {
                 continue;
             }

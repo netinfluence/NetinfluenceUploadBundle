@@ -29,20 +29,25 @@ class SandboxManagerTest extends \PHPUnit_Framework_TestCase
         $this->filesystem = \Phake::mock('Gaufrette\Filesystem');
 
         // Array of files keys to return
-        $files = array();
+        $files = array(
+            'dirs'  => array(),
+            'keys'  => array()
+        );
         $date = new \Datetime();
         $interval = new \DateInterval('P1D');
         for ($i = 0; $i < 3; $i++) {
             $folder = $date->format('Y-m-d');
 
-            $files[] = $folder.'/img0.jpg';
-            $files[] = $folder.'/img1.jpg';
-            $files[] = $folder.'/img2.jpg';
+            $files['keys'][] = $folder.'/img0.jpg';
+            $files['keys'][] = $folder.'/img1.jpg';
+            $files['keys'][] = $folder.'/img2.jpg';
+
+            $files['dirs'] = $folder;
 
             $date->sub($interval);
         }
 
-        \Phake::when($this->filesystem)->keys()->thenReturn($files);
+        \Phake::when($this->filesystem)->listKeys()->thenReturn($files);
 
         $this->thumbnailManager = \Phake::mock('Netinfluence\UploadBundle\Manager\Thumbnail\ThumbnailManagerInterface');
 

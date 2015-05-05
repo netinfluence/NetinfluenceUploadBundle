@@ -44,7 +44,7 @@
         </service>
         <service class="%netinfluence_upload.sandbox_manager.class%" id="netinfluence_upload.sandbox_manager">
             <argument /><!-- a Gaufrette filesystem will be injected at compilation -->
-            <argument type="service" id="liip_imagine.cache.manager" />
+            <argument type="service" id="netinfluence_upload.thumbnail_manager" />
             <argument type="service" id="logger" />
         </service>
 

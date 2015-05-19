@@ -26,6 +26,8 @@ For 1.0 Flysystem will be used instead of Gaufrette, so part of the API will cha
 
 ## Documentation
 
+*Documentation for O.xx versions*
+
 **Getting started:**
 
  * [Installation](Resources/doc/start/install.md)

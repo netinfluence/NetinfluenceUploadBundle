@@ -38,7 +38,7 @@
             {%- set attr = attr|merge({'data-collection': ''}) -%}
             {{- block('collection_widget') -}}
 
-            <div id="ni-ub-dz-{{ form.vars.name }}" class="ni-ub-dz dropzone" {{ block('dropzone_attributes') }}>
+            <div id="ni-ub-dz-{{ form.vars.name }}" class="ni-ub-dz dropzone" {{ block('dropzone_collection_attributes') }}>
                 {# Dropzone will be here! #}
             </div>
 
@@ -56,13 +56,6 @@
  #}
 {% block dropzone_attributes %}
     data-url="{{ path('netinfluence_upload_api_upload_image') }}"
-
-    {% if form.vars.max_files != 0 %}data-max-files={{ form.vars.max_files }}{% endif %}
-
-    {% if form.vars.allow_delete == true %}
-        data-add-remove-links=true
-        data-remove-url="{{ path('netinfluence_upload_api_delete') }}"
-    {% endif %}
 
     data-thumbnail-height="{{ form.vars.thumbnail_height }}"
     data-thumbnail-width="{{ form.vars.thumbnail_width }}"
@@ -88,6 +81,20 @@
         data-accepted-files={{ form.vars.image_constraints.acceptedMimes|join(',') }}
     {% endif %}
 {% endblock dropzone_attributes %}
+
+{#
+    Collection have a few more attributes!
+ #}
+{% block dropzone_collection_attributes %}
+    {{ block('dropzone_attributes') }}
+
+    {% if form.vars.max_files != 0 %}data-max-files={{ form.vars.max_files }}{% endif %}
+
+    {% if form.vars.allow_delete == true %}
+        data-add-remove-links=true
+        data-remove-url="{{ path('netinfluence_upload_api_delete') }}"
+    {% endif %}
+{% endblock dropzone_collection_attributes %}
 
 {#
     The template used by Dropzone for HTMl elements

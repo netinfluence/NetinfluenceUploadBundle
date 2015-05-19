@@ -200,12 +200,15 @@ Given that your objects implements `Netinfluence\UploadBundle\Model\UploadableIn
 <?php
 namespace Netinfluence\DemoBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use Netinfluence\UploadBundle\Model\UploadableInterface;
 
 class MyFile implements UploadableInterface
 {
     /**
      * @var string path to file, as used by Gaufrette FS
+     * As an example, we mapped that field to DB
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $path;
 
@@ -242,6 +245,7 @@ If you are using PHP >= 5.4, to simplify you could also be using `Netinfluence\U
 <?php
 namespace Netinfluence\DemoBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use Netinfluence\UploadBundle\Model\UploadableInterface;
 use Netinfluence\UploadBundle\Model\MaybeTemporaryFileTrait;
 
@@ -251,6 +255,8 @@ class MyFile implements UploadableInterface
 
     /**
      * @var string path to file, as used by Gaufrette FS
+     * As an example, we mapped that field to DB
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $path;
 

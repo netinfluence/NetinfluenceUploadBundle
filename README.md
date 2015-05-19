@@ -24,15 +24,15 @@ Features:
 Current stable version is considered **ready for production** and is currently used on several of our projects.  
 For 1.0 Flysystem will be used instead of Gaufrette, so part of the API will change. LiipImagineBundle may also subsequently be removed.
 
-## Documentation:
+## Documentation
 
 **Getting started:**
 
- * [Installation](Resources/doc/started/install.md)
- * [Setting up storage filesystems](Resources/doc/started/storage.md)
- * [Using the form type](Resources/doc/started/usage.md)
- * [Saving uploaded files](Resources/doc/started/saving.md)
- * [Final notes](Resources/doc/started/final_note.md)
+ * [Installation](Resources/doc/start/install.md)
+ * [Setting up storage filesystems](Resources/doc/start/storage.md)
+ * [Using the form type](Resources/doc/start/usage.md)
+ * [Saving uploaded files](Resources/doc/start/saving.md)
+ * [Final notes](Resources/doc/start/final_note.md)
 
 **Cookbook:**
 

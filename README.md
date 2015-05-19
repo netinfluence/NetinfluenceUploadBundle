@@ -24,6 +24,21 @@ Features:
 Current stable version is considered **ready for production** and is currently used on several of our projects.  
 For 1.0 Flysystem will be used instead of Gaufrette, so part of the API will change. LiipImagineBundle may also subsequently be removed.
 
+**Documentation:**
+
+Cookbook:
+
+ * [Multiple files upload](Resources/doc/cookbook/multiple_upload.md)
+ * [Adding extra fields to form](Resources/doc/cookbook/extra_field.md)
+ * [Manipulating uploaded file](Resources/doc/cookbook/manipulating_file.md)
+ * [Changing thumbnail size](Resources/doc/cookbook/thumbnail_size.md)
+
+Advanced:
+
+ * [Configuration reference](Resources/doc/advanced/reference.md)
+ * [Some note about internals](Resources/doc/advanced/internals.md)
+ 
+ 
 ## Getting started
 
 ### Installing the bundle
@@ -368,207 +383,6 @@ php app/console netinf:upload:clear --grace=1 # clear files but those of today
 php app/console netinf:upload:clear --grace=0 # clear all files
 ```
 
-## Multiple files upload
-
-Use `netinfluence_upload_image_collection` form type instead.
-```php
-<?php
-namespace Netinfluence\DemoBundle\Controller;
-
-// ...
-
-class MyController extends Controller
-{
-    public function formAction(Request $request)
-    {
-        // ...
-
-        $form = $this->createFormBuilder()
-            ->add('photos', 'netinfluence_upload_image_collection')
-            ->getForm()
-        ;
-        
-         if ($form->handleRequest($request) && $form->isValid()) {
-            $files = $form->getData()['photos'];
-            
-            // this in an array
-            var_dump(is_array($files));
-            
-            // Netinfluence\UploadBundle\Model\FormFile
-            var_dump(get_class($files[0]));
-            
-            // ...
-         }
-    }
-}
-```
-
-You can set a maximum number of files through `max_files`. By default it's 0 (unlimited).
-It mimics Symfony2 `collection` type, the child being an `netinfluence_upload_image` type field, you can pass options to it: 
-```php
-<?php
-namespace Netinfluence\DemoBundle\Controller;
-
-// ...
-
-class MyController extends Controller
-{
-    public function formAction(Request $request)
-    {
-        // ...
-
-        $form = $this->createFormBuilder()
-            ->add('photo', 'netinfluence_upload_image_collection', array(
-                'max_files' => 3,
-                'options'   => array(
-                    'data_class' => 'Netinfluence\DemoBundle\Entity\MyFile'
-                )
-            ))
-            ->getForm()
-        ;
-        
-        if ($form->handleRequest($request) && $form->isValid()) {
-            $files = $form->getData()['photos'];
-        
-            // this in an array of max 3 items
-            var_dump(is_array($files));
-        
-            // Netinfluence\DemoBundle\Entity\MyFile
-            var_dump(get_class($files[0]));
-        
-            // ...
-        }
-    }
-}
-```
-
-## Add extra fields
-
-You can modify the `FormBuilder` by providing a callable as `extra_fields` option:
-```php
-<?php
-namespace Netinfluence\DemoBundle\Controller;
-
-use Symfony\Component\Form\FormBuilderInterface;
-
-// ...
-class MyController extends Controller
-{
-    public function formAction(Request $request)
-    {
-        // ...
-
-        $form = $this->createFormBuilder()
-            ->add('photo', 'netinfluence_upload_image', array(
-                'data_class'    => 'Netinfluence\DemoBundle\Entity\MyFile',
-                'extra_fields   => function(FormBuilderInterface $builder, array $options) {
-                    // Let's imagine your "MyFile" entity has a "number" field
-                    $builder->add('number', 'hidden');
-                }
-            ))
-            ->getForm()
-        ;
-        
-         if ($form->handleRequest($request) && $form->isValid()) {
-            $file = $form->getData()['photo'];
-            
-            // FileManager will remove temporary file from sandbox,
-            // and save it to the final one
-            $this->get('netinfluence_upload.file_manager')->save($file);
-            
-            // And if you want to remove:
-            $this->get('netinfluence_upload.file_manager')->remove($file);
-            
-         }
-        
-        // ...
-    }
-}
-```
-
-## Modifying uploaded file
-
-You can manipulate the file about to be uploaded listening to the `FILE_VALIDATED_EVENT`, which is raised when the file sent by Ajax is successfully validated.
-A listener with a priority of 50 will store file in sandbox, so you have to set an higher priority to be called before.
-
-```php
-<?php
-
-namespace Netinfluence\DemoBundle\EventListener;
-
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Netinfluence\UploadBundle\Event\Events;
-use Netinfluence\UploadBundle\Event\TemporaryFileEvent;
-
-/**
- * Class UploadFilter
- */
-class UploadFilter implements EventSubscriberInterface
-{
-    /**
-     * @inheritdoc
-     */
-    public static function getSubscribedEvents()
-    {
-        return [
-            // We are called BEFORE the temporary file is stored
-            Events::TEMPORARY_FILE_VALIDATED_EVENT => ['onFileValidated', 100]
-        ];
-    }
-
-    /**
-     * Store a file when it is validated
-     *
-     * @param TemporaryFileEvent $event
-     * @throws \Exception
-     */
-    public function onFileValidated(TemporaryFileEvent $event)
-    {
-        $temporaryFile = $event->getTemporaryFile();
-        $symfonyFile = $temporaryFile->getFile();
-        $path = $symfonyFile->getPathname();
-
-        // Here you can modify file at $path...
-    }
-}
-```
-
-```yml
-# src/Netinfluence/DemoBundle/Resources/config/services.yml
-services:
-    netinfluence_storage.upload_filter:
-        class: Netinfluence\DemoBundle\EventListener\UploadFilter
-        tags:
-            - { name: kernel.event_subscriber }
-```
-
-## Changing thumbnails size
-
-Because changing images thumbnails size has a lot of consequences (most notably changing Imagine `ni_ub_thumbnail` filter), it must be done through form options:
-```php
-<?php
-namespace Netinfluence\DemoBundle\Controller;
-
-// ...
-
-class MyController extends Controller
-{
-    public function formAction(Request $request)
-    {
-        // ...
-
-        $form = $this->createFormBuilder()
-            ->add('photo', 'netinfluence_upload_image_collection', array(
-                'thumbnail_height' => 120, // default value
-                'thumbnail_width' => 120 // default value
-            ))
-            ->getForm()
-        ;
-             
-        // ...
-    }
-}
-```
 
 ## Note about security
 
@@ -581,38 +395,3 @@ security:
         - { path: ^/upload/, role: IS_AUTHENTICATED_REMEMBERED }
 ```
 
-## Configuration reference
-
-Here is the full bundle configuration, filled with the default values:
-```yml
-# app/config/config.yml
-netinfluence_upload:
-    filesystems:
-        sandbox: # you should provide here a valid Gaufrette filesystem ID
-        final: # you should provide here a valid Gaufrette filesystem ID too
-    validation:
-        # Validations rules applied to uploaded images
-        image:
-            # here you can use any Symfony2 constraint or custom one
-            # Watch out, anything set here will override all default values so you may want to recopy those
-            NotNull: ~
-            Image:
-                maxSize: 10M
-                mimeTypes: ['image/gif', 'image/jpg', 'image/jpeg', 'image/png', 'image/bmp', 'image/x-windows-bmp']
-    # Whether to ignore filesystems errors happening during removal. True is advised, usually permission issues should not prevent users from deleting objects.
-    ignore_delete_error: true
-    # Whether to overwrite or not files in Final filesystem. True is advised, as you may have files sent twice.
-    overwrite: true
-```
- 
-## Internals: File upload workflow
-
-The whole bundle workflow can be summarised as this:
-
- * user is presented with a javascript upload input
- * when picking one or many files, those are sent to the server via AJAX
- * files are validated using rules from bundle config
- * if successful, they are stored in the `sandbox` filesystem
- * some data is sent back and placed in the form
- * when the form is finally submitted and valid, you will receive `FormFile` objects
- * you can now handle those yourself 

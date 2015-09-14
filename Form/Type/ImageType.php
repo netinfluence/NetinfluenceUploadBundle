@@ -6,6 +6,7 @@ use Netinfluence\UploadBundle\Manager\Thumbnail\ThumbnailManagerInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
 use Netinfluence\UploadBundle\Validation\ImageConstraints;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Class ImageType
@@ -47,5 +48,17 @@ class ImageType extends ImageInnerType
         $view->vars['thumbnail_width'] = $options['thumbnail_width'];
 
         $view->vars['image_constraints'] = $this->constraints;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        parent::setDefaultOptions($resolver);
+
+        $resolver->setDefaults(array(
+            'allow_delete' => true
+        ));
     }
 }

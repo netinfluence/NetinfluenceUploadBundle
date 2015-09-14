@@ -60,6 +60,12 @@
     data-thumbnail-height="{{ form.vars.thumbnail_height }}"
     data-thumbnail-width="{{ form.vars.thumbnail_width }}"
 
+    {# even a single image can be removed #}
+    {% if form.vars.allow_delete == true %}
+        data-add-remove-links=true
+        data-remove-url="{{ path('netinfluence_upload_api_delete') }}"
+    {% endif %}
+
     {# localized messages #}
     data-dict-default-message="{{ 'dropzone.dictDefaultMessage'|trans }}"
     data-dict-invalid-file-type="{{ 'dropzone.dictInvalidFileType'|trans }}"
@@ -89,11 +95,6 @@
     {{ block('dropzone_attributes') }}
 
     {% if form.vars.max_files != 0 %}data-max-files={{ form.vars.max_files }}{% endif %}
-
-    {% if form.vars.allow_delete == true %}
-        data-add-remove-links=true
-        data-remove-url="{{ path('netinfluence_upload_api_delete') }}"
-    {% endif %}
 {% endblock dropzone_collection_attributes %}
 
 {#

@@ -47,6 +47,8 @@ class ImageType extends ImageInnerType
         $view->vars['thumbnail_height'] = $options['thumbnail_height'];
         $view->vars['thumbnail_width'] = $options['thumbnail_width'];
 
+        $view->vars['allow_delete'] = $options['allow_delete'];
+
         $view->vars['image_constraints'] = $this->constraints;
     }
 

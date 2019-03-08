@@ -3,7 +3,7 @@
 namespace Netinfluence\UploadBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\EventListener\ResizeFormListener;
 use Symfony\Component\Form\FormView;
@@ -15,7 +15,7 @@ use Netinfluence\UploadBundle\Validation\ImageConstraints;
  */
 class ImageCollectionType extends AbstractType
 {
-    const CHILD_TYPE = 'netinfluence_upload_image_inner';
+    const CHILD_TYPE = ImageInnerType::class;
     const PROTOTYPE_NAME = '__name__';
 
     /**
@@ -76,7 +76,7 @@ class ImageCollectionType extends AbstractType
     /**
      * @inheritdoc
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'allow_delete' => true,
@@ -90,7 +90,7 @@ class ImageCollectionType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'netinfluence_upload_image_collection';
     }

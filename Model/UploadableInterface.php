@@ -4,7 +4,7 @@ namespace Netinfluence\UploadBundle\Model;
 
 /**
  * Interface UploadableInterface
- * Interface that objects mapped to "netinfluence_upload_image" form type must implement
+ * Interface that objects mapped to "ImageType" form type must implement
  * If you are using PHP >= 5.4, consider using "MaybeTemporaryFileTrait"
  */
 interface UploadableInterface

@@ -3,10 +3,11 @@
 You can modify the `FormBuilder` by providing a callable as `extra_fields` option:
 ```php
 <?php
+
 namespace Netinfluence\DemoBundle\Controller;
 
 use Symfony\Component\Form\FormBuilderInterface;
-
+use Netinfluence\UploadBundle\Form\Type\ImageType;
 // ...
 class MyController extends Controller
 {
@@ -15,7 +16,7 @@ class MyController extends Controller
         // ...
 
         $form = $this->createFormBuilder()
-            ->add('photo', 'netinfluence_upload_image', array(
+            ->add('photo', ImageType::class, array(
                 'data_class'    => 'Netinfluence\DemoBundle\Entity\MyFile',
                 'extra_fields   => function(FormBuilderInterface $builder, array $options) {
                     // Let's imagine your "MyFile" entity has a "number" field

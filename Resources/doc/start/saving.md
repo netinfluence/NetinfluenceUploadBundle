@@ -13,7 +13,10 @@ In the same fashion, file removal is automatic after entity removal.
 If you don't use Doctrine ORM, but want to save `Netinfluence\UploadBundle\Model\UploadableInterface` file, call the `netinfluence_upload.file_manager` service:
 ```php
 <?php
+
 namespace Netinfluence\DemoBundle\Controller;
+
+use Netinfluence\UploadBundle\Form\Type\ImageType;
 
 // ...
 class MyController extends Controller
@@ -23,7 +26,7 @@ class MyController extends Controller
         // ...
 
         $form = $this->createFormBuilder()
-            ->add('photo', 'netinfluence_upload_image', array(
+            ->add('photo', ImageType::class, array(
                 'data_class' => 'Netinfluence\DemoBundle\Entity\MyFile'
             ))
             ->getForm()

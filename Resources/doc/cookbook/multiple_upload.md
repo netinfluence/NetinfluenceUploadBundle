@@ -1,10 +1,13 @@
 # Multiple files upload
 
-Use `netinfluence_upload_image_collection` form type instead:
+Use `ImageCollectionType` form type instead:
 
 ```php
 <?php
+
 namespace Netinfluence\DemoBundle\Controller;
+
+use Netinfluence\UploadBundle\Form\Type\ImageCollectionType;
 
 // ...
 
@@ -15,7 +18,7 @@ class MyController extends Controller
         // ...
 
         $form = $this->createFormBuilder()
-            ->add('photos', 'netinfluence_upload_image_collection')
+            ->add('photos', ImageCollectionType::class)
             ->getForm()
         ;
         
@@ -35,11 +38,14 @@ class MyController extends Controller
 ```
 
 You can set a maximum number of files through `max_files`. By default it's 0 (unlimited).
-It mimics Symfony2 `collection` type, the child being very similar to a `netinfluence_upload_image` type field, you can pass options to it: 
+It mimics Symfony2 `collection` type, the child being very similar to a `ImageType` type field, you can pass options to it: 
 
 ```php
 <?php
+
 namespace Netinfluence\DemoBundle\Controller;
+
+use Netinfluence\UploadBundle\Form\Type\ImageCollectionType;
 
 // ...
 
@@ -50,7 +56,7 @@ class MyController extends Controller
         // ...
 
         $form = $this->createFormBuilder()
-            ->add('photo', 'netinfluence_upload_image_collection', array(
+            ->add('photo', ImageCollectionType::class, array(
                 'max_files' => 3,
                 'options'   => array(
                     'data_class' => 'Netinfluence\DemoBundle\Entity\MyFile'

@@ -4,7 +4,7 @@ namespace Netinfluence\UploadBundle\Model;
 
 /**
  * Class FormFile
- * Model used to map objects behind the netinfluence_upload_image form
+ * Model used to map objects behind the ImageType form
  */
 class FormFile implements UploadableInterface
 {

@@ -5,7 +5,7 @@ namespace Netinfluence\UploadBundle\Form\Type;
 use Netinfluence\UploadBundle\Form\DataTransformer\BooleanToHiddenTransformer;
 use Netinfluence\UploadBundle\Manager\Thumbnail\ThumbnailManagerInterface;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
@@ -59,7 +59,7 @@ class ImageInnerType extends AbstractType
     /**
      * @inheritdoc
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class'    => self::DEFAULT_DATA_CLASS,
@@ -77,7 +77,7 @@ class ImageInnerType extends AbstractType
                 if (! is_a($value, $interface, true)) {
                     // We throw an Exception for a more precise feedback than OptionResolver one
                     throw new \Exception(sprintf(
-                        'Form type "netinfluence_upload_image" must be mapped to objects implementing %s. Wrong value "%s" received for "data_class".',
+                        'Form type "ImageType" must be mapped to objects implementing %s. Wrong value "%s" received for "data_class".',
                         $interface, $dataClass
                     ));
                 }
@@ -86,7 +86,7 @@ class ImageInnerType extends AbstractType
             }
         ));
 
-        $resolver->setOptional(array('extra_fields'));
+        $resolver->setDefined(array('extra_fields'));
     }
 
     /**
@@ -106,7 +106,7 @@ class ImageInnerType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'netinfluence_upload_image_inner';
     }

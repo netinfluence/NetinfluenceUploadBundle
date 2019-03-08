@@ -5,8 +5,10 @@
 Just use `netinfluence_upload_image` form type: 
 ```php
 <?php
+
 namespace Netinfluence\DemoBundle\Controller;
 
+use Netinfluence\UploadBundle\Form\Type\ImageType;
 // ...
 
 class MyController extends Controller
@@ -16,7 +18,7 @@ class MyController extends Controller
         // ...
 
         $form = $this->createFormBuilder()
-            ->add('photo', 'netinfluence_upload_image')
+            ->add('photo', ImageType::class)
             ->getForm()
         ;
         
@@ -48,7 +50,9 @@ By default, you receive an instance of `Netinfluence\UploadBundle\Model\FormFile
 ```php
 <?php
 
+use Netinfluence\UploadBundle\Form\Type\ImageType;
 // ...
+
 class MyController extends Controller
 {
     public function formAction(Request $request)
@@ -56,7 +60,7 @@ class MyController extends Controller
         // ...
 
         $form = $this->createFormBuilder()
-            ->add('photo', 'netinfluence_upload_image')
+            ->add('photo', ImageType::class)
             ->getForm()
         ;
         
@@ -156,9 +160,12 @@ class MyFile implements UploadableInterface
 And finally the controller example code:
 ```php
 <?php
+
 namespace Netinfluence\DemoBundle\Controller;
 
+use Netinfluence\UploadBundle\Form\Type\ImageType;
 // ...
+
 class MyController extends Controller
 {
     public function formAction(Request $request)
@@ -166,7 +173,7 @@ class MyController extends Controller
         // ...
 
         $form = $this->createFormBuilder()
-            ->add('photo', 'netinfluence_upload_image', array(
+            ->add('photo', ImageType::class, array(
                 'data_class' => 'Netinfluence\DemoBundle\Entity\MyFile'
             ))
             ->getForm()

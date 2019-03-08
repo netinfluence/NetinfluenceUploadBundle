@@ -4,7 +4,10 @@ Because changing images thumbnails size has a lot of consequences (most notably 
 
 ```php
 <?php
+
 namespace Netinfluence\DemoBundle\Controller;
+
+use Netinfluence\UploadBundle\Form\Type\ImageCollectionType;
 
 // ...
 
@@ -15,7 +18,7 @@ class MyController extends Controller
         // ...
 
         $form = $this->createFormBuilder()
-            ->add('photo', 'netinfluence_upload_image_collection', array(
+            ->add('photo', ImageCollectionType::class, array(
                 'thumbnail_height' => 120, // default value
                 'thumbnail_width' => 120 // default value
             ))

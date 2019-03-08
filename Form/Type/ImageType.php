@@ -6,7 +6,7 @@ use Netinfluence\UploadBundle\Manager\Thumbnail\ThumbnailManagerInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
 use Netinfluence\UploadBundle\Validation\ImageConstraints;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class ImageType
@@ -30,7 +30,7 @@ class ImageType extends ImageInnerType
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'netinfluence_upload_image';
     }
@@ -55,7 +55,7 @@ class ImageType extends ImageInnerType
     /**
      * @inheritdoc
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         parent::setDefaultOptions($resolver);
 

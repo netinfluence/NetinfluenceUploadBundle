@@ -57,7 +57,7 @@ class ImageType extends ImageInnerType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        parent::setDefaultOptions($resolver);
+        parent::configureOptions($resolver);
 
         $resolver->setDefaults(array(
             'allow_delete' => true

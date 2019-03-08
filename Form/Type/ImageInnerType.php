@@ -4,6 +4,8 @@ namespace Netinfluence\UploadBundle\Form\Type;
 
 use Netinfluence\UploadBundle\Form\DataTransformer\BooleanToHiddenTransformer;
 use Netinfluence\UploadBundle\Manager\Thumbnail\ThumbnailManagerInterface;
+use Netinfluence\UploadBundle\Model\FormFile;
+use Netinfluence\UploadBundle\Model\UploadableInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,8 +21,8 @@ class ImageInnerType extends AbstractType
     /**
      * By default, behind the form we will have an instance of this object
      */
-    const DEFAULT_DATA_CLASS = 'Netinfluence\UploadBundle\Model\FormFile';
-    const DATA_CLASS_REQUIRED_INTERFACE = 'Netinfluence\UploadBundle\Model\UploadableInterface';
+    const DEFAULT_DATA_CLASS = FormFile::class;
+    const DATA_CLASS_REQUIRED_INTERFACE = UploadableInterface::class;
 
     /**
      * @var ThumbnailManagerInterface

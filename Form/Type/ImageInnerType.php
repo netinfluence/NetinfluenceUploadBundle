@@ -7,6 +7,7 @@ use Netinfluence\UploadBundle\Manager\Thumbnail\ThumbnailManagerInterface;
 use Netinfluence\UploadBundle\Model\FormFile;
 use Netinfluence\UploadBundle\Model\UploadableInterface;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormView;
@@ -40,11 +41,11 @@ class ImageInnerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('path', 'hidden')
+            ->add('path', HiddenType::class)
             ->add(
                 $builder
                     // this more complex syntax is required when adding a transformer
-                    ->create('temporary', 'hidden', array(
+                    ->create('temporary', HiddenType::class, array(
                         'empty_data' => false
                     ))
                     // We add a transformer to be sure there is no type screw-up
@@ -73,20 +74,17 @@ class ImageInnerType extends AbstractType
         $dataClass = self::DEFAULT_DATA_CLASS;
         $interface = self::DATA_CLASS_REQUIRED_INTERFACE;
 
-        // Important: use 2.3 syntax, passing an array, it will convert internally
-        $resolver->setAllowedValues(array(
-            'data_class' => function($value) use ($dataClass, $interface) {
-                if (! is_a($value, $interface, true)) {
-                    // We throw an Exception for a more precise feedback than OptionResolver one
-                    throw new \Exception(sprintf(
-                        'Form type "ImageType" must be mapped to objects implementing %s. Wrong value "%s" received for "data_class".',
-                        $interface, $dataClass
-                    ));
-                }
-
-                return true;
+        $resolver->setAllowedValues('data_class', function($value) use ($dataClass, $interface) {
+            if (!is_a($value, $interface, true)) {
+                // We throw an Exception for a more precise feedback than OptionResolver one
+                throw new \Exception(sprintf(
+                    'Form type "ImageType" must be mapped to objects implementing %s. Wrong value "%s" received for "data_class".',
+                    $interface, $dataClass
+                ));
             }
-        ));
+
+            return true;
+        });
 
         $resolver->setDefined(array('extra_fields'));
     }

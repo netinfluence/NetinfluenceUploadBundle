@@ -4,66 +4,44 @@ namespace Netinfluence\UploadBundle\Tests\Form\Type;
 
 use Netinfluence\UploadBundle\Form\Type\ImageCollectionType;
 use Netinfluence\UploadBundle\Form\Type\ImageInnerType;
-use Netinfluence\UploadBundle\Form\Type\ImageType;
+use Netinfluence\UploadBundle\Manager\Thumbnail\ThumbnailManagerInterface;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Netinfluence\UploadBundle\Validation\ImageConstraints;
 
-/**
- * Class ImageCollectionTypeTest
- */
 class ImageCollectionTypeTest extends TypeTestCase
 {
     /**
-     * @var ImageCollectionType
-     */
-    private $sut;
-
-    public function setUp()
-    {
-        parent::setUp();
-
-        $constraints = new ImageConstraints(array());
-
-        $this->sut = new ImageCollectionType($constraints);
-    }
-
-    public function tearDown()
-    {
-        $this->sut = null;
-    }
-
-    /**
-     * We have to register our other type
+     * We have to register our types.
+     *
      * @return array
      */
     protected function getExtensions()
     {
-        $thumbnailGenerator = \Phake::mock('Netinfluence\UploadBundle\Manager\Thumbnail\ThumbnailManagerInterface');
+        $thumbnailGenerator = \Phake::mock(ThumbnailManagerInterface::class);
 
-        $imageType = new ImageInnerType($thumbnailGenerator);
-
-        return array(
-            new PreloadedExtension(array(
-                ImageType::class => $imageType
-            ), array())
-        );
+        return [
+            new PreloadedExtension([
+                ImageInnerType::class => new ImageInnerType($thumbnailGenerator),
+                ImageCollectionType::class => new ImageCollectionType(new ImageConstraints([])),
+            ], [])
+        ];
     }
 
     public function test_it_submits_data_to_file_collection()
     {
-        $form = $this->factory->create($this->sut);
+        $form = $this->factory->create(ImageCollectionType::class);
 
-        $form->submit(array(
-            array(
+        $form->submit([
+            [
                 'path' => 'some/path/image.jpg',
                 'temporary' => 1
-            ),
-            array(
+            ],
+            [
                 'path' => 'some/path/image2.jpg',
                 'temporary' => 0
-            )
-        ));
+            ],
+        ]);
 
         $this->assertTrue($form->isSynchronized());
 
@@ -82,17 +60,17 @@ class ImageCollectionTypeTest extends TypeTestCase
 
     public function test_it_has_max_file_option()
     {
-        $form = $this->factory->create($this->sut);
+        $form = $this->factory->create(ImageCollectionType::class);
         $view = $form->createView();
 
         // default value
         $this->assertEquals(0, $view->vars['max_files']);
         $this->assertEquals(true, $view->vars['allow_delete']);
 
-        $form = $this->factory->create($this->sut, null, array(
+        $form = $this->factory->create(ImageCollectionType::class, null, [
             'allow_delete' => false,
             'max_files' => 3
-        ));
+        ]);
         $view = $form->createView();
 
         $this->assertEquals(3, $view->vars['max_files']);

@@ -4,6 +4,7 @@ namespace Netinfluence\UploadBundle\Tests\Form\Type;
 
 use Netinfluence\UploadBundle\Form\Type\ImageCollectionType;
 use Netinfluence\UploadBundle\Form\Type\ImageInnerType;
+use Netinfluence\UploadBundle\Form\Type\ImageType;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Netinfluence\UploadBundle\Validation\ImageConstraints;
@@ -44,7 +45,7 @@ class ImageCollectionTypeTest extends TypeTestCase
 
         return array(
             new PreloadedExtension(array(
-                $imageType->getName() => $imageType
+                ImageType::class => $imageType
             ), array())
         );
     }

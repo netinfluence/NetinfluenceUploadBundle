@@ -3,8 +3,8 @@
 namespace Netinfluence\UploadBundle\Validation;
 
 use Netinfluence\UploadBundle\Model\TemporaryFile;
-use Symfony\Component\Validator\ValidatorInterface;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Class TemporaryFileValidator
@@ -21,9 +21,6 @@ class TemporaryFileValidator
      */
     private $imageConstraints;
 
-    /**
-     * @param ValidatorInterface $validator
-     */
     public function __construct(ValidatorInterface $validator, ImageConstraints $imageConstraints)
     {
         $this->validator = $validator;
@@ -38,6 +35,6 @@ class TemporaryFileValidator
      */
     public function validateImage(TemporaryFile $file)
     {
-        return $this->validator->validateValue($file->getFile(), $this->imageConstraints->getConstraints());
+        return $this->validator->validate($file->getFile(), $this->imageConstraints->getConstraints());
     }
 }

@@ -17,12 +17,12 @@ class ImageConstraints
     private $constraints = array();
 
     /**
-     * @var double max file in MB
+     * @var float max file in MB
      */
     private $maxFileSize;
 
     /**
-     * @var string[]|string accepted mimes
+     * @var string|string[] accepted mimes
      */
     private $acceptedMimes;
 
@@ -35,7 +35,7 @@ class ImageConstraints
     {
         foreach ($config as $className => $options) {
             // We allow constraints names to be fully qualified ones or short-ones
-            if (strpos($className, '\\') !== false && class_exists($className)) {
+            if (false !== strpos($className, '\\') && class_exists($className)) {
                 $className = (string) $className;
             } else {
                 $className = AbstractLoader::DEFAULT_NAMESPACE.$className;
@@ -52,7 +52,7 @@ class ImageConstraints
             }
 
             if ($constraint instanceof Image) {
-                if (null !== $constraint->maxSize ) {
+                if (null !== $constraint->maxSize) {
                     // We want it in MB - base10
                     $this->maxFileSize = $constraint->maxSize / 1000000;
                 }

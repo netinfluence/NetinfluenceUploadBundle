@@ -36,7 +36,7 @@ class ImageInnerType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -46,7 +46,7 @@ class ImageInnerType extends AbstractType
                 $builder
                     // this more complex syntax is required when adding a transformer
                     ->create('temporary', HiddenType::class, array(
-                        'empty_data' => false
+                        'empty_data' => false,
                     ))
                     // We add a transformer to be sure there is no type screw-up
                     ->addViewTransformer(new BooleanToHiddenTransformer())
@@ -60,26 +60,27 @@ class ImageInnerType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class'    => self::DEFAULT_DATA_CLASS,
-            'required'      => false,
+            'data_class' => self::DEFAULT_DATA_CLASS,
+            'required' => false,
             'thumbnail_height' => 120,
-            'thumbnail_width' => 120
+            'thumbnail_width' => 120,
         ));
 
         $dataClass = self::DEFAULT_DATA_CLASS;
         $interface = self::DATA_CLASS_REQUIRED_INTERFACE;
 
-        $resolver->setAllowedValues('data_class', function($value) use ($dataClass, $interface) {
+        $resolver->setAllowedValues('data_class', function ($value) use ($dataClass, $interface) {
             if (!is_a($value, $interface, true)) {
                 // We throw an Exception for a more precise feedback than OptionResolver one
                 throw new \Exception(sprintf(
                     'Form type "ImageType" must be mapped to objects implementing %s. Wrong value "%s" received for "data_class".',
-                    $interface, $dataClass
+                    $interface,
+                    $dataClass
                 ));
             }
 
@@ -98,7 +99,7 @@ class ImageInnerType extends AbstractType
         $data = $form->getData();
         if ($data && $data->getPath() && true !== $data->isTemporary()) {
             $view->vars['thumbnail_url'] = $this->thumbnailManager->getThumbnailUrl($data, array(
-                $options['thumbnail_width'], $options['thumbnail_height']
+                $options['thumbnail_width'], $options['thumbnail_height'],
             ));
         }
     }

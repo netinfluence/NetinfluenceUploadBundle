@@ -43,8 +43,8 @@ class APIController extends Controller
             $messages = $this->serializeViolations($violations);
 
             return new JsonResponse(array(
-                'error'         => implode(' - ', $messages),
-                'raw_errors'    => $messages
+                'error' => implode(' - ', $messages),
+                'raw_errors' => $messages,
             ), 400);
         }
 
@@ -54,13 +54,13 @@ class APIController extends Controller
             $eventDispatcher->dispatch(Events::TEMPORARY_FILE_VALIDATED_EVENT, new TemporaryFileEvent($file));
         } catch (\Exception $e) {
             return new JsonResponse(array(
-                'errors'    => $e->getMessage()
+                'errors' => $e->getMessage(),
             ), 400);
         }
 
         return new JsonResponse(array(
-            'path'      => $file->getTargetPath(),
-            'temporary' => true
+            'path' => $file->getTargetPath(),
+            'temporary' => true,
         ));
     }
 
@@ -78,7 +78,7 @@ class APIController extends Controller
             $this->get('event_dispatcher')->dispatch(Events::TEMPORARY_FILE_DELETED_EVENT, new TemporaryFileDeletedEvent($path));
         } catch (\Exception $e) {
             return new JsonResponse(array(
-                'errors'    => $e->getMessage()
+                'errors' => $e->getMessage(),
             ), 400);
         }
 

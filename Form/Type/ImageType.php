@@ -53,14 +53,14 @@ class ImageType extends ImageInnerType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
 
         $resolver->setDefaults(array(
-            'allow_delete' => true
+            'allow_delete' => true,
         ));
     }
 }

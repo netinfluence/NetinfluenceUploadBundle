@@ -5,6 +5,7 @@ namespace Netinfluence\UploadBundle;
 use Netinfluence\UploadBundle\DependencyInjection\Compiler\FormThemePass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+
 /**
  * Class NetinfluenceUploadBundle
  * Bundle root class

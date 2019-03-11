@@ -29,7 +29,7 @@ class ClearSandboxCommand extends ContainerAwareCommand
      *
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @return int|null|void
+     * @return null|int|void
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -40,6 +40,6 @@ class ClearSandboxCommand extends ContainerAwareCommand
         // May throw an exception, then the command will fail (we want)
         $count = $manager->clear($input->getOption('grace'));
 
-        $output->writeln("<info>Successfully removed $count temporary files and their thumbnails from sandbox</info>");
+        $output->writeln("<info>Successfully removed ${count} temporary files and their thumbnails from sandbox</info>");
     }
 }

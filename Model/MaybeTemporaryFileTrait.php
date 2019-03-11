@@ -9,13 +9,13 @@ namespace Netinfluence\UploadBundle\Model;
 trait MaybeTemporaryFileTrait
 {
     /**
-     * @var boolean is this path temporary (to sandbox) or not
+     * @var bool is this path temporary (to sandbox) or not
      * Note that this field does not need to be persisted to a DB or anything
      */
     protected $temporary;
 
     /**
-     * @return boolean whether the file is in sandbox or was already persisted
+     * @return bool whether the file is in sandbox or was already persisted
      */
     public function isTemporary()
     {
@@ -23,7 +23,7 @@ trait MaybeTemporaryFileTrait
     }
 
     /**
-     * @param boolean $temporary
+     * @param bool $temporary
      */
     public function setTemporary($temporary)
     {

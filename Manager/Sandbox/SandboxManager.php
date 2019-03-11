@@ -28,16 +28,16 @@ class SandboxManager
 
     public function __construct(Filesystem $filesystem, ThumbnailManagerInterface $thumbnailManager, LoggerInterface $logger)
     {
-        $this->filesystem   = $filesystem;
+        $this->filesystem = $filesystem;
         $this->thumbnailManager = $thumbnailManager;
-        $this->logger       = $logger;
+        $this->logger = $logger;
     }
 
     /**
      * Clear temporary files form sandbox filesystem & thumbnails cache
      *
-     * @param integer $gracePeriod "grace period", days not to remove. By default 2, today and yesterday. 0 will remove everything.
-     * @return integer number of temporary files removed
+     * @param int $gracePeriod "grace period", days not to remove. By default 2, today and yesterday. 0 will remove everything.
+     * @return int number of temporary files removed
      */
     public function clear($gracePeriod = 2)
     {
@@ -59,7 +59,7 @@ class SandboxManager
                 $this->logger->debug(sprintf('Removed thumbnails for file "%s" from cache', $key));
             }
         } catch (\Exception $e) {
-            $message = sprintf('Error while removing file "%s" from %s', $key, $removedFromSandbox ? 'thumbnails cache':'sandbox');
+            $message = sprintf('Error while removing file "%s" from %s', $key, $removedFromSandbox ? 'thumbnails cache' : 'sandbox');
 
             $this->logger->critical($message);
 
@@ -70,7 +70,7 @@ class SandboxManager
     }
 
     /**
-     * @param integer $gracePeriod
+     * @param int $gracePeriod
      * @return array keys of files to be deleted
      */
     private function getFilesToClear($gracePeriod)

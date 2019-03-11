@@ -31,13 +31,13 @@ class Configuration implements ConfigurationInterface
                                 ->prototype('variable')->end()
                             ->end()
                             ->defaultValue(array(
-                                'NotNull'   => array(),
-                                'Image'     => array(
+                                'NotNull' => array(),
+                                'Image' => array(
                                     // This looks like a sensible default for most users
                                     'maxSize' => '10M',
                                     // We set some defaults corresponding to a standard GD install - else ImagineBundle will fail
-                                    'mimeTypes' => array('image/gif', 'image/jpg', 'image/jpeg', 'image/png', 'image/bmp', 'image/x-windows-bmp')
-                                )
+                                    'mimeTypes' => array('image/gif', 'image/jpg', 'image/jpeg', 'image/png', 'image/bmp', 'image/x-windows-bmp'),
+                                ),
                             ))
                         ->end()
                     ->end()

@@ -25,21 +25,21 @@ class TemporaryFileListener implements EventSubscriberInterface
      */
     private $logger;
 
+    public function __construct(Filesystem $filesystem, LoggerInterface $logger)
+    {
+        $this->filesystem = $filesystem;
+        $this->logger = $logger;
+    }
+
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function getSubscribedEvents()
     {
         return array(
             Events::TEMPORARY_FILE_VALIDATED_EVENT => array('onFileValidated', 50),
-            Events::TEMPORARY_FILE_DELETED_EVENT => array('onFileDeleted', 50)
+            Events::TEMPORARY_FILE_DELETED_EVENT => array('onFileDeleted', 50),
         );
-    }
-
-    public function __construct(Filesystem $filesystem, LoggerInterface $logger)
-    {
-        $this->filesystem   = $filesystem;
-        $this->logger       = $logger;
     }
 
     /**
@@ -80,7 +80,7 @@ class TemporaryFileListener implements EventSubscriberInterface
     {
         $path = $event->getPath();
 
-        if (! $path) {
+        if (!$path) {
             throw new \RuntimeException('An invalid path was provided');
         }
 

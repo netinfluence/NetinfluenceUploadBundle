@@ -1,9 +1,5 @@
 <?php
 
-/*
- *
- */
-
 namespace Netinfluence\UploadBundle\Manager\File;
 
 use Gaufrette\Filesystem;
@@ -69,7 +65,7 @@ class FileManager implements FileManagerInterface
         $path = $file->getPath();
 
         // If for some reason that happen, we skip
-        if (! $path) {
+        if (!$path) {
             return;
         }
 
@@ -122,7 +118,7 @@ class FileManager implements FileManagerInterface
         $path = $file->getPath();
 
         // If for some reason that happen, we skip
-        if (! $path) {
+        if (!$path) {
             return;
         }
 

@@ -23,7 +23,7 @@ class TemporaryFile
     public function __construct(File $file)
     {
         $this->file = $file;
-        $this->id   = uniqid('nu_');
+        $this->id = uniqid('nu_');
     }
 
     /**

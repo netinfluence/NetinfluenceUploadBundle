@@ -12,8 +12,8 @@ class BooleanToHiddenTransformer implements DataTransformerInterface
     /**
      * Transforms a boolean to an integer for our hidden field
      *
-     * @param  boolean|null $value
-     * @return integer
+     * @param  null|bool $value
+     * @return int
      */
     public function transform($value)
     {
@@ -27,8 +27,8 @@ class BooleanToHiddenTransformer implements DataTransformerInterface
     /**
      * Transforms an integer or string (from our hidden field) to a boolean
      *
-     * @param  string|integer $fieldValue
-     * @return boolean
+     * @param  int|string $fieldValue
+     * @return bool
      */
     public function reverseTransform($fieldValue)
     {

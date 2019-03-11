@@ -25,7 +25,7 @@ class LiipImagineManager implements ThumbnailManagerInterface
     public function __construct(CacheManager $cacheManager, LoggerInterface $logger)
     {
         $this->cacheManager = $cacheManager;
-        $this->logger       = $logger;
+        $this->logger = $logger;
     }
 
     /**
@@ -35,9 +35,9 @@ class LiipImagineManager implements ThumbnailManagerInterface
     {
         return $this->cacheManager->getBrowserPath($file->getPath(), 'ni_ub_thumbnail', array(
             'thumbnail' => array(
-                'mode'  => 'outbound',
-                'size'  => $size
-            )
+                'mode' => 'outbound',
+                'size' => $size,
+            ),
         ));
     }
 

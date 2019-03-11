@@ -39,7 +39,7 @@ class UploadableListener implements EventSubscriber
         return array(
             Events::postPersist,
             Events::postRemove,
-            Events::postUpdate
+            Events::postUpdate,
         );
     }
 
@@ -54,7 +54,7 @@ class UploadableListener implements EventSubscriber
     {
         $entity = $eventArgs->getEntity();
 
-        if (! $entity instanceof UploadableInterface) {
+        if (!$entity instanceof UploadableInterface) {
             return;
         }
 
@@ -74,7 +74,7 @@ class UploadableListener implements EventSubscriber
     {
         $entity = $eventArgs->getEntity();
 
-        if (! $entity instanceof UploadableInterface) {
+        if (!$entity instanceof UploadableInterface) {
             return;
         }
 
@@ -89,7 +89,7 @@ class UploadableListener implements EventSubscriber
     {
         $entity = $eventArgs->getEntity();
 
-        if (! $entity instanceof UploadableInterface) {
+        if (!$entity instanceof UploadableInterface) {
             return;
         }
 

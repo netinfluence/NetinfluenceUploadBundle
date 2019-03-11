@@ -29,14 +29,14 @@ class ImageCollectionType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         //We will pass our children some of our options
         $childrenOptions = array_merge(array(
             'thumbnail_height' => $options['thumbnail_height'],
-            'thumbnail_width'  => $options['thumbnail_width'],
+            'thumbnail_width' => $options['thumbnail_width'],
         ), $options['options']);
 
         // We need a prototype
@@ -74,16 +74,16 @@ class ImageCollectionType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'allow_delete' => true,
             'max_files' => 0,
-            'options'   => array(),
+            'options' => array(),
             'thumbnail_height' => 120,
-            'thumbnail_width' => 120
+            'thumbnail_width' => 120,
         ));
     }
 

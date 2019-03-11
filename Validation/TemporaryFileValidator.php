@@ -26,7 +26,7 @@ class TemporaryFileValidator
      */
     public function __construct(ValidatorInterface $validator, ImageConstraints $imageConstraints)
     {
-        $this->validator        = $validator;
+        $this->validator = $validator;
         $this->imageConstraints = $imageConstraints;
     }
 

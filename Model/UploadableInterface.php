@@ -20,12 +20,12 @@ interface UploadableInterface
     public function setPath($path);
 
     /**
-     * @return boolean whether the file is in sandbox or was already persisted
+     * @return bool whether the file is in sandbox or was already persisted
      */
     public function isTemporary();
 
     /**
-     * @param boolean $temporary
+     * @param bool $temporary
      */
     public function setTemporary($temporary);
 }

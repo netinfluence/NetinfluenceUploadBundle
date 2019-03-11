@@ -14,7 +14,7 @@ class FormFile implements UploadableInterface
     protected $path;
 
     /**
-     * @var boolean is this path temporary (to sandbox) or not
+     * @var bool is this path temporary (to sandbox) or not
      */
     protected $temporary;
 

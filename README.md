@@ -1,7 +1,7 @@
 # NetinfluenceUploadBundle
 
 User and developer friendly file upload.  
-_Versions 0.x supports Symfony 2.x only, version 1.1 supports Symfony 3.x and 4.x._
+_Versions 0.x supports Symfony 2.x only, version 1.1 add support for Symfony 3.x, v1.2 supports Symfony 2 to 4.x._
 
 Features:
 

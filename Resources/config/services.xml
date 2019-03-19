@@ -22,7 +22,7 @@
 
     <services>
         <!-- validator & validation-related -->
-        <service class="%netinfluence_upload.temporary_file_validator.class%" id="netinfluence_upload.temporary_file_validator">
+        <service class="%netinfluence_upload.temporary_file_validator.class%" id="netinfluence_upload.temporary_file_validator" public="true">
             <argument type="service" id="validator" />
             <argument type="service" id="netinfluence_upload.image_constraints" />
         </service>
